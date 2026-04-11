@@ -88,6 +88,53 @@
             }
             .nav-links.active { display: flex; }
         }
+
+                /* Ensure the hamburger icon is visible (it was missing color/display logic) */
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #75BEF0; /* Your signature blue */
+            display: block;
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: flex; /* Shows up on mobile */
+                margin-left: 20px;
+            }
+
+            .navbar {
+                justify-content: space-between;
+                padding: 15px 10px;
+            }
+
+            .nav-links {
+                /* This ensures the menu slides down over everything else */
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.95); 
+                border-bottom: 1px solid #333;
+            }
+
+            .nav-btn {
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+            }
+            
+            /* Adjust header padding so h1 isn't cut off by the fixed navbar */
+            .music-header {
+                padding-top: 100px; 
+            }
+        }
+
     </style>
 </head>
 
@@ -114,10 +161,10 @@
     <header class="music-header">
         <h1>Books</h1>
         <p>Welcome! Here you will find info about all of the books that I have written as of this time. Some of them are in Romanian and some are in English.</p>
-        <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star(Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have and ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
-        <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was aa joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmoshere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasent the world in it is.</p>
-        <p>Once I published Moonlit Rain in 2022, and it received some updates that added more content, I focused on my next book. Kaleo and Hayden. This is one of my most ambitious projects to date. It took three years to write and is my longest book. It is also a romance. but the focus is more on the healing of the characters through their relationship and on philosophical questions like the role of tradition in the modern world. It is set in a fantasy country and explores the themes of friendship, love, people pleasing, anxiety, overworking and grief. The book is both a charming and cozy read but also a powerful one as the arcs are more serious and emotionally impactful. This book also got a second version that removed the artwork for people who would prefer to only have the text.</p>
-        <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck inyour own head, and the main theme of the book is how human connection ccan help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
+        <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star(Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
+        <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was a joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmosphere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasant the world in it is.</p>
+        <p>Once I published Moonlit Rain in 2022, and it received some updates that added more content, I focused on my next book. Kaleo and Hayden. This is one of my most ambitious projects to date. It took three years to write and is my longest book. It is also a romance. But the focus is more on the healing of the characters through their relationship and on philosophical questions like the role of tradition in the modern world. It is set in a fantasy country and explores the themes of friendship, love, people pleasing, anxiety, overworking and grief. The book is both a charming and cozy read but also a powerful one as the arcs are more serious and emotionally impactful. This book also got a second version that removed the artwork for people who would prefer to only have the text.</p>
+        <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck in your own head, and the main theme of the book is how human connection ccan help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
         
         
         <h1>Books in English</h1>

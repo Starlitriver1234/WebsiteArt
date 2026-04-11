@@ -14,16 +14,16 @@
             scroll-behavior: smooth !important; 
         }
 
-        /* Ensure content doesn't lean left by defining the center */
         .gallery-header {
             text-align: left;
-            padding: 140px 20px 20px 20px; 
+            padding: 140px 20px 20px 20px; /* Matching the exact padding */
+            /* max-width and margin removed to ensure it stays to the left */
         }
 
         .logo-section {
             width: 90%;
             max-width: 600px;
-            margin: 40px auto; /* This 'auto' keeps images centered */
+            margin: 40px auto; 
             text-align: center;
         }
 
@@ -33,6 +33,18 @@
             border-radius: 12px;
             display: block;
             margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Consistent with your books page */
+        }
+
+        /* Mobile specific fix for the sliding image area */
+        @media screen and (max-width: 768px) {
+            .scroll-track {
+                height: 60vh; /* Shorter track on mobile so it feels snappier */
+                margin-bottom: 50px;
+            }
+            .sliding-image {
+                width: 70%; /* Smaller image on mobile so it doesn't cover the screen */
+            }
         }
     </style>
 </head>
@@ -45,7 +57,7 @@
             <span class="bar"></span>
         </div>
         <div class="nav-links">
-            <a href="#" class="nav-btn" id="home-link">Home</a>
+            <a href="index.html" class="nav-btn" id="home-link">Home</a>
             <a href="gallery.html" class="nav-btn">Gallery</a> 
             <a href="games.html" class="nav-btn">Video Games</a>
             <a href="books.html" class="nav-btn">Books</a>
@@ -56,27 +68,23 @@
         <div class="nav-logo">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
         </div>
-
     </nav>
 
     <main>
         <section id="About" class="gallery-header">
-        <h1>Who is Tudor Marinescu?</h1>
-
-        <p>Hello! My name is Tudor Marinescu. I am a young adult from Romania that has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
-        
-        <h2>A creator that values passion and variety</h2>
-        <p>Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects. From games I made at University, to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything, as long as it sparks my creativity.  And with dreams and determination, you can achieve anything!</p>
-        <p>I wrote quite a few novels which I published on Amazon, Google Play and Kobo, and I also composed a few albums, which are also published online. I’m a self-published author and also an indie musician. But my biggest passion has to be video games. I love creating the worlds for people to explore and making something that brings people to feel a myriad of emotions.</p>
-        
-        <h2>A hard working student</h2>
-        <p>I am an alumni of the most prestigious Computer Science high school in Romania, The Gheorghe Lazar National College. And I studied for a year in the Netherlands at Breda University of Applied Sciences. I studied Creative Business there. I liked it a lot. But I always knew my true calling was video games. So I changed to TU Dublin, and have been creating games ever since.</p>
-        
-        <h2>A multi-cultural person</h2>
-        <p>I am trilingual. Of course, I am native in Romanian, but I am also a certified C2 in English and a certified A2 in French. I try my best to learn to speak as many languages as possible since the more people I meet, the more perspectives I learn, and the more ideas I have for my art. This is why I also enjoy traveling a lot. I went to many places. I visited most of Europe, and I also visited some countries outside of it like Egypt and China.</p>
-    
-    
-    </section>
+            <h1>Who is Tudor Marinescu?</h1>
+            <p>Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
+            
+            <h2>A creator that values passion and variety</h2>
+            <p>Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects—from games I made at university to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything as long as it sparks my creativity. And with dreams and determination, you can achieve anything!</p>
+            <p>I wrote quite a few novels which I published on Amazon, Google Play and Kobo, and I also composed a few albums, which are also published online. I’m a self-published author and also an indie musician. But my biggest passion has to be video games. I love creating worlds for people to explore and making something that brings people to feel a myriad of emotions.</p>
+            
+            <h2>A hard-working student</h2>
+            <p>I am an alumnus of the most prestigious Computer Science high school in Romania, The Gheorghe Lazar National College. I also studied for a year in the Netherlands at Breda University of Applied Sciences, where I studied Creative Business. I liked it a lot, but I always knew my true calling was video games. So I changed to TU Dublin and have been creating games ever since.</p>
+            
+            <h2>A multi-cultural person</h2>
+            <p>I am trilingual. Of course, I am native in Romanian, but I am also certified C2 in English and certified A2 in French. I try my best to learn to speak as many languages as possible since the more perspectives I learn, the more ideas I have for my art. This is why I also enjoy travelling a lot. I have been to many places, visiting most of Europe, as well as countries like Egypt and China.</p>
+        </section>
 
         <div class="scroll-track">
             <h3 class="title">Creativity is the Key</h3>
@@ -84,7 +92,7 @@
                  class="sliding-image" id="target" alt="Sliding Star Artwork">
         </div>
 
-        <section id="Skills">
+        <section id="Skills" class="gallery-header" style="padding-top: 40px;">
             <h1>Skills</h1>
             <ul>
                 <li><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
@@ -94,43 +102,34 @@
                 <li><strong>Software:</strong> Photoshop, Illustrator, Procreate, GarageBand</li>
                 <li><strong>Professional Skills:</strong> Publishing and Leadership</li>
             </ul>
-            <p></p>
-            <a href="https://linktr.ee/tudor.marinescu">Visit my LinkTree</a>
-            <p></p>
-            <a href="https://www.youtube.com/@TudorMarinescu123">Visit my YouTube Channel</a>
+            <p><a href="https://linktr.ee/tudor.marinescu">Visit my LinkTree</a></p>
+            <p><a href="https://www.youtube.com/@TudorMarinescu123">Visit my YouTube Channel</a></p>
         </section>
 
-        <section id="Career">
-    <h1>Career & Projects</h1>
-    <p>Even though I'm still a student, I'm very passionate and hard working and have worked on a multitude of projects.</p>
-    
-    <ul>
-        <li><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
-        <li><strong>Music:</strong> I composed and published 12 Albums and 10 EPs.</li>
-        <li><strong>Game Design:</strong> Developed 12 Video Games and 1 Board Game.</li>
-        <li><strong>Film:</strong> I worked as a Storyboard Artist and Editor for a student film.</li>
-        <li><strong>Leadership:</strong> I was the Creative Director and Project Lead on multiple game projects.</li>
-        <li><strong>Programming:</strong> I made a personality test using C++.</li>
-    </ul>
-</section>
-
-
+        <section id="Career" class="gallery-header" style="padding-top: 40px;">
+            <h1>Career & Projects</h1>
+            <p>Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
+            <ul>
+                <li><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
+                <li><strong>Music:</strong> I composed and published 12 albums and 10 EPs.</li>
+                <li><strong>Game Design:</strong> Developed 12 video games and 1 board game.</li>
+                <li><strong>Film:</strong> I worked as a storyboard artist and editor for a student film.</li>
+                <li><strong>Leadership:</strong> I was the Creative Director and Project Lead on multiple game projects.</li>
+                <li><strong>Programming:</strong> I made a personality test using C++.</li>
+            </ul>
+        </section>
 
         <div class="logo-section">
-        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Music Logo">
-    <h2>With dreams and determination, you can achieve anything</h2>
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Tudor Photo">
+            <h2 style="margin-top: 20px;">With dreams and determination, you can achieve anything</h2>
+        </div>
 
-
-    <div class="logo-section">
-        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
-    </div>
-
-    </div>
-
+        <div class="logo-section">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Tudor Logo">
+        </div>
     </main>
 
     <script>
-        // Cache your elements outside the scroll event for performance
         const target = document.getElementById('target');
         const container = document.querySelector('.scroll-track');
         const menu = document.querySelector('#mobile-menu');
@@ -139,10 +138,9 @@
         // Optimized Scroll Animation
         window.addEventListener('scroll', () => {
             const rect = container.getBoundingClientRect();
-            // Only calculate if the container is actually visible
             if (rect.top < window.innerHeight && rect.bottom > 0) {
                 const scrollPercent = (window.innerHeight - rect.top) / rect.height;
-                // A balanced, smooth speed
+                // Movement logic kept exactly as requested
                 let moveAmount = -100 + (scrollPercent * 180); 
                 const finalX = Math.min(0, moveAmount);
                 target.style.transform = `translateX(${finalX}%)`;

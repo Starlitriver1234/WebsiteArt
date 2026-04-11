@@ -18,7 +18,8 @@
         /* --- New Gallery Title Styles --- */
         .gallery-header {
             text-align: left;
-            padding: 140px 20px 20px 20px; /* Space for fixed navbar */
+            padding: 140px 20px 20px 20px; /* Matching the exact padding */
+            /* max-width and margin removed to ensure it stays to the left */
         }
 
         .gallery-header h1 {
@@ -35,6 +36,7 @@
             color: rgb(255, 255, 255);
             font-size: 18px;
             margin-top: 10px;
+            line-height: 1.6;
         }
 
         /* --- Performance Optimized Masonry --- */
@@ -60,21 +62,21 @@
         .art-card img {
             width: 100%;
             height: auto;
+            border-radius: 12px;
             display: block;
             cursor: pointer;
             opacity: 0;
-            /* Transition: 0.5s makes the soft light "fade in" slowly */
             transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
             will-change: transform, filter; 
         }
 
         /* --- Subtly Adjusted Hover --- */
         .art-card img:hover {
-            transform: scale(1.04); /* Zoom remains the same */
-            filter: brightness(1.08) contrast(1.02); /* Softened the light effect */
+            transform: scale(1.04);
+            filter: brightness(1.08) contrast(1.02);
         }
 
-        /* --- Lightbox (No Blur for Performance) --- */
+        /* --- Lightbox --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -101,10 +103,13 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: #000;
+                background: #151647; /* Consistent with other pages */
                 padding: 20px 0;
             }
             .nav-links.active { display: flex; }
+            
+            /* Smaller arrows for mobile touch */
+            .lb-arrow { font-size: 30px !important; }
         }
     </style>
 
@@ -133,19 +138,19 @@
     <header class="gallery-header">
         <h1>Gallery</h1>
         <p>Welcome to the Gallery!</p>
-        <p>Here you will find some of the art that I've made in the past years. This artworks are from the books I've written and from the games I worked on. You can find a few sketches and levels, as well as fully finished artworks. I hope you enjoy them as much as I enjoyed making them!</p>
-        <p>I am mainly a digital artist and I use Procreate as my main art app. But I am very knowleadgable in Photoshop as well.</p>
+        <p>Here you will find some of the art that I've made in the past years. These artworks are from the books I've written and from the games I worked on. You can find a few sketches and levels, as well as fully finished artworks. I hope you enjoy them as much as I enjoyed making them!</p>
+        <p>I am mainly a digital artist and I use Procreate as my main art app, but I am very knowledgeable in Photoshop as well.</p>
     </header>
 
     <div class="full-gallery-grid" id="art-container"></div>
 
     <div id="lightbox" class="lightbox">
-        <span class="close-btn" style="position:absolute; top:30px; right:40px; font-size:50px; color:white; cursor:pointer;">&times;</span>
-        <button class="lb-arrow prev-btn" style="left:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer;">&#10094;</button>
+        <span class="close-btn" style="position:absolute; top:30px; right:40px; font-size:50px; color:white; cursor:pointer; z-index: 10001;">&times;</span>
+        <button class="lb-arrow prev-btn" style="left:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10094;</button>
         <div class="lb-content">
             <img id="lightbox-img" src="" alt="Full Artwork View">
         </div>
-        <button class="lb-arrow next-btn" style="right:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer;">&#10095;</button>
+        <button class="lb-arrow next-btn" style="right:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10095;</button>
     </div>
 
     <script>
