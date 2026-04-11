@@ -16,8 +16,7 @@
 
         .gallery-header {
             text-align: left;
-            padding: 140px 20px 20px 20px; /* Matching the exact padding */
-            /* max-width and margin removed to ensure it stays to the left */
+            padding: 140px 20px 20px 20px;
         }
 
         .logo-section {
@@ -33,17 +32,36 @@
             border-radius: 12px;
             display: block;
             margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Consistent with your books page */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        /* Mobile specific fix for the sliding image area */
+        /* Mobile specific fix for navigation */
         @media screen and (max-width: 768px) {
-            .scroll-track {
-                height: 60vh; /* Shorter track on mobile so it feels snappier */
-                margin-bottom: 50px;
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #000;
+                padding: 20px 0;
             }
-            .sliding-image {
-                width: 70%; /* Smaller image on mobile so it doesn't cover the screen */
+            .nav-links.active { display: flex; }
+            
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                z-index: 1001;
+            }
+            
+            .bar {
+                width: 25px;
+                height: 3px;
+                background-color: #75BEF0;
+                display: block;
             }
         }
     </style>
@@ -86,10 +104,10 @@
             <p>I am trilingual. Of course, I am native in Romanian, but I am also certified C2 in English and certified A2 in French. I try my best to learn to speak as many languages as possible since the more perspectives I learn, the more ideas I have for my art. This is why I also enjoy travelling a lot. I have been to many places, visiting most of Europe, as well as countries like Egypt and China.</p>
         </section>
 
-        <div class="scroll-track">
-            <h3 class="title">Creativity is the Key</h3>
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" 
-                 class="sliding-image" id="target" alt="Sliding Star Artwork">
+
+        <div class="logo-section">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" alt="Tudor Photo">
+            <h2 style="margin-top: 20px;">Creativity is the Key</h2>
         </div>
 
         <section id="Skills" class="gallery-header" style="padding-top: 40px;">
@@ -130,22 +148,8 @@
     </main>
 
     <script>
-        const target = document.getElementById('target');
-        const container = document.querySelector('.scroll-track');
         const menu = document.querySelector('#mobile-menu');
         const menuLinks = document.querySelector('.nav-links');
-
-        // Optimized Scroll Animation
-        window.addEventListener('scroll', () => {
-            const rect = container.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const scrollPercent = (window.innerHeight - rect.top) / rect.height;
-                // Movement logic kept exactly as requested
-                let moveAmount = -100 + (scrollPercent * 180); 
-                const finalX = Math.min(0, moveAmount);
-                target.style.transform = `translateX(${finalX}%)`;
-            }
-        });
 
         // Mobile Menu Toggle
         menu.addEventListener('click', () => {
