@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudor Marinescu | Home</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        html { 
+            scroll-behavior: smooth !important; 
+        }
+
+        /* Ensure content doesn't lean left by defining the center */
+        .gallery-header {
+            text-align: left;
+            padding: 140px 20px 20px 20px; 
+        }
+
+        .logo-section {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto; /* This 'auto' keeps images centered */
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-btn" id="home-link">Home</a>
+            <a href="gallery.html" class="nav-btn">Gallery</a> 
+            <a href="games.html" class="nav-btn">Video Games</a>
+            <a href="books.html" class="nav-btn">Books</a>
+            <a href="music.html" class="nav-btn">Music</a>
+            <a href="media.html" class="nav-btn">Creative Media</a>
+        </div>
+
+        <div class="nav-logo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
+        </div>
+
+    </nav>
+
+    <main>
+        <section id="About" class="gallery-header">
+        <h1>Who is Tudor Marinescu?</h1>
+
+        <p>Hello! My name is Tudor Marinescu. I am a young adult from Romania that has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
+        
+        <h2>A creator that values passion and variety</h2>
+        <p>Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects. From games I made at University, to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything, as long as it sparks my creativity.  And with dreams and determination, you can achieve anything!</p>
+        <p>I wrote quite a few novels which I published on Amazon, Google Play and Kobo, and I also composed a few albums, which are also published online. I’m a self-published author and also an indie musician. But my biggest passion has to be video games. I love creating the worlds for people to explore and making something that brings people to feel a myriad of emotions.</p>
+        
+        <h2>A hard working student</h2>
+        <p>I am an alumni of the most prestigious Computer Science high school in Romania, The Gheorghe Lazar National College. And I studied for a year in the Netherlands at Breda University of Applied Sciences. I studied Creative Business there. I liked it a lot. But I always knew my true calling was video games. So I changed to TU Dublin, and have been creating games ever since.</p>
+        
+        <h2>A multi-cultural person</h2>
+        <p>I am trilingual. Of course, I am native in Romanian, but I am also a certified C2 in English and a certified A2 in French. I try my best to learn to speak as many languages as possible since the more people I meet, the more perspectives I learn, and the more ideas I have for my art. This is why I also enjoy traveling a lot. I went to many places. I visited most of Europe, and I also visited some countries outside of it like Egypt and China.</p>
+    
+    
+    </section>
+
+        <div class="scroll-track">
+            <h3 class="title">Creativity is the Key</h3>
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" 
+                 class="sliding-image" id="target" alt="Sliding Star Artwork">
+        </div>
+
+        <section id="Skills">
+            <h1>Skills</h1>
+            <ul>
+                <li><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
+                <li><strong>Programming:</strong> C++, C#, HTML, CSS</li>
+                <li><strong>Creative Writing</strong></li>
+                <li><strong>Languages:</strong> Trilingual (Native Romanian, C2 English, A2 French)</li>
+                <li><strong>Software:</strong> Photoshop, Illustrator, Procreate, GarageBand</li>
+                <li><strong>Professional Skills:</strong> Publishing and Leadership</li>
+            </ul>
+            <p></p>
+            <a href="https://linktr.ee/tudor.marinescu">Visit my LinkTree</a>
+            <p></p>
+            <a href="https://www.youtube.com/@TudorMarinescu123">Visit my YouTube Channel</a>
+        </section>
+
+        <section id="Career">
+    <h1>Career & Projects</h1>
+    <p>Even though I'm still a student, I'm very passionate and hard working and have worked on a multitude of projects.</p>
+    
+    <ul>
+        <li><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
+        <li><strong>Music:</strong> I composed and published 12 Albums and 10 EPs.</li>
+        <li><strong>Game Design:</strong> Developed 12 Video Games and 1 Board Game.</li>
+        <li><strong>Film:</strong> I worked as a Storyboard Artist and Editor for a student film.</li>
+        <li><strong>Leadership:</strong> I was the Creative Director and Project Lead on multiple game projects.</li>
+        <li><strong>Programming:</strong> I made a personality test using C++.</li>
+    </ul>
+</section>
+
+
+
+        <div class="logo-section">
+        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Music Logo">
+    <h2>With dreams and determination, you can achieve anything</h2>
+
+
+    <div class="logo-section">
+        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
+    </div>
+
+    </div>
+
+    </main>
+
+    <script>
+        // Cache your elements outside the scroll event for performance
+        const target = document.getElementById('target');
+        const container = document.querySelector('.scroll-track');
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-links');
+
+        // Optimized Scroll Animation
+        window.addEventListener('scroll', () => {
+            const rect = container.getBoundingClientRect();
+            // Only calculate if the container is actually visible
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const scrollPercent = (window.innerHeight - rect.top) / rect.height;
+                // A balanced, smooth speed
+                let moveAmount = -100 + (scrollPercent * 180); 
+                const finalX = Math.min(0, moveAmount);
+                target.style.transform = `translateX(${finalX}%)`;
+            }
+        });
+
+        // Mobile Menu Toggle
+        menu.addEventListener('click', () => {
+            menuLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => menuLinks.classList.remove('active'));
+        });
+
+        // Reset Scroll on Refresh
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>

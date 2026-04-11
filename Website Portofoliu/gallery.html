@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudor Marinescu | Gallery</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
+    
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        html { 
+            background: #000; 
+            scroll-behavior: smooth;
+        }
+
+        /* --- New Gallery Title Styles --- */
+        .gallery-header {
+            text-align: left;
+            padding: 140px 20px 20px 20px; /* Space for fixed navbar */
+        }
+
+        .gallery-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .gallery-header p {
+            color: rgb(255, 255, 255);
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* --- Performance Optimized Masonry --- */
+        .full-gallery-grid {
+            column-count: 2;
+            column-gap: 30px;
+            padding: 30px 5% 50px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 900px) { .full-gallery-grid { column-count: 2; } }
+        @media screen and (max-width: 600px) { .full-gallery-grid { column-count: 1; } }
+
+        .art-card {
+            break-inside: avoid; 
+            margin-bottom: 20px;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .art-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            opacity: 0;
+            /* Transition: 0.5s makes the soft light "fade in" slowly */
+            transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+            will-change: transform, filter; 
+        }
+
+        /* --- Subtly Adjusted Hover --- */
+        .art-card img:hover {
+            transform: scale(1.04); /* Zoom remains the same */
+            filter: brightness(1.08) contrast(1.02); /* Softened the light effect */
+        }
+
+        /* --- Lightbox (No Blur for Performance) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lb-content img {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        /* --- Mobile Menu Fix --- */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #000;
+                padding: 20px 0;
+            }
+            .nav-links.active { display: flex; }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="gallery.html" class="nav-btn">Gallery</a>
+            <a href="games.html" class="nav-btn">Video Games</a>
+            <a href="books.html" class="nav-btn">Books</a>
+            <a href="music.html" class="nav-btn">Music</a>
+            <a href="media.html" class="nav-btn">Creative Media</a>
+        </div>
+
+        <div class="nav-logo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
+        </div>
+
+    </nav>
+
+    <header class="gallery-header">
+        <h1>Gallery</h1>
+        <p>Welcome to the Gallery!</p>
+        <p>Here you will find some of the art that I've made in the past years. This artworks are from the books I've written and from the games I worked on. You can find a few sketches and levels, as well as fully finished artworks. I hope you enjoy them as much as I enjoyed making them!</p>
+        <p>I am mainly a digital artist and I use Procreate as my main art app. But I am very knowleadgable in Photoshop as well.</p>
+    </header>
+
+    <div class="full-gallery-grid" id="art-container"></div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" style="position:absolute; top:30px; right:40px; font-size:50px; color:white; cursor:pointer;">&times;</span>
+        <button class="lb-arrow prev-btn" style="left:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer;">&#10094;</button>
+        <div class="lb-content">
+            <img id="lightbox-img" src="" alt="Full Artwork View">
+        </div>
+        <button class="lb-arrow next-btn" style="right:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer;">&#10095;</button>
+    </div>
+
+    <script>
+        const folderPath = "https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/";
+        const totalImages = 150;
+        const container = document.getElementById('art-container');
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+
+        let currentIdx = 1;
+
+        // Populate Gallery
+        const fragment = document.createDocumentFragment();
+        for (let i = 1; i <= totalImages; i++) {
+            const card = document.createElement('div');
+            card.className = 'art-card';
+            
+            const img = document.createElement('img');
+            img.src = `${folderPath}${i}.jpg`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            
+            img.onload = () => { img.style.opacity = "1"; };
+            img.onclick = () => {
+                currentIdx = i;
+                lb.style.display = "flex";
+                lbImg.src = img.src;
+                document.body.style.overflow = "hidden";
+            };
+            
+            card.appendChild(img);
+            fragment.appendChild(card);
+        }
+        container.appendChild(fragment);
+
+        // Lightbox Control
+        const closeLb = () => {
+            lb.style.display = "none";
+            document.body.style.overflow = "";
+        };
+
+        const move = (dir) => {
+            currentIdx += dir;
+            if (currentIdx > totalImages) currentIdx = 1;
+            if (currentIdx < 1) currentIdx = totalImages;
+            lbImg.src = `${folderPath}${currentIdx}.jpg`;
+        };
+
+        document.querySelector('.close-btn').onclick = closeLb;
+        document.querySelector('.next-btn').onclick = (e) => { e.stopPropagation(); move(1); };
+        document.querySelector('.prev-btn').onclick = (e) => { e.stopPropagation(); move(-1); };
+        lb.onclick = (e) => { if (e.target === lb || e.target.className === 'lb-content') closeLb(); };
+
+        // Navbar Logic
+        const menuBtn = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        menuBtn.onclick = () => navLinks.classList.toggle('active');
+
+        // Accessibility & Reset
+        window.onkeydown = (e) => {
+            if (lb.style.display === "flex") {
+                if (e.key === "ArrowRight") move(1);
+                if (e.key === "ArrowLeft") move(-1);
+                if (e.key === "Escape") closeLb();
+            }
+        };
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+    </script>
+</body>
+</html>

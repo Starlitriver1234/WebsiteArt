@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudor Marinescu | Creative Media</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
+    
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        html { 
+            background: #000; 
+            scroll-behavior: smooth;
+        }
+
+        /* Matches your Gallery Header styling */
+        .music-header {
+            text-align: left;
+            padding: 140px 20px 20px 20px; 
+        }
+
+        .music-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        /* Flexible Logo Styling */
+        .logo-section {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        /* Link Buttons */
+        .links-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto 100px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .music-btn {
+            background: #111;
+            color: #75BEF0;
+            padding: 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .music-btn:hover {
+            background: #75BEF0;
+            color: #000;
+            transform: scale(1.02);
+        }
+
+        /* --- Mobile Menu Fix --- */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #000;
+                padding: 20px 0;
+            }
+            .nav-links.active { display: flex; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="gallery.html" class="nav-btn">Gallery</a>
+            <a href="games.html" class="nav-btn">Video Games</a>
+            <a href="books.html" class="nav-btn">Books</a>
+            <a href="music.html" class="nav-btn">Music</a>
+            <a href="media.html" class="nav-btn">Creative Media</a>
+        </div>
+
+        <div class="nav-logo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
+        </div>
+
+    </nav>
+
+    <header class="music-header">
+        <h1>Creative Media</h1>
+        <p>Welcome! Here you will find the media projects that I have worked on that aren’t related to Books, Music or Video Games. Mostly, what you will find here are the projects I’ve done in Photoshop such as ads for a student magazine (University project in the Netherlands), Photoshop posters I’ve done for fun. And a student movie in which I worked as a film editor and storyboarder! As well as that, you'll also find photos I've taken as hobbist. Enjoy!</p>
+
+
+
+
+        <h2>Echoes of Redemption</h2>
+        <h4>My role in development: Story Board Artist, Film Editor</h4>
+
+        <p>Echoes of Redemption is a student film that I worked on while I was a student at Breda University of Applied sciences. We were given a few weeks to make this film. We had to write the script, find actors, use the cameras, basically everything. It was a really fun and interesting experience. I learned a lot of teamwork and time management skills while working on it. It was my first ever attempt at a story board, and I’m very happy how it turned out. Me and a teammate worked on the film editing as well. I provided a rough edit in which I made the transitions and placed the clips in order and she then did the effects and touched it up to look more professional. Being on a set was an amazing experience that will be hard to forget!</p>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo1.jpg" alt="Story Board">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo2.jpg" alt="Story Board">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo3.jpg" alt="Story Board">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo4.jpg" alt="Story Board">
+                </div>
+            </div>
+
+
+        <div class="video-wrapper">
+            <div class="video-container">
+                    <video 
+                    width="100%" 
+                    controls 
+                    style="
+                        max-width: 800px; 
+                        border-radius: 12px; 
+                        overflow: hidden; 
+                        display: block; 
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                        background-color: #000;
+                    ">
+                    <source src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/EchoesOfRedemption.mp4" type="video/mp4">
+                    </video>
+            </div>
+        </div>
+
+
+
+        <h2>Photoshop</h2>
+        <h4>I am very skilled in Photoshop and I enjoy using it a lot! So in free time i sometimes edit a few posters. Some of them were as well fake adds for a student magazine project at the university in the Netherlands.</h4>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/ExploreGreece.png" alt="Greece">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Gucci.jpg" alt="Gucci">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Ferari.jpg" alt="Ferari">
+                </div>
+            </div>
+        
+
+
+        <h2>Photography</h2>
+        <h4>I truly love taking photos because it makes me live in the moment and also gives me new game environment ideas later. So I do photography as a hobby.</h4>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/rural.jpg" alt="Rural Village">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/river.jpg" alt="River">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/lake.jpg" alt="Lake">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/park.jpg" alt="Park">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/sun.jpg" alt="Sun">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/tower.jpg" alt="Shaghai">
+                </div>
+            </div>
+
+            <div class="image-row">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/red.jpg" alt="Shaghai 2">
+                </div>
+            </div>
+
+        <p>This little experiment was made to test the physics in Unity 2D for a University assignment.</p>
+
+
+
+
+
+    </header>
+
+    <div class="logo-section">
+        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
+    </div>
+
+    <div class="links-container">
+        <a href="https://open.spotify.com/artist/03hWIzuOIOoOuqimZjoSpb?si=jAtj21WUQb2nxmJnuXZVGg" class="music-btn">Spotify</a>
+        <a href="https://www.youtube.com/@tudor_marinescu_music" class="music-btn">YouTube</a>
+        <a href="https://music.apple.com/ie/artist/tudor-marinescu/1596965401" class="music-btn">Apple Music</a>
+        <a href="https://tidal.com/artist/30975584" class="music-btn">Tidal</a>
+        <a href="https://www.deezer.com/en/artist/162371067?host=5116371322&utm_campaign=clipboard-generic&utm_source=user_sharing&utm_content=artist-162371067&deferredFl=1" class="music-btn">Deezer</a>
+        <a href="https://music.amazon.com/artists/B09TRFHMWR/tudor-marinescu?ref=dm_sh_LJRuujxIg7MWLfX5fV6UtvJkp" class="music-btn">Amazon Music</a>
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        // This makes the hamburger menu work on mobile
+        menuBtn.onclick = () => {
+            navLinks.classList.toggle('active');
+        };
+
+
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+    </script>
+</body>
+</html>

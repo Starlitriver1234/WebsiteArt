@@ -1,0 +1,430 @@
+/* =========================================
+   1. GLOBAL STYLES & RESET
+   ========================================= */
+html {
+    background-color: #000;
+    overflow-x: hidden;
+    scroll-behavior: smooth !important;
+}
+
+body {
+    font-family: 'Lucida Sans', sans-serif;
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0; /* Reset to 0 for perfect alignment */
+    padding: 10px;
+    min-height: 100vh;
+    overscroll-behavior-y: none;
+    background-image: linear-gradient(to right, #29143c, black);
+    background-size: 100% 300%;
+    background-attachment: scroll;
+}
+
+h1 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: #75BEF0;
+    margin: 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #ffffff;                /* Match your blue theme */
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;      /* Optional: matches your H1 style */
+    letter-spacing: 1px;
+    font-size: 32px;                /* Adjusted from default (usually 24px) */
+    font-weight: 700;
+    
+    /* The Section Line */
+    border-bottom: 2px solid #d595ff;  /* A subtle grey line */
+    padding-bottom: 15px;           /* Space between text and the line */
+    margin-top: 60px;               /* Space above the section */
+    margin-bottom: 30px;            /* Space below the line before content starts */
+    
+    width: 100%;                    /* Ensures it stretches fully */
+}
+
+
+h3 {
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 700;
+    
+    width: fit-content; 
+    float: right; 
+    clear: both; 
+
+    /* Use a white border so 'difference' turns it black over light areas */
+    border-bottom: 2px solid #ffffff; 
+    padding-bottom: 15px;
+
+    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+
+    /* Keep the shadow subtle; blend modes can make heavy shadows look muddy */
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+
+    /* This is the magic that swaps the colors based on the background */
+    mix-blend-mode: difference;
+}
+
+h4 {
+    color: #ffffff;                /* Match your blue theme */
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;      /* Optional: matches your H1 style */
+    letter-spacing: 1px;
+    font-size: 20px;                /* Adjusted from default (usually 24px) */
+    font-weight: 700;
+    
+    /* The Section Line */
+    border-bottom: 2px solid #d595ff;  /* A subtle grey line */
+    padding-bottom: 15px;           /* Space between text and the line */
+    margin-top: 15px;               /* Space above the section */
+    margin-bottom: 30px;            /* Space below the line before content starts */
+
+}
+
+
+p {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+a {
+    color: aquamarine;
+}
+
+
+#Skills {
+    text-align: center;      /* Centers the "Skills" H1 and the LinkTree link */
+    padding: 100px 20px;     /* Optional: adds breathing room */
+}
+
+#Skills ul {
+    display: inline-block;   /* Shrinks the list width to fit the content */
+    text-align: left;        /* Keeps the bullet points neatly aligned on the left */
+    margin: 20px auto;       /* Centers the list block horizontally */
+}
+
+#Skills li {
+    font-size: 1.1rem;       /* Makes it slightly more readable */
+    margin-bottom: 12px;
+}
+
+
+#Career {
+    text-align: center;      /* Centers the title and intro text */
+    padding: 40px 20px;
+    max-width: 800px;        /* Keeps the text from stretching too far */
+    margin: 0 auto;          /* Centers the section container itself */
+}
+
+#Career ul {
+    list-style-position: inside; /* Keeps bullets aligned with centered text */
+    text-align: left;            /* Keeps the list items easy to read */
+    display: inline-block;       /* Allows the list to be centered as a block */
+    padding: 0;
+}
+
+#Career li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+
+/* =========================================
+   2. NAVIGATION BAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    padding: 15px 20px; /* Matched to gallery-header padding */
+    background-image: linear-gradient(to right, rgb(0, 0, 0), #102D5E);
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    text-decoration: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: whitesmoke;
+    padding: 0.6em 1.8em;
+    background: rgba(140, 160, 207, 0.1);
+    border: 1.5px solid rgba(113, 133, 213, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(117, 190, 240, 0.3);
+    border-color: #75BEF0;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Menu */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #75BEF0 !important; /* Forces the blue color */
+    transition: 0.3s;
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #151647;
+        padding: 10px 0;
+    }
+    .nav-links.active { display: flex; }
+    .nav-btn { width: 90%; margin: 5px auto; }
+}
+
+
+.nav-logo img {
+    height: 40px;                   /* Adjust height to fit your navbar */
+    width: auto;                    /* Maintains aspect ratio */
+    display: block;
+}
+
+
+
+/* =========================================
+   3. HEADERS & SECTIONS (The "About" Style)
+   ========================================= */
+.gallery-header {
+    text-align: left;
+    padding: 120px 20px 40px 20px; /* Aligned with Navbar */
+    margin: 0; /* Removed 'auto' to keep it left-aligned */
+    max-width: 100%;
+}
+
+.gallery-header h1 {
+    /* Styles inherited from global h1, plus specific gallery tweaks */
+    color: #75BEF0;
+}
+
+.gallery-header p {
+    max-width: 850px; /* Better readability */
+    font-size: 1.1rem;
+}
+
+h1[id], section[id] {
+    scroll-margin-top: 100px;
+}
+
+/* =========================================
+   4. HOME PAGE SCROLL ANIMATION
+   ========================================= */
+.scroll-track {
+    /* 1. Reduce height to bring the bottom section up sooner */
+    height: 90vh;            
+    position: relative;
+    overflow: visible; 
+    
+    /* 2. Reduce the margins to tighten the vertical gap */
+    margin-top: 60px;       
+    margin-bottom: 150px;    /* Much smaller than 200px */
+    
+    display: block;
+    clear: both;             
+}
+
+.sliding-image {
+    position: sticky;
+    /* 3. Lower the top value to keep it centered in the smaller track */
+    top: 25%;                
+    width: 500px;
+    z-index: 5;
+    transform: translateX(-100%); 
+    transition: transform 0.2s ease-out; 
+    will-change: transform;
+    display: block;
+}
+
+.title {
+    position: sticky;
+    top: 40%;
+    z-index: 10;
+    padding-right: 20px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+    font-size: clamp(30px, 6vw, 60px);
+    text-align: right;
+    margin: 0;
+}
+
+/* =========================================
+   5. GALLERY GRID & CARDS
+   ========================================= */
+.full-gallery-grid {
+    column-count: 3;
+    column-gap: 20px;
+    padding: 40px 20px;
+    max-width: 1400px;
+}
+
+.art-card {
+    break-inside: avoid; 
+    margin-bottom: 20px;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease backwards;
+}
+
+.art-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.art-card img:hover {
+    transform: scale(1.04);
+    filter: brightness(1.08) contrast(1.02);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 900px) { .full-gallery-grid { column-count: 2; } }
+@media screen and (max-width: 600px) { .full-gallery-grid { column-count: 1; } }
+
+/* =========================================
+   6. LIGHTBOX
+   ========================================= */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+
+.lb-content img {
+    max-height: 90vh;
+    max-width: 90vw;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+.lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 10001;
+    transition: 0.2s;
+}
+
+.lb-arrow:hover { color: #75BEF0; background: rgba(255, 255, 255, 0.2); }
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+.close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 35px; cursor: pointer; }
+
+
+
+
+
+
+/* This controls how big the video is and centers it */
+.video-wrapper {
+    width: 90%;          /* Width on mobile */
+    max-width: 800px;    /* Max width on desktop - change this to make it bigger/smaller */
+    margin: 40px auto;   /* The 'auto' part does the horizontal centering */
+}
+
+/* Your original code stays here */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;    /* Optional: rounds the corners */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+/* Container to hold images side-by-side */
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; /* Increased gap for a cleaner look */
+    margin: 40px 0;
+    width: 100%; /* Ensures the row uses the full width available */
+}
+
+/* Updated logo-section for larger images */
+.logo-section {
+    flex: 1;
+    /* Increased min-width forces them to stack sooner on smaller screens */
+    min-width: 450px; 
+    /* Increased max-width allows them to grow much larger on desktops */
+    max-width: 800px; 
+    margin: 0;
+}
+
+
