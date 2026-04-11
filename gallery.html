@@ -110,6 +110,31 @@
             
             /* Smaller arrows for mobile touch */
             .lb-arrow { font-size: 30px !important; }
+
+
+            /* ADD THIS TO THE SECOND FILE */
+            .menu-toggle {
+                display: flex; /* This ensures the hamburger icon actually shows up */
+            }
+
+            .nav-links {
+                /* This ensures the menu slides down over everything else instead of pushing content */
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.95); 
+                border-bottom: 1px solid #333;
+            }
+
+            .nav-btn {
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+                display: block; /* Important for spacing */
+            }
+
+            /* Adjust header padding so h1 isn't cut off by the fixed navbar */
+            .music-header {
+                padding-top: 100px; 
+            }
         }
 
     </style>
