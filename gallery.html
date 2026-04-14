@@ -15,11 +15,9 @@
             scroll-behavior: smooth;
         }
 
-        /* --- New Gallery Title Styles --- */
         .gallery-header {
             text-align: left;
-            padding: 140px 20px 20px 20px; /* Matching the exact padding */
-            /* max-width and margin removed to ensure it stays to the left */
+            padding: 140px 20px 20px 20px;
         }
 
         .gallery-header h1 {
@@ -39,7 +37,6 @@
             line-height: 1.6;
         }
 
-        /* --- Performance Optimized Masonry --- */
         .full-gallery-grid {
             column-count: 2;
             column-gap: 30px;
@@ -70,13 +67,11 @@
             will-change: transform, filter; 
         }
 
-        /* --- Subtly Adjusted Hover --- */
         .art-card img:hover {
             transform: scale(1.04);
             filter: brightness(1.08) contrast(1.02);
         }
 
-        /* --- Lightbox --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -94,7 +89,6 @@
             border-radius: 4px;
         }
 
-        /* --- Mobile Menu Fix --- */
         @media screen and (max-width: 768px) {
             .nav-links {
                 display: none; 
@@ -103,22 +97,20 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: #000000; /* Consistent with other pages */
+                background: #000000;
                 padding: 20px 0;
             }
             .nav-links.active { display: flex; }
             
-            /* Smaller arrows for mobile touch */
+
             .lb-arrow { font-size: 30px !important; }
 
 
-            /* ADD THIS TO THE SECOND FILE */
             .menu-toggle {
-                display: flex; /* This ensures the hamburger icon actually shows up */
+                display: flex;
             }
 
             .nav-links {
-                /* This ensures the menu slides down over everything else instead of pushing content */
                 z-index: 1000;
                 background: rgba(0, 0, 0, 0.95); 
                 border-bottom: 1px solid #333;
@@ -128,10 +120,9 @@
                 width: 80%;
                 margin: 10px auto;
                 text-align: center;
-                display: block; /* Important for spacing */
+                display: block;
             }
 
-            /* Adjust header padding so h1 isn't cut off by the fixed navbar */
             .music-header {
                 padding-top: 100px; 
             }
@@ -181,14 +172,13 @@
 
     <script>
         const folderPath = "https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/";
-        const totalImages = 150;
+        const totalImages = 159;
         const container = document.getElementById('art-container');
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
 
         let currentIdx = 1;
 
-        // Populate Gallery
         const fragment = document.createDocumentFragment();
         for (let i = 1; i <= totalImages; i++) {
             const card = document.createElement('div');
@@ -212,7 +202,6 @@
         }
         container.appendChild(fragment);
 
-        // Lightbox Control
         const closeLb = () => {
             lb.style.display = "none";
             document.body.style.overflow = "";

@@ -15,7 +15,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Matches your Gallery Header styling */
         .music-header {
             text-align: left;
             padding: 140px 20px 20px 20px; 
@@ -31,7 +30,6 @@
             text-transform: uppercase;
         }
 
-        /* Flexible Logo Styling */
         .logo-section {
             width: 90%;
             max-width: 600px;
@@ -46,7 +44,6 @@
             display: block;
         }
 
-        /* Link Buttons */
         .links-container {
             width: 90%;
             max-width: 600px;
@@ -74,7 +71,6 @@
             transform: scale(1.02);
         }
 
-        /* --- Mobile Menu Fix --- */
         @media screen and (max-width: 768px) {
             .nav-links {
                 display: none; 
@@ -88,13 +84,11 @@
             }
             .nav-links.active { display: flex; }
 
-            /* ADD THIS TO THE SECOND FILE */
             .menu-toggle {
-                display: flex; /* This ensures the hamburger icon actually shows up */
+                display: flex;
             }
 
             .nav-links {
-                /* This ensures the menu slides down over everything else instead of pushing content */
                 z-index: 1000;
                 background: rgba(0, 0, 0, 0.95); 
                 border-bottom: 1px solid #333;
@@ -104,10 +98,9 @@
                 width: 80%;
                 margin: 10px auto;
                 text-align: center;
-                display: block; /* Important for spacing */
+                display: block;
             }
 
-            /* Adjust header padding so h1 isn't cut off by the fixed navbar */
             .music-header {
                 padding-top: 100px; 
             }
@@ -261,7 +254,6 @@
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
-        // This makes the hamburger menu work on mobile
         menuBtn.onclick = () => {
             navLinks.classList.toggle('active');
         };

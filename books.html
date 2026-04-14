@@ -15,7 +15,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Matches your Gallery Header styling */
         .music-header {
             text-align: left;
             padding: 140px 20px 20px 20px; 
@@ -31,7 +30,6 @@
             text-transform: uppercase;
         }
 
-        /* Flexible Logo Styling */
         .logo-section {
             width: 90%;
             max-width: 600px;
@@ -46,7 +44,6 @@
             display: block;
         }
 
-        /* Link Buttons */
         .links-container {
             width: 90%;
             max-width: 600px;
@@ -74,7 +71,6 @@
             transform: scale(1.02);
         }
 
-        /* --- Mobile Menu Fix --- */
         @media screen and (max-width: 768px) {
             .nav-links {
                 display: none; 
@@ -89,9 +85,8 @@
             .nav-links.active { display: flex; }
         }
 
-        /* Ensure the hamburger icon is visible */
         .menu-toggle {
-            display: none; /* Hidden on desktop */
+            display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
@@ -101,17 +96,16 @@
         .bar {
             width: 25px;
             height: 3px;
-            background-color: #75BEF0; /* Your signature blue */
+            background-color: #75BEF0;
             display: block;
         }
 
         @media screen and (max-width: 768px) {
             .menu-toggle {
-                display: flex; /* Shows up on mobile */
+                display: flex;
             }
 
             .nav-links {
-                /* This ensures the menu slides down over everything else */
                 z-index: 1000;
                 background: rgba(0, 0, 0, 0.95); 
                 border-bottom: 1px solid #333;
@@ -123,7 +117,6 @@
                 text-align: center;
             }
             
-            /* Adjust header padding so h1 isn't cut off by the fixed navbar */
             .music-header {
                 padding-top: 100px; 
             }
@@ -243,7 +236,6 @@ Dive into this Halloween-inspired romance with quirky characters and beautiful i
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
-        // This makes the hamburger menu work on mobile
         menuBtn.onclick = () => {
             navLinks.classList.toggle('active');
         };

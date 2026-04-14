@@ -10,7 +10,7 @@ html {
 body {
     font-family: 'Lucida Sans', sans-serif;
     color: whitesmoke;
-    font-size: 18px; /* Slightly smaller base for better mobile scaling */
+    font-size: 18px;
     font-weight: 300;
     margin: 0; 
     padding: 10px;
@@ -186,13 +186,12 @@ a {
 
 /* Navbar Button Hover Effect */
 .nav-btn:hover {
-    color: #75BEF0; /* Your signature light blue */
+    color: #75BEF0;
     text-shadow: 0 0 10px rgba(117, 190, 240, 0.8); /* Creates a soft glow */
     transform: translateY(-2px); /* Subtle lift effect */
     transition: all 0.3s ease;
 }
 
-/* Optional: Active link styling (the page you are currently on) */
 .nav-btn.active {
     border-bottom: 2px solid #75BEF0;
 }
@@ -291,7 +290,7 @@ h1[id], section[id] {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     border-radius: 12px;
@@ -307,7 +306,6 @@ h1[id], section[id] {
     border: 0;
 }
 
-/* Image Row fix for the "Judge Mental" grid */
 .image-row {
     display: flex;
     flex-wrap: wrap;
@@ -322,17 +320,16 @@ h1[id], section[id] {
     margin: 10px auto;
 }
 
-/* Poem Styling */
 .poem-block {
     text-align: center;
     font-style: italic;
     margin: 40px 0;
-    color: #75BEF0; /* Soft blue to match your theme */
+    color: #75BEF0;
 }
 
 .logo-section {
     flex: 1;
-    min-width: 300px; /* Reduced from 450 to prevent overflow on small phones */
+    min-width: 300px;
     max-width: 800px;
     margin: 0;
 }
@@ -357,19 +354,15 @@ h1[id], section[id] {
     .nav-links.active { display: flex; }
     .nav-btn { width: 90%; margin: 5px auto; text-align: center; }
 
-    /* Fix the sliding image for small screens */
     .sliding-image {
-        width: 80%; /* Don't let it be 500px on a 320px phone! */
+        width: 80%;
         top: 30%;
     }
 
-    /* Adjust Gallery Columns */
     .full-gallery-grid { column-count: 2; padding: 20px 10px; }
     
-    /* Career & Skills alignment */
     #Career, #Skills { padding: 40px 15px; }
     
-    /* Shrink the headers slightly for mobile */
     h1 { font-size: 36px; }
     h2 { font-size: 26px; }
 }
@@ -378,13 +371,12 @@ h1[id], section[id] {
     .full-gallery-grid { column-count: 1; }
     
     .logo-section {
-        min-width: 100%; /* Force stacking on very small screens */
+        min-width: 100%;
     }
 
-    /* Ensure the sticky title doesn't overlap everything */
     .title {
         font-size: 28px;
-        position: relative; /* Turn off sticky if it feels too cramped */
+        position: relative;
         top: 0;
         text-align: center;
         padding: 20px;
