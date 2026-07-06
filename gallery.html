@@ -6,7 +6,6 @@
     <title>Tudor Marinescu | Gallery</title>
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
-    
     <link rel="stylesheet" href="style.css"> 
     
     <style>
@@ -38,22 +37,28 @@
         }
 
         .full-gallery-grid {
-            column-count: 2;
-            column-gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
             padding: 30px 5% 50px 5%;
             max-width: 1400px;
             margin: 0 auto;
+            align-items: start;
         }
 
-        @media screen and (max-width: 900px) { .full-gallery-grid { column-count: 2; } }
-        @media screen and (max-width: 600px) { .full-gallery-grid { column-count: 1; } }
+        @media screen and (max-width: 600px) { 
+            .full-gallery-grid { 
+                grid-template-columns: 1fr; 
+                gap: 15px;
+            } 
+        }
 
         .art-card {
-            break-inside: avoid; 
-            margin-bottom: 20px;
             background: #111;
             border-radius: 12px;
             overflow: hidden;
+            cursor: pointer;
+            min-height: 220px; 
         }
 
         .art-card img {
@@ -61,13 +66,14 @@
             height: auto;
             border-radius: 12px;
             display: block;
-            cursor: pointer;
             opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
+            pointer-events: none; 
+            user-select: none;
         }
 
-        .art-card img:hover {
+        .art-card:hover img {
             transform: scale(1.04);
             filter: brightness(1.08) contrast(1.02);
         }
@@ -82,11 +88,31 @@
             align-items: center;
         }
 
+        .lb-content {
+            max-height: 90vh;
+            max-width: 90vw;
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .lb-content img {
             max-height: 90vh;
             max-width: 90vw;
             object-fit: contain;
-            border-radius: 4px;
+            user-select: none;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2);
+            cursor: zoom-out;
         }
 
         @media screen and (max-width: 768px) {
@@ -99,21 +125,15 @@
                 width: 100%;
                 background: #000000;
                 padding: 20px 0;
+                z-index: 1000;
+                border-bottom: 1px solid #333;
             }
             .nav-links.active { display: flex; }
             
-
             .lb-arrow { font-size: 30px !important; }
-
 
             .menu-toggle {
                 display: flex;
-            }
-
-            .nav-links {
-                z-index: 1000;
-                background: rgba(0, 0, 0, 0.95); 
-                border-bottom: 1px solid #333;
             }
 
             .nav-btn {
@@ -127,9 +147,7 @@
                 padding-top: 100px; 
             }
         }
-
     </style>
-
 </head>
 
 <body>
@@ -149,7 +167,6 @@
         <div class="nav-logo">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
         </div>
-
     </nav>
 
     <header class="gallery-header">
@@ -165,13 +182,12 @@
         <span class="close-btn" style="position:absolute; top:30px; right:40px; font-size:50px; color:white; cursor:pointer; z-index: 10001;">&times;</span>
         <button class="lb-arrow prev-btn" style="left:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10094;</button>
         <div class="lb-content">
-            <img id="lightbox-img" src="" alt="Full Artwork View">
+            <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
         </div>
         <button class="lb-arrow next-btn" style="right:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10095;</button>
     </div>
 
     <script>
-        const folderPath = "https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/";
         const totalImages = 159;
         const container = document.getElementById('art-container');
         const lb = document.getElementById('lightbox');
@@ -179,21 +195,40 @@
 
         let currentIdx = 1;
 
+        const getThumbUrl = (id) => `https://images.weserv.nl/?url=raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/${id}.jpg&w=600&q=82`;
+
+        const getRawOriginalUrl = (id) => `https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/${id}.jpg`;
+
         const fragment = document.createDocumentFragment();
+        
         for (let i = 1; i <= totalImages; i++) {
             const card = document.createElement('div');
             card.className = 'art-card';
             
             const img = document.createElement('img');
-            img.src = `${folderPath}${i}.jpg`;
             img.loading = "lazy";
             img.decoding = "async";
             
-            img.onload = () => { img.style.opacity = "1"; };
-            img.onclick = () => {
+            img.onload = () => { 
+                img.style.opacity = "1"; 
+            };
+            
+            img.onerror = () => {
+                img.src = getRawOriginalUrl(i);
+            };
+            
+            img.src = getThumbUrl(i); 
+
+            card.onmouseenter = () => {
+                const prefetchRaw = new Image();
+                prefetchRaw.src = getRawOriginalUrl(i);
+            };
+            
+            card.onclick = () => {
                 currentIdx = i;
                 lb.style.display = "flex";
-                lbImg.src = img.src;
+                resetZoom();
+                lbImg.src = getRawOriginalUrl(currentIdx);
                 document.body.style.overflow = "hidden";
             };
             
@@ -202,8 +237,15 @@
         }
         container.appendChild(fragment);
 
+        const resetZoom = () => {
+            lbImg.classList.remove('zoomed');
+            lbImg.style.transform = '';
+        };
+
         const closeLb = () => {
             lb.style.display = "none";
+            resetZoom();
+            lbImg.src = ""; 
             document.body.style.overflow = "";
         };
 
@@ -211,20 +253,51 @@
             currentIdx += dir;
             if (currentIdx > totalImages) currentIdx = 1;
             if (currentIdx < 1) currentIdx = totalImages;
-            lbImg.src = `${folderPath}${currentIdx}.jpg`;
+            resetZoom();
+            lbImg.src = getRawOriginalUrl(currentIdx);
         };
+
+        const handlePan = (e) => {
+            if (!lbImg.classList.contains('zoomed')) return;
+            
+            const rect = lbImg.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            if (!clientX || !clientY) return;
+
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+
+            lbImg.style.transformOrigin = `${x}% ${y}%`;
+        };
+
+        // Simplified interaction setup: Zoom toggles smoothly without touching resolution links
+        lbImg.onclick = (e) => {
+            e.stopPropagation();
+            lbImg.classList.toggle('zoomed');
+            if (lbImg.classList.contains('zoomed')) {
+                handlePan(e);
+            } else {
+                lbImg.style.transformOrigin = 'center center';
+            }
+        };
+
+        lbImg.onmousemove = handlePan;
+        lbImg.ontouchmove = handlePan;
 
         document.querySelector('.close-btn').onclick = closeLb;
         document.querySelector('.next-btn').onclick = (e) => { e.stopPropagation(); move(1); };
         document.querySelector('.prev-btn').onclick = (e) => { e.stopPropagation(); move(-1); };
-        lb.onclick = (e) => { if (e.target === lb || e.target.className === 'lb-content') closeLb(); };
 
-        // Navbar Logic
+        lb.onclick = (e) => { 
+            if (e.target === lb || e.target.className === 'lb-content') closeLb(); 
+        };
+
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
         menuBtn.onclick = () => navLinks.classList.toggle('active');
 
-        // Accessibility & Reset
         window.onkeydown = (e) => {
             if (lb.style.display === "flex") {
                 if (e.key === "ArrowRight") move(1);
@@ -232,6 +305,10 @@
                 if (e.key === "Escape") closeLb();
             }
         };
+
+        document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
         if (history.scrollRestoration) history.scrollRestoration = 'manual';
     </script>
 </body>
