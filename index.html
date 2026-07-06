@@ -25,7 +25,7 @@
 
         .logo-section {
             width: 90%;
-            max-width: 600px;
+            max-width: 400px;
             margin: 40px auto; 
             text-align: center;
             cursor: pointer;
@@ -40,7 +40,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
-            pointer-events: none; /* Allows the section to handle the click */
+            pointer-events: none;
             user-select: none;
         }
 
@@ -315,7 +315,7 @@
         // Attach click and prefetch hover listeners
         mediaSections.forEach(section => {
             const img = section.querySelector('img');
-            if (!img) return; // Failsafe
+            if (!img) return;
             
             section.onmouseenter = () => {
                 const prefetchRaw = new Image();
@@ -336,7 +336,6 @@
             
             const rect = lbImg.getBoundingClientRect();
             
-            // Ensuring robust touch and click extraction
             let clientX, clientY;
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;

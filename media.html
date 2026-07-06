@@ -48,7 +48,7 @@
         /* --- EXACT GALLERY HOVER STYLE APPLIED TO LOGO-SECTION --- */
         .logo-section {
             width: 90%;
-            max-width: 600px;
+            max-width: 600px; /* Default for mobile */
             margin: 40px auto;
             text-align: center;
             background: #111;
@@ -59,6 +59,7 @@
 
         /* PC-Only Adjustments */
         @media screen and (min-width: 769px) {
+            /* Makes the images smaller on PC */
             .logo-section {
                 max-width: 350px;
             }
@@ -79,7 +80,7 @@
             display: block;
             transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
-            pointer-events: none; /* Allows the section to handle the click */
+            pointer-events: none;
             user-select: none;
         }
 
@@ -127,13 +128,26 @@
                 padding: 20px 0;
             }
             .nav-links.active { display: flex; }
+        }
 
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #75BEF0;
+            display: block;
+        }
+
+        @media screen and (max-width: 768px) {
             .menu-toggle {
                 display: flex;
-                flex-direction: column;
-                gap: 5px;
-                cursor: pointer;
-                z-index: 1001;
             }
 
             .nav-links {
@@ -146,23 +160,11 @@
                 width: 80%;
                 margin: 10px auto;
                 text-align: center;
-                display: block;
             }
-
+            
             .music-header {
                 padding-top: 100px; 
             }
-        }
-
-        .menu-toggle {
-            display: none;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #75BEF0;
-            display: block;
         }
 
         /* --- LIGHTBOX MODAL --- */
@@ -237,6 +239,7 @@
         @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
+
     </style>
 </head>
 
@@ -366,7 +369,7 @@
         const lbImg = document.getElementById('lightbox-img');
         const mediaSections = document.querySelectorAll('.logo-section'); 
 
-        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
+        // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;

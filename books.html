@@ -45,7 +45,7 @@
             margin: 0; 
         }
 
-        /* --- EXACT GALLERY HOVER STYLE APPLIED TO LOGO-SECTION --- */
+        /* HOVER STYLE */
         .logo-section {
             width: 90%;
             max-width: 600px; /* Default for mobile */
@@ -57,7 +57,6 @@
             cursor: pointer;
         }
 
-        /* PC-Only Adjustments */
         @media screen and (min-width: 769px) {
             /* Makes the images smaller on PC */
             .logo-section {
@@ -80,7 +79,7 @@
             display: block;
             transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
-            pointer-events: none; /* Allows the section to handle the click */
+            pointer-events: none;
             user-select: none;
         }
 
@@ -367,7 +366,7 @@
         const lbImg = document.getElementById('lightbox-img');
         const bookSections = document.querySelectorAll('.logo-section'); // Targeting wrapper to match gallery style
 
-        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
+        // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
@@ -395,7 +394,7 @@
             document.body.style.overflow = "";
         };
 
-        // Attach click and prefetch hover listeners matching gallery performance style
+        // Attach click and prefetch hover listeners
         bookSections.forEach(section => {
             const img = section.querySelector('img');
             if (!img) return; // Failsafe
