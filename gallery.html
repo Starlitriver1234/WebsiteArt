@@ -78,6 +78,7 @@
             filter: brightness(1.08) contrast(1.02);
         }
 
+        /* --- LIGHTBOX MODAL --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -86,35 +87,72 @@
             z-index: 9999;
             justify-content: center;
             align-items: center;
+            user-select: none;
         }
 
         .lb-content {
-            max-height: 90vh;
-            max-width: 90vw;
-            overflow: hidden;
-            border-radius: 4px;
             position: relative;
+            width: 90vw;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
         }
 
         .lb-content img {
-            max-height: 90vh;
-            max-width: 90vw;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            user-select: none;
             cursor: zoom-in;
             transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
             transform-origin: center center;
             will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .lb-content img.zoomed {
-            transform: scale(2);
+            transform: scale(2.5);
             cursor: zoom-out;
         }
 
+        /* --- LIGHTBOX BUTTON CONTROLS --- */
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+        .prev-btn { left: 20px; top: 50%; transform: translateY(-50%); }
+        .next-btn { right: 20px; top: 50%; transform: translateY(-50%); }
+
+        .prev-btn:active { transform: translateY(-50%) scale(0.95); }
+        .next-btn:active { transform: translateY(-50%) scale(0.95); }
+
+        /* --- MOBILE NAV & LIGHTBOX ADJUSTMENTS --- */
         @media screen and (max-width: 768px) {
             .nav-links {
                 display: none; 
@@ -129,8 +167,6 @@
                 border-bottom: 1px solid #333;
             }
             .nav-links.active { display: flex; }
-            
-            .lb-arrow { font-size: 30px !important; }
 
             .menu-toggle {
                 display: flex;
@@ -146,6 +182,11 @@
             .music-header {
                 padding-top: 100px; 
             }
+
+            /* Mobile Lightbox Controls */
+            .control-btn { width: 44px; height: 44px; font-size: 20px; }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
         }
     </style>
 </head>
@@ -178,25 +219,29 @@
 
     <div class="full-gallery-grid" id="art-container"></div>
 
+    <!-- UPDATED LIGHTBOX UI ELEMENTS -->
     <div id="lightbox" class="lightbox">
-        <span class="close-btn" style="position:absolute; top:30px; right:40px; font-size:50px; color:white; cursor:pointer; z-index: 10001;">&times;</span>
-        <button class="lb-arrow prev-btn" style="left:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10094;</button>
+        <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
+        <button class="control-btn prev-btn" aria-label="Previous image">&#10094;</button>
         <div class="lb-content">
             <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
         </div>
-        <button class="lb-arrow next-btn" style="right:20px; position:absolute; background:none; border:none; color:white; font-size:40px; cursor:pointer; z-index: 10001;">&#10095;</button>
+        <button class="control-btn next-btn" aria-label="Next image">&#10095;</button>
     </div>
 
     <script>
         const totalImages = 161;
+        
+        // CACHE BUSTER: Increase this number whenever you replace an image on GitHub
+        const cacheVersion = "1"; 
+
         const container = document.getElementById('art-container');
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
 
         let currentIdx = 1;
 
-        const getThumbUrl = (id) => `https://images.weserv.nl/?url=raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/${id}.jpg&w=600&q=82`;
-
+        const getThumbUrl = (id) => `https://images.weserv.nl/?url=raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/${id}.jpg&w=600&q=82&v=${cacheVersion}`;
         const getRawOriginalUrl = (id) => `https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Art%20General/${id}.jpg`;
 
         const fragment = document.createDocumentFragment();
@@ -209,13 +254,8 @@
             img.loading = "lazy";
             img.decoding = "async";
             
-            img.onload = () => { 
-                img.style.opacity = "1"; 
-            };
-            
-            img.onerror = () => {
-                img.src = getRawOriginalUrl(i);
-            };
+            img.onload = () => { img.style.opacity = "1"; };
+            img.onerror = () => { img.src = getRawOriginalUrl(i); };
             
             img.src = getThumbUrl(i); 
 
@@ -257,6 +297,7 @@
             lbImg.src = getRawOriginalUrl(currentIdx);
         };
 
+        // ZOOM AND PAN LOGIC
         const handlePan = (e) => {
             if (!lbImg.classList.contains('zoomed')) return;
             
@@ -272,7 +313,6 @@
             lbImg.style.transformOrigin = `${x}% ${y}%`;
         };
 
-        // Simplified interaction setup: Zoom toggles smoothly without touching resolution links
         lbImg.onclick = (e) => {
             e.stopPropagation();
             lbImg.classList.toggle('zoomed');
@@ -296,7 +336,9 @@
 
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        menuBtn.onclick = () => navLinks.classList.toggle('active');
+        if (menuBtn && navLinks) {
+            menuBtn.onclick = () => navLinks.classList.toggle('active');
+        }
 
         window.onkeydown = (e) => {
             if (lb.style.display === "flex") {
