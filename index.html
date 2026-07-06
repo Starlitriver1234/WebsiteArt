@@ -6,7 +6,6 @@
     <title>Tudor Marinescu | Home</title>
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
-    
     <link rel="stylesheet" href="style.css">
     
     <style>
@@ -19,11 +18,17 @@
             padding: 140px 20px 20px 20px;
         }
 
+        #Skills.gallery-header, 
+        #Career.gallery-header {
+            padding-top: 40px;
+        }
+
         .logo-section {
             width: 90%;
             max-width: 600px;
             margin: 40px auto; 
             text-align: center;
+            cursor: pointer;
         }
 
         .logo-section img {
@@ -33,21 +38,18 @@
             display: block;
             margin: 0 auto;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            will-change: transform, filter; 
+            pointer-events: none; /* Allows the section to handle the click */
+            user-select: none;
+        }
+
+        .logo-section:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.08) contrast(1.02);
         }
 
         @media screen and (max-width: 768px) {
-            .nav-links {
-                display: none; 
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #000;
-                padding: 20px 0;
-            }
-            .nav-links.active { display: flex; }
-            
             .menu-toggle {
                 display: flex;
                 flex-direction: column;
@@ -63,14 +65,21 @@
                 display: block;
             }
 
-            .menu-toggle {
-                display: flex;
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                z-index: 1000;
+                border-bottom: 1px solid #333;
             }
 
-            .nav-links {
-                z-index: 1000;
-                background: rgba(0, 0, 0, 0.95); 
-                border-bottom: 1px solid #333;
+            .nav-links.active { 
+                display: flex; 
             }
 
             .nav-btn {
@@ -83,7 +92,80 @@
             .music-header {
                 padding-top: 100px; 
             }
+            
+        }
 
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .lb-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .lb-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        /* --- LIGHTBOX BUTTON CONTROLS --- */
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+
+        @media screen and (max-width: 768px) {
+            .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
     </style>
 </head>
@@ -95,6 +177,7 @@
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
+        
         <div class="nav-links">
             <a href="index.html" class="nav-btn" id="home-link">Home</a>
             <a href="gallery.html" class="nav-btn">Gallery</a> 
@@ -105,7 +188,7 @@
         </div>
 
         <div class="nav-logo">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Tudor Marinescu Logo">
         </div>
     </nav>
 
@@ -125,13 +208,12 @@
             <p>I am trilingual. Of course, I am native in Romanian, but I am also certified C2 in English and certified A2 in French. I try my best to learn to speak as many languages as possible since the more perspectives I learn, the more ideas I have for my art. This is why I also enjoy travelling a lot. I have been to many places, visiting most of Europe, as well as countries like Egypt and China.</p>
         </section>
 
-
         <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" alt="Tudor Photo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" alt="Photo of Tudor Marinescu">
             <h2 style="margin-top: 20px;">Creativity is the Key</h2>
         </div>
 
-        <section id="Skills" class="gallery-header" style="padding-top: 40px;">
+        <section id="Skills" class="gallery-header">
             <h1>Skills</h1>
             <ul>
                 <li><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
@@ -141,11 +223,11 @@
                 <li><strong>Software:</strong> Photoshop, Illustrator, Procreate, GarageBand</li>
                 <li><strong>Professional Skills:</strong> Publishing and Leadership</li>
             </ul>
-            <p><a href="https://linktr.ee/tudor.marinescu">Visit my LinkTree</a></p>
-            <p><a href="https://www.youtube.com/@TudorMarinescu123">Visit my YouTube Channel</a></p>
+            <p><a href="https://linktr.ee/tudor.marinescu" target="_blank" rel="noopener noreferrer">Visit my LinkTree</a></p>
+            <p><a href="https://www.youtube.com/@TudorMarinescu123" target="_blank" rel="noopener noreferrer">Visit my YouTube Channel</a></p>
         </section>
 
-        <section id="Career" class="gallery-header" style="padding-top: 40px;">
+        <section id="Career" class="gallery-header">
             <h1>Career & Projects</h1>
             <p>Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
             <ul>
@@ -159,33 +241,150 @@
         </section>
 
         <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Tudor Photo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Tudor's Creative Setup">
             <h2 style="margin-top: 20px;">With dreams and determination, you can achieve anything</h2>
         </div>
 
         <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Tudor Logo">
+            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Tudor Marinescu Brand Logo">
         </div>
     </main>
 
+    <!-- LIGHTBOX HTML -->
+    <div id="lightbox" class="lightbox">
+        <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
+        <div class="lb-content">
+            <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
+        </div>
+    </div>
+
     <script>
-        const menu = document.querySelector('#mobile-menu');
+        const menu = document.getElementById('mobile-menu');
         const menuLinks = document.querySelector('.nav-links');
 
         // Mobile Menu Toggle
-        menu.addEventListener('click', () => {
-            menuLinks.classList.toggle('active');
-        });
+        if (menu && menuLinks) {
+            menu.addEventListener('click', () => {
+                menuLinks.classList.toggle('active');
+            });
 
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => menuLinks.classList.remove('active'));
-        });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => menuLinks.classList.remove('active'));
+            });
+        }
 
         // Reset Scroll on Refresh
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
+
+        // --- LIGHTBOX & ZOOM LOGIC ---
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const mediaSections = document.querySelectorAll('.logo-section'); 
+
+        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
+        const cacheVersion = "1";
+        document.querySelectorAll('.logo-section img').forEach(img => {
+            const rawUrl = img.src;
+            img.setAttribute('data-raw', rawUrl); // Store raw high-res URL for Lightbox
+            img.loading = "lazy";
+            img.decoding = "async";
+            
+            // Clean protocol to match your gallery format setup
+            const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
+            img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
+            
+            img.onerror = () => { img.src = rawUrl; };
+        });
+
+        const resetZoom = () => {
+            lbImg.classList.remove('zoomed');
+            lbImg.style.transform = '';
+            lbImg.style.transformOrigin = 'center center';
+        };
+
+        const closeLb = () => {
+            lb.style.display = "none";
+            resetZoom();
+            lbImg.src = ""; 
+            document.body.style.overflow = "";
+        };
+
+        // Attach click and prefetch hover listeners
+        mediaSections.forEach(section => {
+            const img = section.querySelector('img');
+            if (!img) return; // Failsafe
+            
+            section.onmouseenter = () => {
+                const prefetchRaw = new Image();
+                prefetchRaw.src = img.getAttribute('data-raw');
+            };
+
+            section.onclick = () => {
+                lb.style.display = "flex";
+                resetZoom();
+                lbImg.src = img.getAttribute('data-raw'); // Load original raw clean file into lightbox
+                document.body.style.overflow = "hidden";
+            };
+        });
+
+        // Zoom and Pan Logic
+        const handlePan = (e) => {
+            if (!lbImg.classList.contains('zoomed')) return;
+            
+            const rect = lbImg.getBoundingClientRect();
+            
+            // Ensuring robust touch and click extraction
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            if (clientX === undefined || clientY === undefined) return;
+
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+
+            lbImg.style.transformOrigin = `${x}% ${y}%`;
+        };
+
+        lbImg.onclick = (e) => {
+            e.stopPropagation();
+            lbImg.classList.toggle('zoomed');
+            if (lbImg.classList.contains('zoomed')) {
+                handlePan(e);
+            } else {
+                lbImg.style.transformOrigin = 'center center';
+            }
+        };
+
+        lbImg.onmousemove = handlePan;
+        lbImg.ontouchmove = handlePan;
+
+        document.querySelector('.close-btn').onclick = closeLb;
+
+        lb.onclick = (e) => { 
+            // Ensures clicking outside the image closes the lightbox
+            if (e.target === lb || e.target.classList.contains('lb-content')) {
+                closeLb();
+            }
+        };
+
+        window.onkeydown = (e) => {
+            if (lb.style.display === "flex" && e.key === "Escape") {
+                closeLb();
+            }
+        };
+
+        // Prevent dragging/saving for lightbox image
+        document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
     </script>
 </body>
 </html>

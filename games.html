@@ -30,11 +30,46 @@
             text-transform: uppercase;
         }
 
+        /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
+        .image-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 40px auto;
+            width: 100%;
+        }
+
+        /* Overrides the single section margin when part of a group */
+        .image-group .logo-section {
+            margin: 0; 
+        }
+
+        /* --- EXACT GALLERY HOVER STYLE APPLIED TO LOGO-SECTION --- */
         .logo-section {
             width: 90%;
             max-width: 600px;
             margin: 40px auto;
             text-align: center;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* PC-Only Adjustments */
+        @media screen and (min-width: 769px) {
+            .logo-section {
+                max-width: 350px;
+            }
+            
+            /* Puts consecutive images side-by-side on PC */
+            .image-group {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap; /* Allows them to wrap neatly on smaller screens */
+                gap: 40px;
+            }
         }
 
         .logo-section img {
@@ -42,6 +77,15 @@
             height: auto;
             border-radius: 12px;
             display: block;
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            will-change: transform, filter; 
+            pointer-events: none; /* Allows the section to handle the click */
+            user-select: none;
+        }
+
+        .logo-section:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.08) contrast(1.02);
         }
 
         .links-container {
@@ -86,6 +130,10 @@
 
             .menu-toggle {
                 display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                z-index: 1001;
             }
 
             .nav-links {
@@ -104,7 +152,90 @@
             .music-header {
                 padding-top: 100px; 
             }
+        }
 
+        .menu-toggle {
+            display: none;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #75BEF0;
+            display: block;
+        }
+
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .lb-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .lb-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        /* --- LIGHTBOX BUTTON CONTROLS --- */
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+
+        @media screen and (max-width: 768px) {
+            .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
     </style>
 </head>
@@ -126,7 +257,6 @@
         <div class="nav-logo">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
         </div>
-
     </nav>
 
     <header class="music-header">
@@ -134,12 +264,10 @@
         <p>Welcome to the fun section! And by that I mean, the video game section! Woooo!</p>
         <p>Here you will find some info about the games I worked on and also a link to my Itch page where you can play them. You will only find a few of the games that I've made here. To see all of them and also to download and play them, please visit my Itch page. Have fun!</p>
         
-    
-    
         <h2>Judge Mental</h2>
         <h4>My role in development: Writer, Artist, Creative Lead</h4>
 
-            <div class="image-row">
+            <div class="image-group">
                 <div class="logo-section">
                     <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/judge1.jpg" alt="Judge Mental Game Art">
                 </div>
@@ -147,9 +275,7 @@
                 <div class="logo-section">
                     <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/judge2.jpg" alt="Judge Mental Game Art">
                 </div>
-
             </div>
-
 
         <div class="video-wrapper">
             <div class="video-container">
@@ -164,11 +290,11 @@
 
         <p>Judge Mental is a comedic visual novel in which you play as a judge and must determine whether the person in front of you is guilty.</p>
         <p>You play as Judge Orion and you have one task! Get to know and judge the criminal in front of you. But be careful, making the right choice is harder than it looks when the information you are given can be deceiving.</p>
-        <p>Enjoy the story of this comedic visual novel with a focus on zany humour and unexpected consequences. Interact with Andrew and get to know him in order  to determine if he is innocent or guilty. And of course, have a great time!</p>
+        <p>Enjoy the story of this comedic visual novel with a focus on zany humour and unexpected consequences. Interact with Andrew and get to know him in order to determine if he is innocent or guilty. And of course, have a great time!</p>
         <p>You will be presented with options after each dialogue. Choose the one that you think is right and see which ending you get! There are 4 endings in total. Good luck!</p>
         
         
-        <div class="image-row">
+        <div class="image-group">
             <div class="logo-section">
                 <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dev.png" alt="Judge Mental Game Art">
             </div>
@@ -189,7 +315,6 @@
         <p>This game took 4 months to make and was made in a team of 3 in Unity. I worked as the Creative Lead, the writer and the artist of the game. The first prototype was made by me in Twine. It was made to see how the story would be structured, and also to give an idea on how the game should play. The dialogue of the game was written by me and has a comedic and chaotic feel. I tried to give the players the opportunity to be as chaotic as possible. So there are many weird choices that they can choose. From guillotine sentences to romance options. My goal for this game was to make a satirical game that was absolutely insane. And I am proud to say that me and my team fully succeeded at that.</p>
         <p>The artwork of the game, the icons, the logo, the backgrounds and the characters were made by me in Procreate. I wanted the game to have a charming and simple art style that was very expressive and cartoonish. Because of this, the expressions of Andrew are exaggerated, which helps the comedic tone. I started with a finished version of the Andrew artwork and a sketch of the court room. Over time, more drawings and expressions were created for Andrew, as well as a finished version of the background image. Images for each ending were also made. The game was originally going to be bigger, but I noticed that we wouldn’t have time to make more cases and also focus on quality. So I took the decision to scrap the other cases and focus the team’s attention on the quality of the main case instead. This resulted in a way better game that runs better, has a bigger case than the original vision and more endings.</p>
         <p>I am very proud of how this game came out, and I learned a lot while making it. I learned how to make better artwork for video games. I learned how to be a leader and when to cut content for the betterment of the project. And I learned how to work better in a team.</p>
-    
     
         <div class="video-wrapper">
             <div class="video-container">
@@ -213,18 +338,10 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
         <h2>The Sea of Loss and Sorrow</h2>
         <h4>My role in development: Writer, Creative Lead, Programmer</h4>
 
-            <div class="image-row">
+            <div class="image-group">
                 <div class="logo-section">
                     <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/sea.png" alt="Judge Mental Game Art">
                 </div>
@@ -237,7 +354,6 @@
                     <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/sad.png" alt="Judge Mental Game Art">
                 </div>
             </div>
-
 
         <div class="video-wrapper">
             <div class="video-container">
@@ -264,18 +380,14 @@
             <p>It all rhymes.</p>
         </div>
         
-        
-        
-
         <h2>Machine</h2>
         <h4>My role in development: Writer, Creative Lead, Programmer</h4>
 
-            <div class="image-row">
+            <div class="image-group">
                 <div class="logo-section">
                     <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/machine.png" alt="Judge Mental Game Art">
                 </div>
             </div>
-
 
         <div class="video-wrapper">
             <div class="video-container">
@@ -290,11 +402,6 @@
 
         <p>This little experiment was made to test the physics in Unity 2D for a University assignment.</p>
 
-
-
-
-
-    
     </header>
 
     <div class="logo-section">
@@ -309,20 +416,136 @@
         <a href="https://linktr.ee/tudor.marinescu" class="music-btn">LinkTree</a>
     </div>
 
+    <!-- LIGHTBOX HTML -->
+    <div id="lightbox" class="lightbox">
+        <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
+        <div class="lb-content">
+            <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
+        </div>
+    </div>
+
     <script>
+        // --- MOBILE NAV LOGIC ---
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
-        menuBtn.onclick = () => {
-            navLinks.classList.toggle('active');
-        };
-
+        if (menuBtn && navLinks) {
+            menuBtn.onclick = () => {
+                navLinks.classList.toggle('active');
+            };
+        }
 
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
 
+        // --- LIGHTBOX & ZOOM LOGIC ---
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const mediaSections = document.querySelectorAll('.logo-section'); 
+
+        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
+        const cacheVersion = "1";
+        document.querySelectorAll('.logo-section img').forEach(img => {
+            const rawUrl = img.src;
+            img.setAttribute('data-raw', rawUrl); // Store raw high-res URL for Lightbox
+            img.loading = "lazy";
+            img.decoding = "async";
+            
+            // Clean protocol to match your gallery format setup
+            const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
+            img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
+            
+            img.onerror = () => { img.src = rawUrl; };
+        });
+
+        const resetZoom = () => {
+            lbImg.classList.remove('zoomed');
+            lbImg.style.transform = '';
+            lbImg.style.transformOrigin = 'center center';
+        };
+
+        const closeLb = () => {
+            lb.style.display = "none";
+            resetZoom();
+            lbImg.src = ""; 
+            document.body.style.overflow = "";
+        };
+
+        // Attach click and prefetch hover listeners
+        mediaSections.forEach(section => {
+            const img = section.querySelector('img');
+            if (!img) return; // Failsafe
+            
+            section.onmouseenter = () => {
+                const prefetchRaw = new Image();
+                prefetchRaw.src = img.getAttribute('data-raw');
+            };
+
+            section.onclick = () => {
+                lb.style.display = "flex";
+                resetZoom();
+                lbImg.src = img.getAttribute('data-raw'); // Load original raw clean file into lightbox
+                document.body.style.overflow = "hidden";
+            };
+        });
+
+        // Zoom and Pan Logic
+        const handlePan = (e) => {
+            if (!lbImg.classList.contains('zoomed')) return;
+            
+            const rect = lbImg.getBoundingClientRect();
+            
+            // Ensuring robust touch and click extraction
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            if (clientX === undefined || clientY === undefined) return;
+
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+
+            lbImg.style.transformOrigin = `${x}% ${y}%`;
+        };
+
+        lbImg.onclick = (e) => {
+            e.stopPropagation();
+            lbImg.classList.toggle('zoomed');
+            if (lbImg.classList.contains('zoomed')) {
+                handlePan(e);
+            } else {
+                lbImg.style.transformOrigin = 'center center';
+            }
+        };
+
+        lbImg.onmousemove = handlePan;
+        lbImg.ontouchmove = handlePan;
+
+        document.querySelector('.close-btn').onclick = closeLb;
+
+        lb.onclick = (e) => { 
+            // Ensures clicking outside the image closes the lightbox
+            if (e.target === lb || e.target.classList.contains('lb-content')) {
+                closeLb();
+            }
+        };
+
+        window.onkeydown = (e) => {
+            if (lb.style.display === "flex" && e.key === "Escape") {
+                closeLb();
+            }
+        };
+
+        // Prevent dragging/saving for lightbox image
+        document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
     </script>
 </body>
 </html>

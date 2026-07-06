@@ -30,11 +30,46 @@
             text-transform: uppercase;
         }
 
+        /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
+        .image-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 40px auto;
+            width: 100%;
+        }
+
+        /* Overrides the single section margin when part of a group */
+        .image-group .logo-section {
+            margin: 0; 
+        }
+
+        /* --- EXACT GALLERY HOVER STYLE APPLIED TO LOGO-SECTION --- */
         .logo-section {
             width: 90%;
             max-width: 600px;
             margin: 40px auto;
             text-align: center;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* PC-Only Adjustments */
+        @media screen and (min-width: 769px) {
+            .logo-section {
+                max-width: 350px;
+            }
+            
+            /* Puts consecutive images side-by-side on PC */
+            .image-group {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap; /* Allows them to wrap neatly on smaller screens */
+                gap: 40px;
+            }
         }
 
         .logo-section img {
@@ -42,6 +77,15 @@
             height: auto;
             border-radius: 12px;
             display: block;
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            will-change: transform, filter; 
+            pointer-events: none; /* Allows the section to handle the click */
+            user-select: none;
+        }
+
+        .logo-section:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.08) contrast(1.02);
         }
 
         .links-container {
@@ -86,6 +130,10 @@
 
             .menu-toggle {
                 display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                z-index: 1001;
             }
 
             .nav-links {
@@ -104,6 +152,90 @@
             .music-header {
                 padding-top: 100px; 
             }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #75BEF0;
+            display: block;
+        }
+
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .lb-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .lb-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        /* --- LIGHTBOX BUTTON CONTROLS --- */
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+
+        @media screen and (max-width: 768px) {
+            .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
     </style>
 </head>
@@ -125,145 +257,216 @@
         <div class="nav-logo">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Logo">
         </div>
-
     </nav>
 
     <header class="music-header">
         <h1>Creative Media</h1>
         <p>Welcome! Here you will find the media projects that I have worked on that aren’t related to Books, Music or Video Games. Mostly, what you will find here are the projects I’ve done in Photoshop such as ads for a student magazine (University project in the Netherlands), Photoshop posters I’ve done for fun. And a student movie in which I worked as a film editor and storyboarder! As well as that, you'll also find photos I've taken as hobbyist. Enjoy!</p>
 
-
-
-
         <h2>Echoes of Redemption</h2>
         <h4>My role in development: Story Board Artist, Film Editor</h4>
 
         <p>Echoes of Redemption is a student film that I worked on while I was a student at Breda University of Applied sciences. We were given a few weeks to make this film. We had to write the script, find actors, use the cameras, basically everything. It was a really fun and interesting experience. I learned a lot of teamwork and time management skills while working on it. It was my first ever attempt at a story board, and I’m very happy how it turned out. Me and a teammate worked on the film editing as well. I provided a rough edit in which I made the transitions and placed the clips in order and she then did the effects and touched it up to look more professional. Being on a set was an amazing experience that will be hard to forget!</p>
 
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo1.jpg" alt="Story Board">
-                </div>
+        <!-- Storyboard Images Grouped -->
+        <div class="image-group">
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo1.jpg" alt="Story Board 1">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo2.jpg" alt="Story Board">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo2.jpg" alt="Story Board 2">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo3.jpg" alt="Story Board">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo3.jpg" alt="Story Board 3">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo4.jpg" alt="Story Board">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo4.jpg" alt="Story Board 4">
             </div>
-
+        </div>
 
         <div class="video-wrapper">
-            <video width="100%" controls style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            <video width="100%" controls style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin: 20px 0;">
                 <source src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/EchoesOfRedemption.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
-
-
         <h2>Photoshop</h2>
         <h4>I am very skilled in Photoshop and I enjoy using it a lot! So in my free time, I sometimes edit a few posters. Some of them were as well fake ads for a student magazine project at the university in the Netherlands.</h4>
 
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/ExploreGreece.png" alt="Greece">
-                </div>
+        <!-- Photoshop Images Grouped -->
+        <div class="image-group">
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/ExploreGreece.png" alt="Greece">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Gucci.jpg" alt="Gucci">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Gucci.jpg" alt="Gucci">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Ferari.jpg" alt="Ferrari">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Ferari.jpg" alt="Ferrari">
             </div>
-        
-
+        </div>
 
         <h2>Photography</h2>
         <h4>I truly love taking photos because it makes me live in the moment and also gives me new game environment ideas later. So I do photography as a hobby.</h4>
 
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/rural.jpg" alt="Rural Village">
-                </div>
+        <!-- Photography Images Grouped -->
+        <div class="image-group">
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/rural.jpg" alt="Rural Village">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/river.jpg" alt="River">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/river.jpg" alt="River">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/lake.jpg" alt="Lake">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/lake.jpg" alt="Lake">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/park.jpg" alt="Park">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/park.jpg" alt="Park">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/sun.jpg" alt="Sun">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/sun.jpg" alt="Sun">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/tower.jpg" alt="Shanghai">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/tower.jpg" alt="Shanghai">
             </div>
-
-            <div class="image-row">
-                <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/red.jpg" alt="Shanghai 2">
-                </div>
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/red.jpg" alt="Shanghai 2">
             </div>
-
-
+        </div>
 
     </header>
 
-    <div class="logo-section">
-        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
+    <!-- LIGHTBOX HTML -->
+    <div id="lightbox" class="lightbox">
+        <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
+        <div class="lb-content">
+            <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
+        </div>
     </div>
 
     <script>
+        // --- MOBILE NAV LOGIC ---
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
-        menuBtn.onclick = () => {
-            navLinks.classList.toggle('active');
-        };
-
+        if (menuBtn && navLinks) {
+            menuBtn.onclick = () => {
+                navLinks.classList.toggle('active');
+            };
+        }
 
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
 
+        // --- LIGHTBOX & ZOOM LOGIC ---
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const mediaSections = document.querySelectorAll('.logo-section'); 
+
+        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
+        const cacheVersion = "1";
+        document.querySelectorAll('.logo-section img').forEach(img => {
+            const rawUrl = img.src;
+            img.setAttribute('data-raw', rawUrl); // Store raw high-res URL for Lightbox
+            img.loading = "lazy";
+            img.decoding = "async";
+            
+            // Clean protocol to match gallery format setup
+            const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
+            img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
+            
+            img.onerror = () => { img.src = rawUrl; };
+        });
+
+        const resetZoom = () => {
+            lbImg.classList.remove('zoomed');
+            lbImg.style.transform = '';
+            lbImg.style.transformOrigin = 'center center';
+        };
+
+        const closeLb = () => {
+            lb.style.display = "none";
+            resetZoom();
+            lbImg.src = ""; 
+            document.body.style.overflow = "";
+        };
+
+        // Attach click and prefetch hover listeners
+        mediaSections.forEach(section => {
+            const img = section.querySelector('img');
+            if (!img) return;
+            
+            section.onmouseenter = () => {
+                const prefetchRaw = new Image();
+                prefetchRaw.src = img.getAttribute('data-raw');
+            };
+
+            section.onclick = () => {
+                lb.style.display = "flex";
+                resetZoom();
+                lbImg.src = img.getAttribute('data-raw'); // Load original raw clean file into lightbox
+                document.body.style.overflow = "hidden";
+            };
+        });
+
+        // Zoom and Pan Logic
+        const handlePan = (e) => {
+            if (!lbImg.classList.contains('zoomed')) return;
+            
+            const rect = lbImg.getBoundingClientRect();
+            
+            // Ensuring robust touch and click extraction
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            if (clientX === undefined || clientY === undefined) return;
+
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+
+            lbImg.style.transformOrigin = `${x}% ${y}%`;
+        };
+
+        lbImg.onclick = (e) => {
+            e.stopPropagation();
+            lbImg.classList.toggle('zoomed');
+            if (lbImg.classList.contains('zoomed')) {
+                handlePan(e);
+            } else {
+                lbImg.style.transformOrigin = 'center center';
+            }
+        };
+
+        lbImg.onmousemove = handlePan;
+        lbImg.ontouchmove = handlePan;
+
+        document.querySelector('.close-btn').onclick = closeLb;
+
+        lb.onclick = (e) => { 
+            // Ensures clicking outside the image closes the lightbox
+            if (e.target === lb || e.target.classList.contains('lb-content')) {
+                closeLb();
+            }
+        };
+
+        window.onkeydown = (e) => {
+            if (lb.style.display === "flex" && e.key === "Escape") {
+                closeLb();
+            }
+        };
+
+        // Prevent dragging/saving for lightbox image
+        document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
     </script>
 </body>
 </html>
