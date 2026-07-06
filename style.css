@@ -382,3 +382,112 @@ h1[id], section[id] {
         padding: 20px;
     }
 }
+
+/* =========================================
+   6. MOBILE OPTIMIZATIONS
+   ========================================= */
+
+@media screen and (max-width: 768px) {
+    /* Navbar Toggle */
+    .menu-toggle { 
+        display: flex; 
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(16, 45, 94, 0.98); /* Deep blue matching your navbar gradient */
+        padding: 20px 0; /* More breathing room at top and bottom */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Adds a nice 3D depth to the dropdown */
+        border-bottom-left-radius: 15px; /* Rounds the bottom corners of the menu */
+        border-bottom-right-radius: 15px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .nav-links.active { 
+        display: flex; 
+    }
+    
+    /* The Mobile Buttons */
+    .nav-btn { 
+        width: 85%; /* Slightly narrowed so they don't hug the screen edges */
+        margin: 8px auto; /* More vertical space between buttons so users don't misclick */
+        text-align: center; 
+        font-size: 16px; /* Overrides the tiny desktop clamp() size */
+        padding: 14px 20px; /* Much taller tap target for fingers */
+        background: rgba(255, 255, 255, 0.05); /* Gives them a slight button shape */
+        border: 1px solid rgba(117, 190, 240, 0.2); /* Subtle blue border matching your theme */
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Gives a nice visual feedback when tapped on a touch screen */
+    .nav-btn:active {
+        transform: scale(0.96);
+        background: rgba(117, 190, 240, 0.15);
+        border-color: #75BEF0;
+    }
+
+    /* Remove the bottom border active state on mobile, use background instead */
+    .nav-btn.active {
+        border-bottom: 1px solid rgba(117, 190, 240, 0.2);
+        background: rgba(117, 190, 240, 0.1);
+        color: #75BEF0;
+    }
+
+    .sliding-image {
+        width: 80%;
+        top: 30%;
+    }
+
+    .full-gallery-grid { 
+        column-count: 2; 
+        padding: 20px 10px; 
+    }
+    
+    #Career, #Skills { 
+        padding: 40px 15px; 
+    }
+    
+    h1 { font-size: 36px; }
+    h2 { font-size: 26px; }
+}
+
+@media screen and (max-width: 480px) {
+    .full-gallery-grid { column-count: 1; }
+    
+    .logo-section {
+        min-width: 100%;
+    }
+
+    .title {
+        font-size: 28px;
+        position: relative;
+        top: 0;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(16, 45, 94, 0.98);
+        padding: 20px 0; 
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        border-bottom-left-radius: 15px; 
+        border-bottom-right-radius: 15px;
+        backdrop-filter: blur(10px);
+        
+        /* ADD THESE TWO LINES: */
+        max-height: 75vh; /* Never let the menu take up more than 75% of the screen height */
+        overflow-y: auto; /* If it exceeds 75%, let the user scroll inside the menu */
+    }
+}
