@@ -188,7 +188,9 @@
         </div>
 
         <div class="nav-logo">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Tudor Marinescu Logo">
+            <a href="index.html">
+                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png" alt="Tudor Marinescu Logo">
+            </a>
         </div>
     </nav>
 
@@ -334,7 +336,7 @@
         const handlePan = (e) => {
             if (!lbImg.classList.contains('zoomed')) return;
             
-            const rect = lbImg.getBoundingClientRect();
+            const rect = document.querySelector('.lb-content').getBoundingClientRect();
             
             let clientX, clientY;
             if (e.touches && e.touches.length > 0) {
