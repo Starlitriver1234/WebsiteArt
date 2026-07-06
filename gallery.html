@@ -354,6 +354,30 @@
         document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
         if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        lb.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lb.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            // Disable swipe if the image is currently zoomed in
+            if (lbImg.classList.contains('zoomed')) return; 
+            
+            // Swipe left (Next)
+            if (touchEndX < touchStartX - 50) move(1); 
+            // Swipe right (Previous)
+            if (touchEndX > touchStartX + 50) move(-1); 
+        }
+
     </script>
 </body>
 </html>
