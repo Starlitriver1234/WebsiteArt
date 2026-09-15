@@ -28,6 +28,15 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
+
+            /* Add transition and initial opacity for fading */
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        /* Class to trigger the fade in */
+        .music-header h1.fade-in {
+            opacity: 1;
         }
 
         /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
@@ -265,7 +274,7 @@
     </nav>
 
     <header class="music-header">
-        <h1>Creative Media</h1>
+        <h1 id="fade-title">Media</h1>
         <p>Welcome! Here you will find the media projects that I have worked on that aren’t related to Books, Music or Video Games. Mostly, what you will find here are the projects I’ve done in Photoshop such as ads for a student magazine (University project in the Netherlands), Photoshop posters I’ve done for fun. And a student movie in which I worked as a film editor and storyboarder! As well as that, you'll also find photos I've taken as hobbyist. Enjoy!</p>
 
         <h2>Echoes of Redemption</h2>
@@ -444,6 +453,33 @@
         // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+
+
+        // --- Fade logic below ---
+        
+        // Select the title element
+        const title = document.getElementById('fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Title is in the viewport, fade it in
+                    title.classList.add('fade-in');
+                } else {
+                    // Title is out of the viewport, fade it out
+                    title.classList.remove('fade-in');
+                }
+            });
+        }, {
+            // Options for the observer
+            root: null, // use the viewport as the bounding box
+            threshold: 0.1 // Trigger when at least 10% of the element is visible
+        });
+
+        // Start observing the title element
+        observer.observe(title);
+
     </script>
 </body>
 </html>

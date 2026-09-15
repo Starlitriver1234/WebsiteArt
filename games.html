@@ -28,6 +28,15 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
+
+            /* Add transition and initial opacity for fading */
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        /* Class to trigger the fade in */
+        .music-header h1.fade-in {
+            opacity: 1;
         }
 
         /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
@@ -265,7 +274,7 @@
     </nav>
 
     <header class="music-header">
-        <h1>Video Games</h1>
+        <h1 id="fade-title">Games</h1>
         <p>Welcome to the fun section! And by that I mean, the video game section! Woooo!</p>
         <p>Here you will find some info about the games I worked on and also a link to my Itch page where you can play them. You will only find a few of the games that I've made here. To see all of them and also to download and play them, please visit my Itch page. Have fun!</p>
         
@@ -551,6 +560,31 @@
         // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+
+         // --- Fade logic below ---
+        
+        // Select the title element
+        const title = document.getElementById('fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Title is in the viewport, fade it in
+                    title.classList.add('fade-in');
+                } else {
+                    // Title is out of the viewport, fade it out
+                    title.classList.remove('fade-in');
+                }
+            });
+        }, {
+            // Options for the observer
+            root: null, // use the viewport as the bounding box
+            threshold: 0.1 // Trigger when at least 10% of the element is visible
+        });
+
+        // Start observing the title element
+        observer.observe(title);
     </script>
 </body>
 </html>

@@ -28,6 +28,13 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        /* Class to trigger the fade in */
+        .music-header h1.fade-in {
+            opacity: 1;
         }
 
         /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
@@ -264,7 +271,7 @@
     </nav>
 
     <header class="music-header">
-        <h1>Books</h1>
+        <h1 id="fade-title">Books</h1>
         <p>Welcome! Here you will find info about all of the books that I have written as of this time. Some of them are in Romanian and some are in English.</p>
         <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star(Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
         <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was a joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmosphere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasant the world in it is.</p>
@@ -475,6 +482,33 @@
         // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+
+
+         // --- Fade logic below ---
+        
+        // Select the title element
+        const title = document.getElementById('fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Title is in the viewport, fade it in
+                    title.classList.add('fade-in');
+                } else {
+                    // Title is out of the viewport, fade it out
+                    title.classList.remove('fade-in');
+                }
+            });
+        }, {
+            // Options for the observer
+            root: null, // use the viewport as the bounding box
+            threshold: 0.1 // Trigger when at least 10% of the element is visible
+        });
+
+        // Start observing the title element
+        observer.observe(title);
+
     </script>
 </body>
 </html>

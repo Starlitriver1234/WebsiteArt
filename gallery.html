@@ -27,6 +27,15 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
+
+             /* Add transition and initial opacity for fading */
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        /* Class to trigger the fade in */
+        .gallery-header h1.fade-in {
+            opacity: 1;
         }
 
         .gallery-header p {
@@ -213,7 +222,7 @@
     </nav>
 
     <header class="gallery-header">
-        <h1>Gallery</h1>
+        <h1 id="fade-title">Gallery</h1>
         <p>Welcome to the Gallery!</p>
         <p>Here you will find some of the art that I've made in the past years. These artworks are from the books I've written and from the games I worked on. You can find a few sketches and levels, as well as fully finished artworks. I hope you enjoy them as much as I enjoyed making them!</p>
         <p>I am mainly a digital artist and I use Procreate as my main art app, but I am very knowledgeable in Photoshop and Clip Studio Paint as well.</p>
@@ -377,6 +386,33 @@
             // Swipe right (Previous)
             if (touchEndX > touchStartX + 50) move(-1); 
         }
+
+
+        // --- Fade logic below ---
+        
+        // Select the title element
+        const title = document.getElementById('fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Title is in the viewport, fade it in
+                    title.classList.add('fade-in');
+                } else {
+                    // Title is out of the viewport, fade it out
+                    title.classList.remove('fade-in');
+                }
+            });
+        }, {
+            // Options for the observer
+            root: null, // use the viewport as the bounding box
+            threshold: 0.1 // Trigger when at least 10% of the element is visible
+        });
+
+        // Start observing the title element
+        observer.observe(title);
+
 
     </script>
 </body>

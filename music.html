@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" href="style.css"> 
     
-<style>
+    <style>
         html { 
             background: #000; 
             scroll-behavior: smooth;
@@ -28,6 +28,15 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
+            
+            /* Add transition and initial opacity for fading */
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        /* Class to trigger the fade in */
+        .music-header h1.fade-in {
+            opacity: 1;
         }
 
         .logo-section {
@@ -148,7 +157,8 @@
     </nav>
 
     <header class="music-header">
-        <h1>Music</h1>
+        <!-- Add an ID to the h1 for easy targeting in JS -->
+        <h1 id="fade-title">Music</h1>
         <p>Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 12 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
         <p>I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
     </header>
@@ -176,11 +186,35 @@
             navLinks.classList.toggle('active');
         };
 
-
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
+
+        // --- Fade logic below ---
+        
+        // Select the title element
+        const title = document.getElementById('fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Title is in the viewport, fade it in
+                    title.classList.add('fade-in');
+                } else {
+                    // Title is out of the viewport, fade it out
+                    title.classList.remove('fade-in');
+                }
+            });
+        }, {
+            // Options for the observer
+            root: null, // use the viewport as the bounding box
+            threshold: 0.1 // Trigger when at least 10% of the element is visible
+        });
+
+        // Start observing the title element
+        observer.observe(title);
 
     </script>
 </body>

@@ -18,6 +18,26 @@
             padding: 140px 20px 20px 20px;
         }
 
+        .gallery-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        /* Fade logic classes added here */
+        .fade-title {
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        .fade-title.fade-in {
+            opacity: 1;
+        }
+
         #Skills.gallery-header, 
         #Career.gallery-header {
             padding-top: 40px;
@@ -196,7 +216,7 @@
 
     <main>
         <section id="About" class="gallery-header">
-            <h1>Who is Tudor Marinescu?</h1>
+            <h1 class="fade-title">Who is Tudor Marinescu?</h1>
             <p>Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
             
             <h2>A creator that values passion and variety</h2>
@@ -216,7 +236,9 @@
         </div>
 
         <section id="Skills" class="gallery-header">
-            <h1>Skills</h1>
+            <header class="gallery-header">
+            <h1 class="fade-title" style="text-align: center;">Skills</h1>
+            </header>
             <ul>
                 <li><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
                 <li><strong>Programming:</strong> C++, C#, HTML, CSS</li>
@@ -230,7 +252,7 @@
         </section>
 
         <section id="Career" class="gallery-header">
-            <h1>Career & Projects</h1>
+            <h1 class="fade-title">Career & Projects</h1>
             <p>Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
             <ul>
                 <li><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
@@ -386,6 +408,31 @@
         // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+
+        // --- Fade logic below ---
+        
+        // Select ALL title elements using the fade-title class
+        const titles = document.querySelectorAll('.fade-title');
+
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                } else {
+                    entry.target.classList.remove('fade-in');
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1 
+        });
+
+        // Loop through all titles and observe each one
+        titles.forEach(title => {
+            observer.observe(title);
+        });
+
     </script>
 </body>
 </html>
