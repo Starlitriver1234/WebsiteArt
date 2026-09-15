@@ -139,9 +139,23 @@ a {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    padding: 15px 20px;
-    background-image: linear-gradient(to right, rgb(0, 0, 0), #102D5E);
+    padding: 15px 20px 25px 20px; 
+    background: transparent;
     transition: transform 0.2s ease-in-out;
+}
+
+/* Asymmetric triangle background fixed to z-index: -1 so it stays behind desktop links */
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, rgb(0, 0, 0), #102D5E);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), 0 100%);
+    z-index: -1; 
+    pointer-events: none;
 }
 
 .nav-links {
@@ -187,8 +201,8 @@ a {
 /* Navbar Button Hover Effect */
 .nav-btn:hover {
     color: #75BEF0;
-    text-shadow: 0 0 10px rgba(117, 190, 240, 0.8); /* Creates a soft glow */
-    transform: translateY(-2px); /* Subtle lift effect */
+    text-shadow: 0 0 10px rgba(117, 190, 240, 0.8);
+    transform: translateY(-2px);
     transition: all 0.3s ease;
 }
 
@@ -203,6 +217,33 @@ a {
     text-align: left;
     padding: 120px 20px 40px 20px;
     max-width: 100%;
+}
+
+/* --- TITLE FADE & HOP ANIMATION --- */
+.fade-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    will-change: opacity, transform;
+}
+
+.fade-title.fade-in {
+    animation: fadeAndHop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes fadeAndHop {
+    0% {
+        opacity: 0;
+        transform: translateY(30px); /* Starts below */
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-8px); /* Small hop above the line */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);   /* Settles in place */
+    }
 }
 
 h1[id], section[id] {
@@ -281,7 +322,6 @@ h1[id], section[id] {
     align-items: center;
 }
 
-/* Ensure video containers maintain 16:9 ratio on all screens */
 .video-wrapper {
     width: 100%;
     max-width: 800px;
@@ -316,7 +356,7 @@ h1[id], section[id] {
 
 .image-row .logo-section {
     flex: 1;
-    min-width: 280px; /* Allows 2 images per row on tablets, 1 on phones */
+    min-width: 280px;
     margin: 10px auto;
 }
 
@@ -339,100 +379,97 @@ h1[id], section[id] {
    ========================================= */
 
 @media screen and (max-width: 768px) {
-    /* Navbar Toggle */
-    .menu-toggle { display: flex; }
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #151647;
-        padding: 10px 0;
-    }
-    .nav-links.active { display: flex; }
-    .nav-btn { width: 90%; margin: 5px auto; text-align: center; }
-
-    .sliding-image {
-        width: 80%;
-        top: 30%;
-    }
-
-    .full-gallery-grid { column-count: 2; padding: 20px 10px; }
     
-    #Career, #Skills { padding: 40px 15px; }
-    
-    h1 { font-size: 36px; }
-    h2 { font-size: 26px; }
-}
-
-@media screen and (max-width: 480px) {
-    .full-gallery-grid { column-count: 1; }
-    
-    .logo-section {
-        min-width: 100%;
-    }
-
-    .title {
-        font-size: 28px;
-        position: relative;
-        top: 0;
-        text-align: center;
-        padding: 20px;
-    }
-}
-
-/* =========================================
-   6. MOBILE OPTIMIZATIONS
-   ========================================= */
-
-@media screen and (max-width: 768px) {
-    /* Navbar Toggle */
+    /* --- Hamburger to 'X' Animation --- */
     .menu-toggle { 
         display: flex; 
+        z-index: 1003;
     }
     
+    .menu-toggle .bar {
+        transform-origin: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* --- Refined Smooth Slide-Down Menu --- */
     .nav-links {
-        display: none;
+        display: flex;
         flex-direction: column;
         position: absolute;
-        top: 100%;
+        top: 0;
         left: 0;
         width: 100%;
-        background: rgba(16, 45, 94, 0.98); /* Deep blue matching your navbar gradient */
-        padding: 20px 0; /* More breathing room at top and bottom */
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Adds a nice 3D depth to the dropdown */
-        border-bottom-left-radius: 15px; /* Rounds the bottom corners of the menu */
-        border-bottom-right-radius: 15px;
-        backdrop-filter: blur(10px);
+        background: rgba(16, 45, 94, 0.98);
+        padding: 90px 0 20px 0;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        border-bottom-left-radius: 16px; 
+        border-bottom-right-radius: 16px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 1;
+        
+        /* Smooth vertical slide & transition */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-100%); 
+        transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out, visibility 0.5s;
+        max-height: 85vh; 
+        overflow-y: auto; 
     }
     
     .nav-links.active { 
-        display: flex; 
-    }
-    
-    /* The Mobile Buttons */
-    .nav-btn { 
-        width: 85%; /* Slightly narrowed so they don't hug the screen edges */
-        margin: 8px auto; /* More vertical space between buttons so users don't misclick */
-        text-align: center; 
-        font-size: 16px; /* Overrides the tiny desktop clamp() size */
-        padding: 14px 20px; /* Much taller tap target for fingers */
-        background: rgba(255, 255, 255, 0.05); /* Gives them a slight button shape */
-        border: 1px solid rgba(117, 190, 240, 0.2); /* Subtle blue border matching your theme */
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0); 
     }
 
-    /* Gives a nice visual feedback when tapped on a touch screen */
+    /* --- Mobile Buttons & Staggered Cascade --- */
+    .nav-btn { 
+        width: 85%;
+        margin: 8px auto;
+        text-align: center; 
+        font-size: 16px;
+        padding: 14px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(117, 190, 240, 0.2);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
+        /* Cascading entry state */
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
+    }
+
+    /* Stagger button entrance when active */
+    .nav-links.active .nav-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
+    .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
+    .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
+    .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
+    .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
+    .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+
     .nav-btn:active {
         transform: scale(0.96);
         background: rgba(117, 190, 240, 0.15);
         border-color: #75BEF0;
     }
 
-    /* Remove the bottom border active state on mobile, use background instead */
     .nav-btn.active {
         border-bottom: 1px solid rgba(117, 190, 240, 0.2);
         background: rgba(117, 190, 240, 0.1);
@@ -470,24 +507,5 @@ h1[id], section[id] {
         top: 0;
         text-align: center;
         padding: 20px;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(16, 45, 94, 0.98);
-        padding: 20px 0; 
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-        border-bottom-left-radius: 15px; 
-        border-bottom-right-radius: 15px;
-        backdrop-filter: blur(10px);
-        
-        /* ADD THESE TWO LINES: */
-        max-height: 75vh; /* Never let the menu take up more than 75% of the screen height */
-        overflow-y: auto; /* If it exceeds 75%, let the user scroll inside the menu */
     }
 }

@@ -28,15 +28,7 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
-
-            /* Add transition and initial opacity for fading */
-            opacity: 0; 
-            transition: opacity 1s ease-in-out; 
-        }
-
-        /* Class to trigger the fade in */
-        .music-header h1.fade-in {
-            opacity: 1;
+            /* Fade logic is now handled globally in style.css */
         }
 
         /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
@@ -89,7 +81,7 @@
             display: block;
             transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
-            pointer-events: none; /* Allows the section to handle the click */
+            pointer-events: none;
             user-select: none;
         }
 
@@ -125,52 +117,100 @@
             transform: scale(1.02);
         }
 
+        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
+        .navbar::before {
+            z-index: -1; 
+            pointer-events: none;
+        }
+
+        /* --- MOBILE NAV & ANIMATIONS --- */
         @media screen and (max-width: 768px) {
-            .nav-links {
-                display: none; 
+            .menu-toggle { 
+                display: flex; 
                 flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #000;
-                padding: 20px 0;
-            }
-            .nav-links.active { display: flex; }
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #75BEF0;
-            display: block;
-        }
-
-        @media screen and (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-links {
-                z-index: 1000;
-                background: rgba(0, 0, 0, 0.95); 
-                border-bottom: 1px solid #333;
-            }
-
-            .nav-btn {
-                width: 80%;
-                margin: 10px auto;
-                text-align: center;
+                gap: 5px;
+                cursor: pointer;
+                z-index: 1003;
             }
             
+            .bar {
+                width: 25px;
+                height: 3px;
+                background-color: #75BEF0 !important;
+                display: block;
+                transform-origin: center;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .menu-toggle.is-active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .menu-toggle.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.is-active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(16, 45, 94, 0.98);
+                padding: 90px 0 20px 0;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+                border-bottom-left-radius: 16px; 
+                border-bottom-right-radius: 16px;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: -1;
+                
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-100%); 
+                transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out, visibility 0.5s;
+                max-height: 85vh; 
+                overflow-y: auto; 
+            }
+            
+            .nav-links.active { 
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0); 
+            }
+
+            .nav-btn { 
+                width: 85%;
+                margin: 8px auto;
+                text-align: center; 
+                font-size: 16px;
+                padding: 14px 20px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(117, 190, 240, 0.2);
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                display: block;
+                
+                opacity: 0;
+                transform: translateY(-8px);
+                transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
+            }
+
+            .nav-links.active .nav-btn {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
+            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
+            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
+            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
+            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
+            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+
             .music-header {
                 padding-top: 100px; 
             }
@@ -248,7 +288,6 @@
         @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
-
     </style>
 </head>
 
@@ -260,10 +299,11 @@
         <div class="nav-links">
             <a href="index.html" class="nav-btn">Home</a>
             <a href="gallery.html" class="nav-btn">Gallery</a>
-            <a href="games.html" class="nav-btn">Video Games</a>
+            <a href="games.html" class="nav-btn active">Video Games</a>
             <a href="books.html" class="nav-btn">Books</a>
             <a href="music.html" class="nav-btn">Music</a>
             <a href="media.html" class="nav-btn">Creative Media</a>
+            <a href="sketches.html" class="nav-btn">Sketches</a>
         </div>
 
         <div class="nav-logo">
@@ -274,7 +314,8 @@
     </nav>
 
     <header class="music-header">
-        <h1 id="fade-title">Games</h1>
+        <!-- CHANGED ID TO CLASS FOR GLOBALLY SYNCED FADE EFFECT -->
+        <h1 class="fade-title">Games</h1>
         <p>Welcome to the fun section! And by that I mean, the video game section! Woooo!</p>
         <p>Here you will find some info about the games I worked on and also a link to my Itch page where you can play them. You will only find a few of the games that I've made here. To see all of them and also to download and play them, please visit my Itch page. Have fun!</p>
         
@@ -306,7 +347,6 @@
         <p>You play as Judge Orion and you have one task! Get to know and judge the criminal in front of you. But be careful, making the right choice is harder than it looks when the information you are given can be deceiving.</p>
         <p>Enjoy the story of this comedic visual novel with a focus on zany humour and unexpected consequences. Interact with Andrew and get to know him in order to determine if he is innocent or guilty. And of course, have a great time!</p>
         <p>You will be presented with options after each dialogue. Choose the one that you think is right and see which ending you get! There are 4 endings in total. Good luck!</p>
-        
         
         <div class="image-group">
             <div class="logo-section">
@@ -439,16 +479,6 @@
     </div>
 
     <script>
-        // --- MOBILE NAV LOGIC ---
-        const menuBtn = document.querySelector('#mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (menuBtn && navLinks) {
-            menuBtn.onclick = () => {
-                navLinks.classList.toggle('active');
-            };
-        }
-
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
@@ -511,7 +541,6 @@
             
             const rect = document.querySelector('.lb-content').getBoundingClientRect();
             
-            // Ensuring robust touch and click extraction
             let clientX, clientY;
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
@@ -545,7 +574,6 @@
         document.querySelector('.close-btn').onclick = closeLb;
 
         lb.onclick = (e) => { 
-            // Ensures clicking outside the image closes the lightbox
             if (e.target === lb || e.target.classList.contains('lb-content')) {
                 closeLb();
             }
@@ -561,30 +589,42 @@
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
 
-         // --- Fade logic below ---
-        
-        // Select the title element
-        const title = document.getElementById('fade-title');
+        // --- Mobile Menu Toggle with Animation ---
+        const menu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelector('.nav-links');
 
-        // Create an Intersection Observer
+        if (menu && menuLinks) {
+            menu.addEventListener('click', () => {
+                menuLinks.classList.toggle('active');
+                menu.classList.toggle('is-active');
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    menuLinks.classList.remove('active');
+                    menu.classList.remove('is-active');
+                });
+            });
+        }
+
+        // --- UPDATED FADE LOGIC TO MATCH INDEX.HTML ---
+        const titles = document.querySelectorAll('.fade-title');
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Title is in the viewport, fade it in
-                    title.classList.add('fade-in');
+                    entry.target.classList.add('fade-in');
                 } else {
-                    // Title is out of the viewport, fade it out
-                    title.classList.remove('fade-in');
+                    entry.target.classList.remove('fade-in');
                 }
             });
         }, {
-            // Options for the observer
-            root: null, // use the viewport as the bounding box
-            threshold: 0.1 // Trigger when at least 10% of the element is visible
+            root: null, 
+            threshold: 0.1 
         });
 
-        // Start observing the title element
-        observer.observe(title);
+        titles.forEach(t => observer.observe(t));
+
     </script>
 </body>
 </html>

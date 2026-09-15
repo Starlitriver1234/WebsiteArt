@@ -25,16 +25,14 @@
             font-size: clamp(40px, 8vw, 70px);
             font-weight: 800;
             color: #75BEF0;
-            margin: 0;
+            margin: 40px 0 20px 0;
             letter-spacing: -2px;
             text-transform: uppercase;
-            opacity: 0; 
-            transition: opacity 1s ease-in-out; 
+            /* Fade logic is now handled globally via style.css and .fade-title */
         }
 
-        /* Class to trigger the fade in */
-        .music-header h1.fade-in {
-            opacity: 1;
+        .music-header h1:first-of-type {
+            margin-top: 0;
         }
 
         /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
@@ -122,52 +120,100 @@
             transform: scale(1.02);
         }
 
+        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
+        .navbar::before {
+            z-index: -1; 
+            pointer-events: none;
+        }
+
+        /* --- MOBILE NAV & ANIMATIONS --- */
         @media screen and (max-width: 768px) {
-            .nav-links {
-                display: none; 
+            .menu-toggle { 
+                display: flex; 
                 flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #000;
-                padding: 20px 0;
-            }
-            .nav-links.active { display: flex; }
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #75BEF0;
-            display: block;
-        }
-
-        @media screen and (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-links {
-                z-index: 1000;
-                background: rgba(0, 0, 0, 0.95); 
-                border-bottom: 1px solid #333;
-            }
-
-            .nav-btn {
-                width: 80%;
-                margin: 10px auto;
-                text-align: center;
+                gap: 5px;
+                cursor: pointer;
+                z-index: 1003;
             }
             
+            .bar {
+                width: 25px;
+                height: 3px;
+                background-color: #75BEF0 !important;
+                display: block;
+                transform-origin: center;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .menu-toggle.is-active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .menu-toggle.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.is-active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(16, 45, 94, 0.98);
+                padding: 90px 0 20px 0;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+                border-bottom-left-radius: 16px; 
+                border-bottom-right-radius: 16px;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: -1;
+                
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-100%); 
+                transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out, visibility 0.5s;
+                max-height: 85vh; 
+                overflow-y: auto; 
+            }
+            
+            .nav-links.active { 
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0); 
+            }
+
+            .nav-btn { 
+                width: 85%;
+                margin: 8px auto;
+                text-align: center; 
+                font-size: 16px;
+                padding: 14px 20px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(117, 190, 240, 0.2);
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                display: block;
+                
+                opacity: 0;
+                transform: translateY(-8px);
+                transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
+            }
+
+            .nav-links.active .nav-btn {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
+            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
+            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
+            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
+            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
+            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+
             .music-header {
                 padding-top: 100px; 
             }
@@ -245,7 +291,6 @@
         @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
-
     </style>
 </head>
 
@@ -258,9 +303,10 @@
             <a href="index.html" class="nav-btn">Home</a>
             <a href="gallery.html" class="nav-btn">Gallery</a>
             <a href="games.html" class="nav-btn">Video Games</a>
-            <a href="books.html" class="nav-btn">Books</a>
+            <a href="books.html" class="nav-btn active">Books</a>
             <a href="music.html" class="nav-btn">Music</a>
             <a href="media.html" class="nav-btn">Creative Media</a>
+            <a href="sketches.html" class="nav-btn">Sketches</a>
         </div>
 
         <div class="nav-logo">
@@ -271,14 +317,15 @@
     </nav>
 
     <header class="music-header">
-        <h1 id="fade-title">Books</h1>
+        <!-- CHANGED ID TO CLASS FOR GLOBALLY SYNCED FADE EFFECT -->
+        <h1 class="fade-title">Books</h1>
         <p>Welcome! Here you will find info about all of the books that I have written as of this time. Some of them are in Romanian and some are in English.</p>
-        <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star(Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
+        <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star (Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
         <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was a joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmosphere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasant the world in it is.</p>
         <p>Once I published Moonlit Rain in 2022, and it received some updates that added more content, I focused on my next book. Kaleo and Hayden. This is one of my most ambitious projects to date. It took three years to write and is my longest book. It is also a romance. But the focus is more on the healing of the characters through their relationship and on philosophical questions like the role of tradition in the modern world. It is set in a fantasy country and explores the themes of friendship, love, people pleasing, anxiety, overworking and grief. The book is both a charming and cozy read but also a powerful one as the arcs are more serious and emotionally impactful. This book also got a second version that removed the artwork for people who would prefer to only have the text.</p>
-        <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck in your own head, and the main theme of the book is how human connection ccan help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
+        <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck in your own head, and the main theme of the book is how human connection can help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
         
-        <h1>Books in English</h1>
+        <h1 class="fade-title">Books in English</h1>
 
         <h2>Celestial Forest</h2>
         
@@ -325,7 +372,7 @@
         <p>Read the beloved and acclaimed Dino Trilogy in this beautifully revised and translated edition, which contains all of the Dino books in one!</p>
         <p>Come to a world of magic, where toys and books are alive, and magic is real! Meet the loveable Dino, an ordinary toy with a normal life and a passion for cooking and music. Be by his side as he moves to the Muzicalo Kingdom, a land of wonder and fun, where magic toys and books live together with people in harmony. What follows is an amazing adventure of self-discovery and magic as Dino tries to uncover the secrets of the magical kingdom, meeting friends and foes alike! Join Dino on his magical adventure through mysterious and unknown lands! From beautiful songs to amazing sights, Dino will see it all! Fly through the clouds and visit floating castles, walk through jungles covered in snow, or visit a beautiful underwater city! Adventure through the unknown and meet a variety of fun characters! And most importantly, uncover the secrets of the Muzicalo Kingdom along with Dino and his friends! Also! Have fun!</p>
 
-        <h1>Books in Romanian</h1>
+        <h1 class="fade-title">Books in Romanian</h1>
 
         <!-- Grouping consecutive images -->
         <div class="image-group">
@@ -353,6 +400,7 @@
         <a href="https://www.kobo.com/ro/ro/search?query=tudor%20marinescu&ac=1&acp=tudor%20marinescu&ac.author=tudor%20marinescu&sort=Temperature&fclanguages=en&ssid=dflBJPgpukzuE8xE0wjlu&sid=adc26d36-c045-41cc-8996-404fe16b33c1" class="music-btn">Kobo English Books</a>
     </div>
 
+    <!-- Lightbox Element -->
     <div id="lightbox" class="lightbox">
         <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
         <div class="lb-content">
@@ -366,9 +414,17 @@
         const navLinks = document.querySelector('.nav-links');
 
         if (menuBtn && navLinks) {
-            menuBtn.onclick = () => {
+            menuBtn.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
-            };
+                menuBtn.classList.toggle('is-active');
+            });
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuBtn.classList.remove('is-active');
+                });
+            });
         }
 
         if (history.scrollRestoration) {
@@ -379,17 +435,16 @@
         // --- LIGHTBOX & ZOOM LOGIC ---
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
-        const bookSections = document.querySelectorAll('.logo-section'); // Targeting wrapper to match gallery style
+        const bookSections = document.querySelectorAll('.logo-section'); 
 
         // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
-            img.setAttribute('data-raw', rawUrl); // Store raw high-res URL for Lightbox
+            img.setAttribute('data-raw', rawUrl); 
             img.loading = "lazy";
             img.decoding = "async";
             
-            // Clean protocol to match your gallery format setup
             const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
             img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
             
@@ -409,10 +464,9 @@
             document.body.style.overflow = "";
         };
 
-        // Attach click and prefetch hover listeners
         bookSections.forEach(section => {
             const img = section.querySelector('img');
-            if (!img) return; // Failsafe
+            if (!img) return; 
             
             section.onmouseenter = () => {
                 const prefetchRaw = new Image();
@@ -422,7 +476,7 @@
             section.onclick = () => {
                 lb.style.display = "flex";
                 resetZoom();
-                lbImg.src = img.getAttribute('data-raw'); // Load original raw clean file into lightbox
+                lbImg.src = img.getAttribute('data-raw'); 
                 document.body.style.overflow = "hidden";
             };
         });
@@ -433,7 +487,6 @@
             
             const rect = document.querySelector('.lb-content').getBoundingClientRect();
             
-            // Ensuring robust touch and click extraction
             let clientX, clientY;
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
@@ -467,7 +520,6 @@
         document.querySelector('.close-btn').onclick = closeLb;
 
         lb.onclick = (e) => { 
-            // Ensures clicking outside the image closes the lightbox
             if (e.target === lb || e.target.classList.contains('lb-content')) {
                 closeLb();
             }
@@ -479,35 +531,26 @@
             }
         };
 
-        // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
 
+        // --- UPDATED FADE LOGIC TO MATCH OTHER PAGES ---
+        const titles = document.querySelectorAll('.fade-title');
 
-         // --- Fade logic below ---
-        
-        // Select the title element
-        const title = document.getElementById('fade-title');
-
-        // Create an Intersection Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Title is in the viewport, fade it in
-                    title.classList.add('fade-in');
+                    entry.target.classList.add('fade-in');
                 } else {
-                    // Title is out of the viewport, fade it out
-                    title.classList.remove('fade-in');
+                    entry.target.classList.remove('fade-in');
                 }
             });
         }, {
-            // Options for the observer
-            root: null, // use the viewport as the bounding box
-            threshold: 0.1 // Trigger when at least 10% of the element is visible
+            root: null, 
+            threshold: 0.1 
         });
 
-        // Start observing the title element
-        observer.observe(title);
+        titles.forEach(t => observer.observe(t));
 
     </script>
 </body>
