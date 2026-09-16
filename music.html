@@ -5,39 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tudor Marinescu | Music</title>
     
+    <meta name="description" content="Explore music albums and EPs by Tudor Marinescu, composed using GarageBand and published via RouteNote.">
+    <meta property="og:title" content="Tudor Marinescu | Music">
+    <meta property="og:description" content="Explore music albums and EPs by Tudor Marinescu, composed using GarageBand and published via RouteNote.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
     <link rel="stylesheet" href="style.css"> 
     
     <style>
         html { 
-            background: #000; 
             scroll-behavior: smooth;
         }
 
-        .fade-title {
-            opacity: 0; 
-            transform: translateX(25px);
-            transition: opacity 0.9s ease, transform 0.9s ease; 
-            will-change: opacity, transform;
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 60px 20px;
+            text-align: left;
         }
 
-        .slide-side {
-            opacity: 0;
-            transform: translateX(15px);
-            transition: opacity 0.9s ease, transform 0.9s ease;
-            will-change: opacity, transform;
+        .page-header {
+            text-align: left;
+            margin-bottom: 50px;
         }
 
-        .fade-title.fade-in, 
-        .slide-side.fade-in {
-            opacity: 1;
-            transform: translateX(0);
+        .page-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .page-header p {
+            color: #e0e0e0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            max-width: 900px;
+        }
+
+        .game-card {
+            background: rgba(18, 18, 18, 0.75);
+            border: 1px solid rgba(117, 190, 240, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            text-align: left;
+        }
+
+        .game-card:hover {
+            border-color: rgba(117, 190, 240, 0.35);
+            box-shadow: 0 15px 40px rgba(117, 190, 240, 0.1);
+        }
+
+        .game-card h2 {
+            font-family: 'Segoe UI', sans-serif;
+            color: #75BEF0;
+            font-size: clamp(28px, 5vw, 42px);
+            margin-top: 0;
+            margin-bottom: 6px;
+            letter-spacing: -1px;
+            border-bottom: 2px solid rgba(117, 190, 240, 0.2);
+            padding-bottom: 12px;
+        }
+
+        .game-card h4 {
+            color: #aaa;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .game-card p {
+            color: #e0e0e0;
+            line-height: 1.75;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .game-card p:last-child {
+            margin-bottom: 0;
         }
 
         .fade-element {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
         }
 
@@ -46,40 +111,79 @@
             transform: translateY(0);
         }
 
-        .music-header {
-            text-align: left;
-            padding: 140px 20px 20px 20px; 
-            max-width: 1400px;
-            margin: 0 auto;
+        .page-header.fade-element { transition-delay: 0.1s; }
+        .game-card:first-of-type.fade-element { transition-delay: 0.25s; }
+
+        .poem-block {
+            background: rgba(117, 190, 240, 0.05);
+            border-left: 3px solid #75BEF0;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
         }
 
-        .music-header h1 {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            font-size: clamp(40px, 8vw, 70px);
-            font-weight: 800;
-            color: #75BEF0;
-            margin: 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
+        .poem-block p {
+            margin: 8px 0;
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
 
-        .music-header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 18px;
-            margin-top: 12px;
-            line-height: 1.6;
-            max-width: 900px;
+        .video-wrapper {
+            width: 100%;
+            max-width: 850px;
+            margin: 35px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            border: 1px solid #222;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: #111;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .image-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .image-group .logo-section {
+            margin: 0; 
         }
 
         .logo-section {
-            width: 90%;
+            width: 100%;
             max-width: 600px;
-            margin: 40px auto;
+            margin: 30px auto;
             text-align: center;
             background: #111;
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
+            border: 1px solid #222;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .logo-section:focus-visible {
+            outline: 2px solid #75BEF0;
+            outline-offset: 4px;
         }
 
         .logo-section img {
@@ -87,10 +191,15 @@
             height: auto;
             border-radius: 12px;
             display: block;
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-            will-change: transform, filter, opacity; 
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            will-change: transform, filter; 
             pointer-events: none;
             user-select: none;
+        }
+
+        .logo-section:hover {
+            border-color: rgba(117, 190, 240, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
         }
 
         .logo-section:hover img {
@@ -98,8 +207,23 @@
             filter: brightness(1.08) contrast(1.02);
         }
 
+        @media screen and (min-width: 769px) {
+            .logo-section { max-width: 320px; }
+            .image-group {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap; 
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
         .links-container {
-            width: 90%;
+            width: 100%;
             max-width: 600px;
             margin: 20px auto 100px auto;
             display: flex;
@@ -110,19 +234,21 @@
         .music-btn {
             background: #111;
             color: #75BEF0;
-            padding: 20px;
+            padding: 18px 20px;
             text-decoration: none;
             border-radius: 10px;
             text-align: center;
             font-weight: bold;
             border: 1px solid #333;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .music-btn:hover {
+        .music-btn:hover, .music-btn:focus-visible {
             background: #75BEF0;
             color: #000;
             transform: scale(1.02);
+            border-color: #75BEF0;
+            outline: none;
         }
 
         .navbar::before {
@@ -130,81 +256,9 @@
             pointer-events: none;
         }
 
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            user-select: none;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            touch-action: none;
-        }
-
-        .lb-content {
-            position: relative;
-            width: 90vw;
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        .lb-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            cursor: zoom-in;
-            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-origin: center center;
-            will-change: transform;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        .lb-content img.zoomed {
-            transform: scale(2.5);
-            cursor: zoom-out;
-        }
-
-        .control-btn {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.12);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            transition: background 0.2s, transform 0.1s;
-            z-index: 10001;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .control-btn:active {
-            transform: scale(0.92);
-        }
-
-        .close-btn { top: 20px; right: 20px; font-size: 28px; }
-
         @media screen and (max-width: 768px) {
-            .music-header {
-                padding-top: 110px;
-            }
+            .games-container { padding: 100px 15px 60px 15px; }
+            .game-card { padding: 25px 20px; border-radius: 12px; }
 
             .menu-toggle { 
                 display: flex; 
@@ -223,15 +277,9 @@
                 transition: all 0.3s ease-in-out;
             }
 
-            .menu-toggle.is-active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .menu-toggle.is-active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            .menu-toggle.is-active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
             .nav-links {
                 display: flex;
@@ -278,18 +326,81 @@
                 transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
             }
 
-            .nav-links.active .nav-btn {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            .nav-links.active .nav-btn { opacity: 1; transform: translateY(0); }
+            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
+            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
+            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
+            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
+            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
+            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+        }
 
-            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.10s; }
-            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.14s; }
-            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.18s; }
-            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.22s; }
-            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.26s; }
-            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.30s; }
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
 
+        .lb-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .lb-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover, .control-btn:focus-visible {
+            background: rgba(255, 255, 255, 0.25);
+            outline: none;
+        }
+
+        .control-btn:active { transform: scale(0.95); }
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+
+        @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
 
@@ -299,49 +410,25 @@
         }
 
         html {
-            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+            min-height: 100vh;
         }
 
         body {
             margin: 0;
             padding: 0;
             overflow-x: clip; 
-            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            min-height: 100vh;
             display: flow-root;
         }
-
-        .games-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 140px 20px 60px 20px;
-            text-align: left;
-        }
-
-        .page-header h1 {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: clamp(40px, 8vw, 70px);
-            font-weight: 800;
-            color: #75BEF0;
-            margin: 0 0 20px 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-        }
-
-        .page-header p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 18px;
-        margin-top: 12px;
-        line-height: 1.6;
-        max-width: 900px;
-    }
-
     </style>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
         <div class="nav-links">
             <a href="index.html" class="nav-btn">Home</a>
@@ -359,14 +446,25 @@
             </a>
         </div>
     </nav>
-    <main class="games-container">
-        <div class="page-header">
-            <h1 class="fade-title">Music</h1>
-            <p class="slide-side">Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 12 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
-            <p class="slide-side">I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
-        </div>
-    </main>
 
+    <main class="games-container">
+        <!-- PAGE INTRO HEADER -->
+        <header class="page-header fade-element">
+            <h1>Music</h1>
+            <p>Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 13 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
+            
+        </header>
+
+        <!-- MUSIC SECTION 1: COMPOSITION & INSPIRATION -->
+        <section class="game-card fade-element">
+            <h2>Music of Mysteries</h2>
+            <h4>Creativity through Sound</h4>
+            <p>I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
+            <p>Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! Writing is my favourite as I am able to tell beautiful tales with exciting adventures and fun characters! I love making illustrations for my stories with vibrant colours that reflect the vibe of the book and even a soundtrack to go along with them. Making music is a very fun and relaxing activity. I absolutely adore it! With every song I try to capture the magical emotions we feel every day or the wonderful adventure of a story told through sound! I really hope you will enjoy all of my stories and musical creations as much as I enjoy making them! Have an amazing day or night!</p>
+            <p></p>
+        </section>
+
+        <!-- FOOTER SECTION -->
     <div class="logo-section fade-element">
         <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
     </div>
@@ -381,161 +479,165 @@
         <a href="https://www.qobuz.com/dk-en/interpreter/tudor-marinescu/20205280" class="music-btn">Qobuz</a>
         <a href="https://linktr.ee/tudor.marinescu" class="music-btn">LinkTree</a>
     </div>
+    </main>
 
-    <!-- Lightbox Element -->
-    <div id="lightbox" class="lightbox">
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview modal">
         <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
         <div class="lb-content">
-            <img id="lightbox-img" src="" alt="Full Artwork View" oncontextmenu="return false;" ondragstart="return false;">
+            <img id="lightbox-img" src="" alt="Full Artwork View">
         </div>
     </div>
 
     <script>
-        const cacheVersion = "1";
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
-        const bookSections = document.querySelectorAll('.logo-section'); 
-
-        const textElements = document.querySelectorAll('.fade-title, .slide-side');
-        const textObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                } else {
-                    entry.target.classList.remove('fade-in');
-                }
-            });
-        }, {
-            root: null,
-            threshold: 0.1 
-        });
-
-        textElements.forEach(el => {
-            textObserver.observe(el);
-        });
-
-        const scrollObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            root: null,
-            threshold: 0.05,
-            rootMargin: '0px 0px 100px 0px'
-        });
-
-        document.querySelectorAll('.fade-element').forEach(el => {
-            scrollObserver.observe(el);
-        });
-
-        // COMPRESSION APPLIED TO PREVIEW IMAGES
-        document.querySelectorAll('.logo-section img').forEach(img => {
-            const rawUrl = img.src;
-            img.setAttribute('data-raw', rawUrl); 
-            img.loading = "lazy";
-            img.decoding = "async";
-            
-            const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
-            img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
-            
-            img.onerror = () => { img.src = rawUrl; };
-        });
-
-        // LIGHTBOX & ZOOM LOGIC
-        const resetZoom = () => {
-            lbImg.classList.remove('zoomed');
-            lbImg.style.transform = '';
-            lbImg.style.transformOrigin = 'center center';
-        };
-
-        const closeLb = () => {
-            lb.style.display = "none";
-            resetZoom();
-            lbImg.src = ""; 
-            document.body.style.overflow = "";
-        };
-
-        bookSections.forEach(section => {
-            const img = section.querySelector('img');
-            if (!img) return; 
-            
-            section.onmouseenter = () => {
-                const prefetchRaw = new Image();
-                prefetchRaw.src = img.getAttribute('data-raw');
-            };
-
-            section.onclick = () => {
-                lb.style.display = "flex";
-                resetZoom();
-                lbImg.src = img.getAttribute('data-raw'); 
-                document.body.style.overflow = "hidden";
-            };
-        });
-
-        // Zoom and Pan Logic
-        const handlePan = (e) => {
-            if (!lbImg.classList.contains('zoomed')) return;
-            
-            const rect = document.querySelector('.lb-content').getBoundingClientRect();
-            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-            
-            if (!clientX || !clientY) return;
-
-            const x = ((clientX - rect.left) / rect.width) * 100;
-            const y = ((clientY - rect.top) / rect.height) * 100;
-
-            lbImg.style.transformOrigin = `${x}% ${y}%`;
-        };
-
-        lbImg.onclick = (e) => {
-            e.stopPropagation();
-            lbImg.classList.toggle('zoomed');
-            if (lbImg.classList.contains('zoomed')) {
-                handlePan(e);
-            } else {
-                lbImg.style.transformOrigin = 'center center';
+        document.addEventListener('DOMContentLoaded', () => {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
             }
-        };
+            window.scrollTo(0, 0);
 
-        lbImg.onmousemove = handlePan;
-        lbImg.ontouchmove = handlePan;
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.close-btn');
+            const mediaSections = document.querySelectorAll('.logo-section'); 
+            let activeTriggerElement = null;
 
-        document.querySelector('.close-btn').onclick = closeLb;
+            const cacheVersion = "1";
 
-        lb.onclick = (e) => { 
-            if (e.target === lb || e.target.className === 'lb-content') closeLb();
-        };
+            mediaSections.forEach(section => {
+                const img = section.querySelector('img');
+                if (!img) return;
 
-        // NAVIGATION MENU
-        const menuBtn = document.querySelector('#mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
+                const rawUrl = img.src;
+                img.setAttribute('data-raw', rawUrl);
+                img.loading = "lazy";
+                img.decoding = "async";
+                
+                const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
+                img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
+                img.onerror = () => { img.src = rawUrl; };
 
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                menuBtn.classList.toggle('is-active');
-            });
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    menuBtn.classList.remove('is-active');
+                section.setAttribute('role', 'button');
+                section.setAttribute('tabindex', '0');
+                section.setAttribute('aria-label', `Enlarge preview of ${img.alt || 'artwork'}`);
+
+                section.addEventListener('mouseenter', () => {
+                    const prefetchRaw = new Image();
+                    prefetchRaw.src = img.getAttribute('data-raw');
+                });
+
+                const openLightbox = () => {
+                    activeTriggerElement = section;
+                    lb.style.display = "flex";
+                    resetZoom();
+                    lbImg.src = img.getAttribute('data-raw');
+                    document.body.style.overflow = "hidden";
+                    closeBtn.focus();
+                };
+
+                section.addEventListener('click', openLightbox);
+                section.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLightbox();
+                    }
                 });
             });
-        }
 
-        window.onkeydown = (e) => {
-            if (lb.style.display === "flex" && e.key === "Escape") closeLb();
-        };
+            const resetZoom = () => {
+                lbImg.classList.remove('zoomed');
+                lbImg.style.transform = '';
+                lbImg.style.transformOrigin = 'center center';
+            };
 
-        document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
-        document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+            const closeLb = () => {
+                lb.style.display = "none";
+                resetZoom();
+                lbImg.src = ""; 
+                document.body.style.overflow = "";
+                if (activeTriggerElement) activeTriggerElement.focus();
+            };
 
-        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+            closeBtn.addEventListener('click', closeLb);
+
+            lb.addEventListener('click', (e) => {
+                if (e.target === lb || e.target.classList.contains('lb-content')) {
+                    closeLb();
+                }
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (lb.style.display === "flex" && e.key === "Escape") {
+                    closeLb();
+                }
+            });
+
+            const handlePan = (e) => {
+                if (!lbImg.classList.contains('zoomed')) return;
+                
+                const rect = document.querySelector('.lb-content').getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                if (clientX === undefined || clientY === undefined) return;
+
+                const x = ((clientX - rect.left) / rect.width) * 100;
+                const y = ((clientY - rect.top) / rect.height) * 100;
+
+                lbImg.style.transformOrigin = `${x}% ${y}%`;
+            };
+
+            lbImg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lbImg.classList.toggle('zoomed');
+                if (lbImg.classList.contains('zoomed')) {
+                    handlePan(e);
+                } else {
+                    lbImg.style.transformOrigin = 'center center';
+                }
+            });
+
+            lbImg.addEventListener('mousemove', handlePan);
+            lbImg.addEventListener('touchmove', handlePan, { passive: true });
+
+            lbImg.addEventListener('contextmenu', (e) => e.preventDefault());
+            lbImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+            const menu = document.getElementById('mobile-menu');
+            const menuLinks = document.querySelector('.nav-links');
+
+            if (menu && menuLinks) {
+                menu.addEventListener('click', () => {
+                    menuLinks.classList.toggle('active');
+                    menu.classList.toggle('is-active');
+                });
+
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        menuLinks.classList.remove('active');
+                        menu.classList.remove('is-active');
+                    });
+                });
+            }
+
+            const fadeElements = document.querySelectorAll('.fade-element');
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            fadeElements.forEach(el => scrollObserver.observe(el));
+
+            setTimeout(() => {
+                const header = document.querySelector('.page-header');
+                const firstGame = document.querySelector('.game-card');
+                if (header) header.classList.add('is-visible');
+                if (firstGame) firstGame.classList.add('is-visible');
+            }, 50);
+        });
     </script>
 </body>
 </html>
