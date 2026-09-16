@@ -246,6 +246,17 @@
         @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
+
+        /* --- CSS RESET & OVERFLOW FIX --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: clip; 
+        }
     </style>
 </head>
 
@@ -506,6 +517,7 @@
         animatedElements.forEach(el => {
             observer.observe(el);
         });
+        
     </script>
 </body>
 </html>
