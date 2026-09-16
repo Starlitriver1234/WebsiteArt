@@ -53,56 +53,56 @@
         }
 
         /* --- LINE-BY-LINE GRID (NATURAL ASPECT RATIO) --- */
-.full-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-    gap: 25px;
-    align-items: start; /* Prevents stretching; keeps natural image heights */
-    padding: 30px 5% 50px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
+        .full-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+            gap: 25px;
+            align-items: start; /* Prevents stretching; keeps natural image heights */
+            padding: 30px 5% 50px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-/* Responsive row columns */
-@media screen and (max-width: 1100px) {
-    .full-gallery-grid { grid-template-columns: repeat(3, 1fr); }
-}
+        /* Responsive row columns */
+        @media screen and (max-width: 1100px) {
+            .full-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
 
-@media screen and (max-width: 768px) {
-    .full-gallery-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px;
-        padding: 20px 4% 40px 4%;
-    } 
-    .gallery-header { padding-top: 110px; }
-}
+        @media screen and (max-width: 768px) {
+            .full-gallery-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 15px;
+                padding: 20px 4% 40px 4%;
+            } 
+            .gallery-header { padding-top: 110px; }
+        }
 
-@media screen and (max-width: 480px) {
-    .full-gallery-grid { grid-template-columns: repeat(1, 1fr); }
-}
+        @media screen and (max-width: 480px) {
+            .full-gallery-grid { grid-template-columns: repeat(1, 1fr); }
+        }
 
-.art-card {
-    background: #111;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
-    transform: translateZ(0);
-}
+        .art-card {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transform: translateZ(0);
+        }
 
-.art-card img {
-    width: 100%;
-    height: auto; /* Preserves exact aspect ratio */
-    display: block;
-    border-radius: 12px;
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-    will-change: transform, filter, opacity; 
-    pointer-events: none; 
-    user-select: none;
-}
+        .art-card img {
+            width: 100%;
+            height: auto; /* Preserves exact aspect ratio */
+            display: block;
+            border-radius: 12px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+            will-change: transform, filter, opacity; 
+            pointer-events: none; 
+            user-select: none;
+        }
 
         @media screen and (max-width: 600px) { 
             .full-gallery-grid { 
@@ -322,6 +322,13 @@
             .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
         }
+
+        /* --- REMOVE MOBILE TAP HIGHLIGHT --- */
+        button, a, .menu-toggle, .art-card, .control-btn {
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
     </style>
 </head>
 
