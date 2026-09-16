@@ -21,6 +21,7 @@ body {
     background-attachment: scroll;
 }
 
+
 h1 {
     font-family: 'Segoe UI', sans-serif;
     font-size: clamp(40px, 8vw, 70px);

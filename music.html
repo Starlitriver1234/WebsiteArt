@@ -292,6 +292,41 @@
 
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
+
+        /* --- CSS RESET & OVERFLOW FIX --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: clip; 
+            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            display: flow-root;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 60px 20px;
+            text-align: left;
+        }
+
+        .page-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
     </style>
 </head>
 
@@ -316,12 +351,13 @@
             </a>
         </div>
     </nav>
-
-    <header class="music-header">
+    <main class="games-container">
+    <header>
         <h1 class="fade-title">Music</h1>
         <p class="slide-side">Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 12 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
         <p class="slide-side">I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
     </header>
+    </main>
 
     <div class="logo-section fade-element">
         <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">

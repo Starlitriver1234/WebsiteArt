@@ -392,10 +392,16 @@
             box-sizing: border-box;
         }
 
+        html {
+            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+        }
+
         body {
             margin: 0;
             padding: 0;
             overflow-x: clip; 
+            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            display: flow-root;
         }
     </style>
 </head>

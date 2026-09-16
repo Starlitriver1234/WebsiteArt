@@ -252,10 +252,33 @@
             box-sizing: border-box;
         }
 
+        html {
+            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+        }
+
         body {
             margin: 0;
             padding: 0;
             overflow-x: clip; 
+            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            display: flow-root;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 60px 20px;
+            text-align: left;
+        }
+
+        .page-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -285,8 +308,8 @@
         </div>
     </nav>
 
-    <main>
-        <section id="About" class="gallery-header">
+     <main class="games-container">
+        <section id="About">
             <h1 class="fade-title">Who is Tudor Marinescu?</h1>
             <p class="slide-side">Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
             
