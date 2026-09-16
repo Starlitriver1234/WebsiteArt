@@ -144,7 +144,6 @@ a {
     transition: transform 0.2s ease-in-out;
 }
 
-/* Asymmetric triangle background fixed to z-index: -1 so it stays behind desktop links */
 .navbar::before {
     content: "";
     position: absolute;
@@ -401,7 +400,6 @@ h1[id], section[id] {
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* --- Refined Smooth Slide-Down Menu --- */
     .nav-links {
         display: flex;
         flex-direction: column;
@@ -417,8 +415,6 @@ h1[id], section[id] {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         z-index: 1;
-        
-        /* Smooth vertical slide & transition */
         opacity: 0;
         visibility: hidden;
         transform: translateY(-100%); 
@@ -433,7 +429,6 @@ h1[id], section[id] {
         transform: translateY(0); 
     }
 
-    /* --- Mobile Buttons & Staggered Cascade --- */
     .nav-btn { 
         width: 85%;
         margin: 8px auto;
@@ -445,13 +440,11 @@ h1[id], section[id] {
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         
-        /* Cascading entry state */
         opacity: 0;
         transform: translateY(-8px);
         transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
     }
 
-    /* Stagger button entrance when active */
     .nav-links.active .nav-btn {
         opacity: 1;
         transform: translateY(0);

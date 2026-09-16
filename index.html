@@ -28,14 +28,24 @@
             text-transform: uppercase;
         }
 
-        /* Fade logic classes added here */
         .fade-title {
             opacity: 0; 
-            transition: opacity 1s ease-in-out; 
+            transform: translateX(25px);
+            transition: opacity 0.9s ease, transform 0.9s ease; 
+            will-change: opacity, transform;
         }
 
-        .fade-title.fade-in {
+        .slide-side {
+            opacity: 0;
+            transform: translateX(15px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+            will-change: opacity, transform;
+        }
+
+        .fade-title.fade-in, 
+        .slide-side.fade-in {
             opacity: 1;
+            transform: translateX(0);
         }
 
         #Skills.gallery-header, 
@@ -69,13 +79,11 @@
             filter: brightness(1.08) contrast(1.02);
         }
 
-        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
         .navbar::before {
             z-index: -1; 
             pointer-events: none;
         }
 
-        /* --- MOBILE NAV & ANIMATIONS --- */
         @media screen and (max-width: 768px) {
             .menu-toggle {
                 display: flex;
@@ -120,7 +128,6 @@
                 -webkit-backdrop-filter: blur(12px);
                 z-index: -1; 
                 
-                /* Smooth Slide Setup */
                 opacity: 0;
                 visibility: hidden;
                 transform: translateY(-100%);
@@ -169,7 +176,6 @@
             }
         }
 
-        /* --- LIGHTBOX MODAL --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -209,7 +215,6 @@
             cursor: zoom-out;
         }
 
-        /* --- LIGHTBOX BUTTON CONTROLS --- */
         .control-btn {
             position: absolute;
             background: rgba(255, 255, 255, 0.1);
@@ -272,56 +277,56 @@
     <main>
         <section id="About" class="gallery-header">
             <h1 class="fade-title">Who is Tudor Marinescu?</h1>
-            <p>Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
+            <p class="slide-side">Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
             
-            <h2>A creator that values passion and variety</h2>
-            <p>Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects—from games I made at university to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything as long as it sparks my creativity. And with dreams and determination, you can achieve anything!</p>
-            <p>I wrote quite a few novels which I published on Amazon, Google Play and Kobo, and I also composed a few albums, which are also published online. I’m a self-published author and also an indie musician. But my biggest passion has to be video games. I love creating worlds for people to explore and making something that brings people to feel a myriad of emotions.</p>
+            <h2 class="slide-side">A creator that values passion and variety</h2>
+            <p class="slide-side">Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects—from games I made at university to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything as long as it sparks my creativity. And with dreams and determination, you can achieve anything!</p>
+            <p class="slide-side">I wrote quite a few novels which I published on Amazon, Google Play and Kobo, and I also composed a few albums, which are also published online. I’m a self-published author and also an indie musician. But my biggest passion has to be video games. I love creating worlds for people to explore and making something that brings people to feel a myriad of emotions.</p>
             
-            <h2>A hard-working student</h2>
-            <p>I am an alumnus of the most prestigious Computer Science high school in Romania, The Gheorghe Lazar National College. I also studied for a year in the Netherlands at Breda University of Applied Sciences, where I studied Creative Business. I liked it a lot, but I always knew my true calling was video games. So I changed to TU Dublin and have been creating games ever since.</p>
+            <h2 class="slide-side">A hard-working student</h2>
+            <p class="slide-side">I am an alumnus of the most prestigious Computer Science high school in Romania, The Gheorghe Lazar National College. I also studied for a year in the Netherlands at Breda University of Applied Sciences, where I studied Creative Business. I liked it a lot, but I always knew my true calling was video games. So I changed to TU Dublin and have been creating games ever since.</p>
             
-            <h2>A multi-cultural person</h2>
-            <p>I am trilingual. Of course, I am native in Romanian, but I am also certified C2 in English and certified A2 in French. I try my best to learn to speak as many languages as possible since the more perspectives I learn, the more ideas I have for my art. This is why I also enjoy travelling a lot. I have been to many places, visiting most of Europe, as well as countries like Egypt and China.</p>
+            <h2 class="slide-side">A multi-cultural person</h2>
+            <p class="slide-side">I am trilingual. Of course, I am native in Romanian, but I am also certified C2 in English and certified A2 in French. I try my best to learn to speak as many languages as possible since the more perspectives I learn, the more ideas I have for my art. This is why I also enjoy travelling a lot. I have been to many places, visiting most of Europe, as well as countries like Egypt and China.</p>
         </section>
 
         <div class="logo-section">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Tudor.jpg" alt="Photo of Tudor Marinescu">
-            <h2 style="margin-top: 20px;">Creativity is the Key</h2>
+            <h2 class="slide-side" style="margin-top: 20px;">Creativity is the Key</h2>
         </div>
 
         <section id="Skills" class="gallery-header">
             <header class="gallery-header">
-            <h1 class="fade-title" style="text-align: center;">Skills</h1>
+                <h1 class="fade-title" style="text-align: center;">Skills</h1>
             </header>
             <ul>
-                <li><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
-                <li><strong>Programming:</strong> C++, C#, HTML, CSS</li>
-                <li><strong>Creative Writing</strong></li>
-                <li><strong>Languages:</strong> Trilingual (Native Romanian, C2 English, A2 French)</li>
-                <li><strong>Software:</strong> Photoshop, Illustrator, Procreate, GarageBand</li>
-                <li><strong>Professional Skills:</strong> Publishing and Leadership</li>
+                <li class="slide-side"><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
+                <li class="slide-side"><strong>Programming:</strong> C++, C#, HTML, CSS</li>
+                <li class="slide-side"><strong>Creative Writing</strong></li>
+                <li class="slide-side"><strong>Languages:</strong> Trilingual (Native Romanian, C2 English, A2 French)</li>
+                <li class="slide-side"><strong>Software:</strong> Photoshop, Illustrator, Procreate, GarageBand</li>
+                <li class="slide-side"><strong>Professional Skills:</strong> Publishing and Leadership</li>
             </ul>
-            <p><a href="https://linktr.ee/tudor.marinescu" target="_blank" rel="noopener noreferrer">Visit my LinkTree</a></p>
-            <p><a href="https://www.youtube.com/@TudorMarinescu123" target="_blank" rel="noopener noreferrer">Visit my YouTube Channel</a></p>
+            <p class="slide-side"><a href="https://linktr.ee/tudor.marinescu" target="_blank" rel="noopener noreferrer">Visit my LinkTree</a></p>
+            <p class="slide-side"><a href="https://www.youtube.com/@TudorMarinescu123" target="_blank" rel="noopener noreferrer">Visit my YouTube Channel</a></p>
         </section>
 
         <section id="Career" class="gallery-header">
             <h1 class="fade-title">Career & Projects</h1>
-            <p>Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
+            <p class="slide-side">Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
             <ul>
-                <li><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
-                <li><strong>Music:</strong> I composed and published 12 albums and 10 EPs.</li>
-                <li><strong>Game Design:</strong> Developed 12 video games and 1 board game.</li>
-                <li><strong>Film:</strong> I worked as a storyboard artist and editor for a student film.</li>
-                <li><strong>Leadership:</strong> I was the Creative Director and Project Lead on multiple game projects.</li>
-                <li><strong>Programming:</strong> I made a personality test using C++.</li>
+                <li class="slide-side"><strong>Literature:</strong> I wrote and self-published 8 books (5 in English, 3 in Romanian).</li>
+                <li class="slide-side"><strong>Music:</strong> I composed and published 12 albums and 10 EPs.</li>
+                <li class="slide-side"><strong>Game Design:</strong> Developed 12 video games and 1 board game.</li>
+                <li class="slide-side"><strong>Film:</strong> I worked as a storyboard artist and editor for a student film.</li>
+                <li class="slide-side"><strong>Leadership:</strong> I was the Creative Director and Project Lead on multiple game projects.</li>
+                <li class="slide-side"><strong>Programming:</strong> I made a personality test using C++.</li>
             </ul>
         </section>
 
         <div class="logo-section">
             <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Photo.jpg" alt="Tudor's Creative Setup">
-            <h2 style="margin-top: 20px;">With dreams and determination, you can achieve anything</h2>
+            <h2 class="slide-side" style="margin-top: 20px;">With dreams and determination, you can achieve anything</h2>
         </div>
 
         <div class="logo-section">
@@ -329,7 +334,6 @@
         </div>
     </main>
 
-    <!-- LIGHTBOX HTML -->
     <div id="lightbox" class="lightbox">
         <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
         <div class="lb-content">
@@ -343,13 +347,11 @@
         const navLinks = document.querySelector('.nav-links');
 
         if (menuBtn && navLinks) {
-            // Toggle menu open/close and trigger burger animation (X)
             menuBtn.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
                 menuBtn.classList.toggle('is-active');
             });
             
-            // Close the menu automatically when a link is clicked
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     navLinks.classList.remove('active');
@@ -358,8 +360,6 @@
             });
         }
 
-
-        // Reset Scroll on Refresh
         if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
@@ -370,7 +370,6 @@
         const lbImg = document.getElementById('lightbox-img');
         const mediaSections = document.querySelectorAll('.logo-section'); 
 
-        // --- GALLERY COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
@@ -466,8 +465,8 @@
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
 
-        // --- Fade logic below ---
-        const titles = document.querySelectorAll('.fade-title');
+        // --- INTERSECTION OBSERVER FOR SIDE-SLIDING TEXT ---
+        const animatedElements = document.querySelectorAll('.fade-title, .slide-side');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -482,10 +481,9 @@
             threshold: 0.1 
         });
 
-        titles.forEach(title => {
-            observer.observe(title);
+        animatedElements.forEach(el => {
+            observer.observe(el);
         });
-
     </script>
 </body>
 </html>

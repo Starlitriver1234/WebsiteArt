@@ -6,7 +6,6 @@
     <title>Tudor Marinescu | Creative Media</title>
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
-    
     <link rel="stylesheet" href="style.css"> 
     
     <style>
@@ -15,9 +14,43 @@
             scroll-behavior: smooth;
         }
 
+        .fade-title {
+            opacity: 0; 
+            transform: translateX(25px);
+            transition: opacity 0.9s ease, transform 0.9s ease; 
+            will-change: opacity, transform;
+        }
+
+        .slide-side {
+            opacity: 0;
+            transform: translateX(15px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+            will-change: opacity, transform;
+        }
+
+        .fade-title.fade-in, 
+        .slide-side.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .fade-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .music-header {
             text-align: left;
             padding: 140px 20px 20px 20px; 
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .music-header h1 {
@@ -28,10 +61,24 @@
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
-            /* Fade logic is now handled globally in style.css */
         }
 
-        /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
+        .music-header h2 {
+            color: #75BEF0;
+            margin-top: 50px;
+        }
+
+        .music-header h4 {
+            color: #a0c4df;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .music-header p {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
         .image-group {
             display: flex;
             flex-direction: column;
@@ -41,36 +88,32 @@
             width: 100%;
         }
 
-        /* Overrides the single section margin when part of a group */
         .image-group .logo-section {
             margin: 0; 
         }
 
-        /* --- EXACT GALLERY HOVER STYLE APPLIED TO LOGO-SECTION --- */
         .logo-section {
             width: 90%;
-            max-width: 600px; /* Default for mobile */
+            max-width: 650px;
             margin: 40px auto;
             text-align: center;
             background: #111;
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        /* PC-Only Adjustments */
         @media screen and (min-width: 769px) {
-            /* Makes the images smaller on PC */
             .logo-section {
                 max-width: 350px;
             }
             
-            /* Puts consecutive images side-by-side on PC */
             .image-group {
                 flex-direction: row;
                 justify-content: center;
-                flex-wrap: wrap; /* Allows them to wrap neatly on smaller screens */
-                gap: 40px;
+                flex-wrap: wrap;
+                gap: 30px;
             }
         }
 
@@ -90,40 +133,16 @@
             filter: brightness(1.08) contrast(1.02);
         }
 
-        .links-container {
-            width: 90%;
-            max-width: 600px;
-            margin: 20px auto 100px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .video-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
         }
 
-        .music-btn {
-            background: #111;
-            color: #75BEF0;
-            padding: 20px;
-            text-decoration: none;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #333;
-            transition: 0.3s;
-        }
-
-        .music-btn:hover {
-            background: #75BEF0;
-            color: #000;
-            transform: scale(1.02);
-        }
-
-        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
         .navbar::before {
             z-index: -1; 
             pointer-events: none;
         }
 
-        /* --- MOBILE NAV & ANIMATIONS --- */
         @media screen and (max-width: 768px) {
             .menu-toggle { 
                 display: flex; 
@@ -204,19 +223,11 @@
                 transform: translateY(0);
             }
 
-            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
-            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
-            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
-            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
-            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
-            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
-
             .music-header {
                 padding-top: 100px; 
             }
         }
 
-        /* --- LIGHTBOX MODAL --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -256,7 +267,6 @@
             cursor: zoom-out;
         }
 
-        /* --- LIGHTBOX BUTTON CONTROLS --- */
         .control-btn {
             position: absolute;
             background: rgba(255, 255, 255, 0.1);
@@ -314,17 +324,16 @@
     </nav>
 
     <header class="music-header">
-        <!-- ADDED fade-title CLASS -->
         <h1 class="fade-title">Media</h1>
-        <p>Welcome! Here you will find the media projects that I have worked on that aren’t related to Books, Music or Video Games. Mostly, what you will find here are the projects I’ve done in Photoshop such as ads for a student magazine (University project in the Netherlands), Photoshop posters I’ve done for fun. And a student movie in which I worked as a film editor and storyboarder! As well as that, you'll also find photos I've taken as hobbyist. Enjoy!</p>
+        <p class="slide-side">Welcome! Here you will find the media projects that I have worked on that aren’t related to Books, Music or Video Games. Mostly, what you will find here are the projects I’ve done in Photoshop such as ads for a student magazine (University project in the Netherlands), Photoshop posters I’ve done for fun. And a student movie in which I worked as a film editor and storyboarder! As well as that, you'll also find photos I've taken as hobbyist. Enjoy!</p>
 
-        <h2>Echoes of Redemption</h2>
-        <h4>My role in development: Story Board Artist, Film Editor</h4>
+        <h2 class="slide-side">Echoes of Redemption</h2>
+        <h4 class="slide-side">My role in development: Story Board Artist, Film Editor</h4>
 
-        <p>Echoes of Redemption is a student film that I worked on while I was a student at Breda University of Applied sciences. We were given a few weeks to make this film. We had to write the script, find actors, use the cameras, basically everything. It was a really fun and interesting experience. I learned a lot of teamwork and time management skills while working on it. It was my first ever attempt at a story board, and I’m very happy how it turned out. Me and a teammate worked on the film editing as well. I provided a rough edit in which I made the transitions and placed the clips in order and she then did the effects and touched it up to look more professional. Being on a set was an amazing experience that will be hard to forget!</p>
+        <p class="slide-side">Echoes of Redemption is a student film that I worked on while I was a student at Breda University of Applied sciences. We were given a few weeks to make this film. We had to write the script, find actors, use the cameras, basically everything. It was a really fun and interesting experience. I learned a lot of teamwork and time management skills while working on it. It was my first ever attempt at a story board, and I’m very happy how it turned out. Me and a teammate worked on the film editing as well. I provided a rough edit in which I made the transitions and placed the clips in order and she then did the effects and touched it up to look more professional. Being on a set was an amazing experience that will be hard to forget!</p>
 
         <!-- Storyboard Images Grouped -->
-        <div class="image-group">
+        <div class="image-group fade-element">
             <div class="logo-section">
                 <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/echo1.jpg" alt="Story Board 1">
             </div>
@@ -339,18 +348,18 @@
             </div>
         </div>
 
-        <div class="video-wrapper">
+        <div class="video-wrapper fade-element">
             <video width="100%" controls style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin: 20px 0;">
                 <source src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/EchoesOfRedemption.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
-        <h2>Photoshop</h2>
-        <h4>I am very skilled in Photoshop and I enjoy using it a lot! So in my free time, I sometimes edit a few posters. Some of them were as well fake ads for a student magazine project at the university in the Netherlands.</h4>
+        <h2 class="slide-side">Photoshop</h2>
+        <h4 class="slide-side">I am very skilled in Photoshop and I enjoy using it a lot! So in my free time, I sometimes edit a few posters. Some of them were as well fake ads for a student magazine project at the university in the Netherlands.</h4>
 
         <!-- Photoshop Images Grouped -->
-        <div class="image-group">
+        <div class="image-group fade-element">
             <div class="logo-section">
                 <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/ExploreGreece.png" alt="Greece">
             </div>
@@ -361,10 +370,8 @@
                 <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/media/Ferari.jpg" alt="Ferrari">
             </div>
         </div>
-
     </header>
 
-    <!-- LIGHTBOX HTML -->
     <div id="lightbox" class="lightbox">
         <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
         <div class="lb-content">
@@ -383,17 +390,15 @@
         const lbImg = document.getElementById('lightbox-img');
         const mediaSections = document.querySelectorAll('.logo-section'); 
 
-        // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
-            img.setAttribute('data-raw', rawUrl); // Store raw high-res URL for Lightbox
+            img.setAttribute('data-raw', rawUrl); 
             img.loading = "lazy";
             img.decoding = "async";
             
-            // Clean protocol to match gallery format setup
             const cleanUrl = rawUrl.replace(/^https?:\/\//, '');
-            img.src = `https://images.weserv.nl/?url=${cleanUrl}&w=600&q=82&v=${cacheVersion}`;
+            img.src = `https://images.weserv.nl/?url=${encodeURIComponent(cleanUrl)}&w=600&q=82&v=${cacheVersion}`;
             
             img.onerror = () => { img.src = rawUrl; };
         });
@@ -411,31 +416,29 @@
             document.body.style.overflow = "";
         };
 
-        // Attach click and prefetch hover listeners
         mediaSections.forEach(section => {
             const img = section.querySelector('img');
             if (!img) return;
             
-            section.onmouseenter = () => {
+            section.addEventListener('mouseenter', () => {
                 const prefetchRaw = new Image();
                 prefetchRaw.src = img.getAttribute('data-raw');
-            };
+            }, { once: true });
 
-            section.onclick = () => {
+            section.addEventListener('click', () => {
                 lb.style.display = "flex";
                 resetZoom();
-                lbImg.src = img.getAttribute('data-raw'); // Load original raw clean file into lightbox
+                lbImg.src = img.getAttribute('data-raw'); 
                 document.body.style.overflow = "hidden";
-            };
+            });
         });
 
-        // Zoom and Pan Logic
         const handlePan = (e) => {
             if (!lbImg.classList.contains('zoomed')) return;
             
             const rect = document.querySelector('.lb-content').getBoundingClientRect();
-            
             let clientX, clientY;
+            
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -452,7 +455,7 @@
             lbImg.style.transformOrigin = `${x}% ${y}%`;
         };
 
-        lbImg.onclick = (e) => {
+        lbImg.addEventListener('click', (e) => {
             e.stopPropagation();
             lbImg.classList.toggle('zoomed');
             if (lbImg.classList.contains('zoomed')) {
@@ -460,30 +463,29 @@
             } else {
                 lbImg.style.transformOrigin = 'center center';
             }
-        };
+        });
 
-        lbImg.onmousemove = handlePan;
-        lbImg.ontouchmove = handlePan;
+        lbImg.addEventListener('mousemove', handlePan, { passive: true });
+        lbImg.addEventListener('touchmove', handlePan, { passive: true });
 
-        document.querySelector('.close-btn').onclick = closeLb;
+        document.querySelector('.close-btn').addEventListener('click', closeLb);
 
-        lb.onclick = (e) => { 
+        lb.addEventListener('click', (e) => { 
             if (e.target === lb || e.target.classList.contains('lb-content')) {
                 closeLb();
             }
-        };
+        });
 
-        window.onkeydown = (e) => {
+        window.addEventListener('keydown', (e) => {
             if (lb.style.display === "flex" && e.key === "Escape") {
                 closeLb();
             }
-        };
+        });
 
-        // Prevent dragging/saving for lightbox image
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
 
-        // --- Mobile Menu Toggle with Animation ---
+        // --- MOBILE MENU TOGGLE ---
         const menu = document.getElementById('mobile-menu');
         const menuLinks = document.querySelector('.nav-links');
 
@@ -501,10 +503,8 @@
             });
         }
 
-        // --- UPDATED FADE LOGIC TO MATCH INDEX.HTML ---
-        const titles = document.querySelectorAll('.fade-title');
-
-        const observer = new IntersectionObserver((entries) => {
+        const textElements = document.querySelectorAll('.fade-title, .slide-side');
+        const textObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('fade-in');
@@ -513,12 +513,40 @@
                 }
             });
         }, {
-            root: null, 
+            root: null,
             threshold: 0.1 
         });
 
-        titles.forEach(t => observer.observe(t));
+        textElements.forEach(el => {
+            textObserver.observe(el);
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('fade-in');
+            }
+        });
 
+        const fadeElements = document.querySelectorAll('.fade-element');
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.05,
+            rootMargin: '0px 0px 100px 0px'
+        });
+
+        fadeElements.forEach(el => {
+            scrollObserver.observe(el);
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('is-visible');
+            }
+        });
     </script>
 </body>
 </html>

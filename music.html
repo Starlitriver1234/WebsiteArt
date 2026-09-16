@@ -6,7 +6,6 @@
     <title>Tudor Marinescu | Music</title>
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
-    
     <link rel="stylesheet" href="style.css"> 
     
     <style>
@@ -15,23 +14,63 @@
             scroll-behavior: smooth;
         }
 
+        .fade-title {
+            opacity: 0; 
+            transform: translateX(25px);
+            transition: opacity 0.9s ease, transform 0.9s ease; 
+            will-change: opacity, transform;
+        }
+
+        .slide-side {
+            opacity: 0;
+            transform: translateX(15px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+            will-change: opacity, transform;
+        }
+
+        .fade-title.fade-in, 
+        .slide-side.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .fade-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .music-header {
             text-align: left;
             padding: 140px 20px 20px 20px; 
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .music-header h1 {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             font-size: clamp(40px, 8vw, 70px);
             font-weight: 800;
             color: #75BEF0;
             margin: 0;
             letter-spacing: -2px;
             text-transform: uppercase;
-            /* Fade logic is now handled globally in style.css */
         }
 
-        /* HOVER STYLE & LIGHTBOX PREP */
+        .music-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin-top: 12px;
+            line-height: 1.6;
+            max-width: 900px;
+        }
+
         .logo-section {
             width: 90%;
             max-width: 600px;
@@ -48,8 +87,8 @@
             height: auto;
             border-radius: 12px;
             display: block;
-            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
-            will-change: transform, filter; 
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+            will-change: transform, filter, opacity; 
             pointer-events: none;
             user-select: none;
         }
@@ -86,14 +125,87 @@
             transform: scale(1.02);
         }
 
-        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
         .navbar::before {
             z-index: -1; 
             pointer-events: none;
         }
 
-        /* --- MOBILE NAV & ANIMATIONS --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            touch-action: none;
+        }
+
+        .lb-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .lb-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center center;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .lb-content img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        .control-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transition: background 0.2s, transform 0.1s;
+            z-index: 10001;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn:active {
+            transform: scale(0.92);
+        }
+
+        .close-btn { top: 20px; right: 20px; font-size: 28px; }
+
         @media screen and (max-width: 768px) {
+            .music-header {
+                padding-top: 110px;
+            }
+
             .menu-toggle { 
                 display: flex; 
                 flex-direction: column;
@@ -136,7 +248,6 @@
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 z-index: -1;
-                
                 opacity: 0;
                 visibility: hidden;
                 transform: translateY(-100%); 
@@ -162,7 +273,6 @@
                 border-radius: 12px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 display: block;
-                
                 opacity: 0;
                 transform: translateY(-8px);
                 transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
@@ -173,88 +283,13 @@
                 transform: translateY(0);
             }
 
-            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
-            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
-            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
-            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
-            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
-            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+            .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.10s; }
+            .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.14s; }
+            .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.18s; }
+            .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.22s; }
+            .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.26s; }
+            .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.30s; }
 
-            .music-header {
-                padding-top: 100px; 
-            }
-        }
-
-        /* --- LIGHTBOX MODAL --- */
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            user-select: none;
-        }
-
-        .lb-content {
-            position: relative;
-            width: 90vw;
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        .lb-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            cursor: zoom-in;
-            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-origin: center center;
-            will-change: transform;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        .lb-content img.zoomed {
-            transform: scale(2.5);
-            cursor: zoom-out;
-        }
-
-        /* --- LIGHTBOX BUTTON CONTROLS --- */
-        .control-btn {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(4px);
-            transition: background 0.2s, transform 0.1s;
-            z-index: 10001;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .control-btn:active {
-            transform: scale(0.95);
-        }
-
-        .close-btn { top: 20px; right: 20px; font-size: 28px; }
-
-        @media screen and (max-width: 768px) {
             .control-btn { width: 44px; height: 44px; font-size: 20px; }
         }
     </style>
@@ -283,17 +318,16 @@
     </nav>
 
     <header class="music-header">
-        <!-- CHANGED ID TO CLASS FOR GLOBALLY SYNCED FADE EFFECT -->
         <h1 class="fade-title">Music</h1>
-        <p>Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 12 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
-        <p>I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
+        <p class="slide-side">Welcome! Here you will find the links to my albums, which are published on all of the most popular streaming platforms! In total, I created 12 albums and 10 EPs so far. I use GarageBand and occasionally BandLab to create my music, which is inspired by the stories that I have written.</p>
+        <p class="slide-side">I started composing in 2021 and learned how to publish my albums online using a distributor called RouteNote.</p>
     </header>
 
-    <div class="logo-section">
+    <div class="logo-section fade-element">
         <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logo.jpg" alt="Music Logo">
     </div>
 
-    <div class="links-container">
+    <div class="links-container fade-element">
         <a href="https://open.spotify.com/artist/03hWIzuOIOoOuqimZjoSpb?si=jAtj21WUQb2nxmJnuXZVGg" class="music-btn">Spotify</a>
         <a href="https://www.youtube.com/@tudor_marinescu_music" class="music-btn">YouTube</a>
         <a href="https://music.apple.com/ie/artist/tudor-marinescu/1596965401" class="music-btn">Apple Music</a>
@@ -313,36 +347,47 @@
     </div>
 
     <script>
-        // --- MOBILE NAV LOGIC ---
-        const menuBtn = document.querySelector('#mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                menuBtn.classList.toggle('is-active');
-            });
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    menuBtn.classList.remove('is-active');
-                });
-            });
-        }
-
-        if (history.scrollRestoration) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-
-        // --- LIGHTBOX & ZOOM LOGIC ---
+        const cacheVersion = "1";
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         const bookSections = document.querySelectorAll('.logo-section'); 
 
-        // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
-        const cacheVersion = "1";
+        const textElements = document.querySelectorAll('.fade-title, .slide-side');
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                } else {
+                    entry.target.classList.remove('fade-in');
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1 
+        });
+
+        textElements.forEach(el => {
+            textObserver.observe(el);
+        });
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.05,
+            rootMargin: '0px 0px 100px 0px'
+        });
+
+        document.querySelectorAll('.fade-element').forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // COMPRESSION APPLIED TO PREVIEW IMAGES
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
             img.setAttribute('data-raw', rawUrl); 
@@ -355,6 +400,7 @@
             img.onerror = () => { img.src = rawUrl; };
         });
 
+        // LIGHTBOX & ZOOM LOGIC
         const resetZoom = () => {
             lbImg.classList.remove('zoomed');
             lbImg.style.transform = '';
@@ -390,17 +436,10 @@
             if (!lbImg.classList.contains('zoomed')) return;
             
             const rect = document.querySelector('.lb-content').getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
             
-            let clientX, clientY;
-            if (e.touches && e.touches.length > 0) {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
-            
-            if (clientX === undefined || clientY === undefined) return;
+            if (!clientX || !clientY) return;
 
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
@@ -424,38 +463,35 @@
         document.querySelector('.close-btn').onclick = closeLb;
 
         lb.onclick = (e) => { 
-            if (e.target === lb || e.target.classList.contains('lb-content')) {
-                closeLb();
-            }
+            if (e.target === lb || e.target.className === 'lb-content') closeLb();
         };
+
+        // NAVIGATION MENU
+        const menuBtn = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuBtn && navLinks) {
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuBtn.classList.toggle('is-active');
+            });
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuBtn.classList.remove('is-active');
+                });
+            });
+        }
 
         window.onkeydown = (e) => {
-            if (lb.style.display === "flex" && e.key === "Escape") {
-                closeLb();
-            }
+            if (lb.style.display === "flex" && e.key === "Escape") closeLb();
         };
 
-        document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
-        document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
+        document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-        // --- UPDATED FADE LOGIC TO MATCH OTHER PAGES ---
-        const titles = document.querySelectorAll('.fade-title');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                } else {
-                    entry.target.classList.remove('fade-in');
-                }
-            });
-        }, {
-            root: null, 
-            threshold: 0.1 
-        });
-
-        titles.forEach(t => observer.observe(t));
-
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
     </script>
 </body>
 </html>

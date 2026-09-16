@@ -6,75 +6,143 @@
     <title>Tudor Marinescu | Books</title>
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
-    
     <link rel="stylesheet" href="style.css"> 
     
     <style>
+        :root {
+            --bg-dark: #000000;
+            --card-bg: rgba(17, 17, 17, 0.75);
+            --accent-blue: #75BEF0;
+            --text-primary: #dddddd;
+            --text-secondary: #cccccc;
+            --border-color: #222222;
+        }
+
         html { 
-            background: #000; 
+            background: var(--bg-dark); 
             scroll-behavior: smooth;
         }
 
         .music-header {
             text-align: left;
             padding: 140px 20px 20px 20px; 
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .music-header h1 {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: clamp(40px, 8vw, 70px);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: clamp(36px, 6vw, 60px);
             font-weight: 800;
-            color: #75BEF0;
-            margin: 40px 0 20px 0;
-            letter-spacing: -2px;
+            color: var(--accent-blue);
+            margin: 50px 0 25px 0;
+            letter-spacing: -1px;
             text-transform: uppercase;
-            /* Fade logic is now handled globally via style.css and .fade-title */
         }
 
         .music-header h1:first-of-type {
             margin-top: 0;
         }
 
-        /* --- IMAGE GROUP CONTAINER (FOR CONSECUTIVE IMAGES) --- */
-        .image-group {
+        /* --- FADE & SLIDE FROM RIGHT ANIMATION --- */
+        .fade-element {
+            opacity: 0;
+            transform: translateX(25px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-element.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .music-header h1.fade-element,
+        .book-info h2.fade-element {
+            transform: translateX(50px);
+        }
+
+        .music-header h1.fade-element.fade-in,
+        .book-info h2.fade-element.fade-in {
+            transform: translateX(0);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .intro-section {
+            margin-bottom: 50px;
+        }
+
+        .intro-section p {
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+
+        .book-card {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            align-items: center;
-            margin: 40px auto;
+            gap: 30px;
+            margin: 35px 0 60px 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .book-media {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .book-info p {
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        /* --- IMAGE & GALLERY GROUPS --- */
+        .image-group {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
             width: 100%;
         }
 
-        /* Overrides the single section margin when part of a group */
-        .image-group .logo-section {
-            margin: 0; 
-        }
-
-        /* HOVER STYLE */
         .logo-section {
-            width: 90%;
-            max-width: 600px; /* Default for mobile */
-            margin: 40px auto;
+            width: 100%;
+            max-width: 320px;
             text-align: center;
-            background: #111;
+            background: #111111;
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
+            border: 1px solid #282828;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        @media screen and (min-width: 769px) {
-            /* Makes the images smaller on PC */
-            .logo-section {
-                max-width: 350px;
-            }
-            
-            /* Puts consecutive images side-by-side on PC */
-            .image-group {
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap; /* Allows them to wrap neatly on smaller screens */
-                gap: 40px;
-            }
+        .image-group .logo-section {
+            max-width: 180px; 
         }
 
         .logo-section img {
@@ -82,45 +150,72 @@
             height: auto;
             border-radius: 12px;
             display: block;
-            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            transition: transform 0.4s ease, filter 0.4s ease;
             will-change: transform, filter; 
             pointer-events: none;
             user-select: none;
         }
 
+        .logo-section:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 6px 20px rgba(117, 190, 240, 0.15);
+            transform: translateY(-5px);
+        }
+
         .logo-section:hover img {
-            transform: scale(1.04);
+            transform: scale(1.03);
             filter: brightness(1.08) contrast(1.02);
         }
 
+        /* Desktop Layout Adaptations */
+        @media screen and (min-width: 769px) {
+            .book-card {
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 35px;
+            }
+
+            .book-media {
+                width: 320px;
+                flex-shrink: 0;
+                position: sticky;
+                top: 100px;
+            }
+
+            .image-group .logo-section {
+                max-width: 145px;
+            }
+        }
+
+        /* --- STORE BUTTONS --- */
         .links-container {
             width: 90%;
             max-width: 600px;
-            margin: 20px auto 100px auto;
+            margin: 40px auto 100px auto;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
         .music-btn {
-            background: #111;
-            color: #75BEF0;
-            padding: 20px;
+            background: #111111;
+            color: var(--accent-blue);
+            padding: 18px;
             text-decoration: none;
             border-radius: 10px;
             text-align: center;
             font-weight: bold;
-            border: 1px solid #333;
-            transition: 0.3s;
+            border: 1px solid #333333;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .music-btn:hover {
-            background: #75BEF0;
-            color: #000;
-            transform: scale(1.02);
+            background: var(--accent-blue);
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 18px rgba(117, 190, 240, 0.3);
         }
 
-        /* --- DESKTOP NAVBAR FIX FOR BACKGROUND GRADIENT --- */
         .navbar::before {
             z-index: -1; 
             pointer-events: none;
@@ -139,7 +234,7 @@
             .bar {
                 width: 25px;
                 height: 3px;
-                background-color: #75BEF0 !important;
+                background-color: var(--accent-blue) !important;
                 display: block;
                 transform-origin: center;
                 transition: all 0.3s ease-in-out;
@@ -259,7 +354,7 @@
             cursor: zoom-out;
         }
 
-        /* --- LIGHTBOX BUTTON CONTROLS --- */
+        /* --- LIGHTBOX CONTROLS --- */
         .control-btn {
             position: absolute;
             background: rgba(255, 255, 255, 0.1);
@@ -296,7 +391,7 @@
 
 <body>
     <nav class="navbar">
-        <div class="menu-toggle" id="mobile-menu">
+        <div class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation Menu">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </div>
         <div class="nav-links">
@@ -316,91 +411,120 @@
         </div>
     </nav>
 
-    <header class="music-header">
-        <!-- CHANGED ID TO CLASS FOR GLOBALLY SYNCED FADE EFFECT -->
-        <h1 class="fade-title">Books</h1>
-        <p>Welcome! Here you will find info about all of the books that I have written as of this time. Some of them are in Romanian and some are in English.</p>
-        <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star (Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
-        <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was a joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmosphere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasant the world in it is.</p>
-        <p>Once I published Moonlit Rain in 2022, and it received some updates that added more content, I focused on my next book. Kaleo and Hayden. This is one of my most ambitious projects to date. It took three years to write and is my longest book. It is also a romance. But the focus is more on the healing of the characters through their relationship and on philosophical questions like the role of tradition in the modern world. It is set in a fantasy country and explores the themes of friendship, love, people pleasing, anxiety, overworking and grief. The book is both a charming and cozy read but also a powerful one as the arcs are more serious and emotionally impactful. This book also got a second version that removed the artwork for people who would prefer to only have the text.</p>
-        <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck in your own head, and the main theme of the book is how human connection can help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
+    <main class="music-header">
+        <h1 class="fade-element">Books</h1>
         
-        <h1 class="fade-title">Books in English</h1>
-
-        <h2>Celestial Forest</h2>
+        <section class="intro-section fade-element">
+            <p>Welcome! Here you will find info about all of the books that I have written as of this time. Some of them are in Romanian and some are in English.</p>
+            <p>I am a self published author and I started writing when I was 13 with my first book: Dino and The Diamond Star (Book is in Romanian). I wanted to explore the feelings that people experience every day through writing and adventures. I published this book when I was 14 in 2020 on Google Play. The Dino Trilogy was my first ever series, and I loved writing it a lot. It later got a translation in English that contained all three books, simply named Dino. All of the art, editing, writing, publishing is done by me. All of my books have an ISBN from the National Library of Romania as well. Since I was a child, I wanted to make the best stories I could and I was very ambitious.</p>
+            <p>After Dino concluded, I wrote my first ever book in English while also ironically studying for an English exam. Moonlit Rain. It was also my first ever book in first person and also first ever romance. It was a joy to write and I think it encapsulates that high school charm in a rural town the same way Dino encapsulated the wonder in all our childhoods. This book explored many themes, from anxiety, to finding friends in the most unlikely of places. It is set in a charming little village in Germany and has a cosy atmosphere. The focus was pulled back from the plot and remained mainly on the arcs of the characters and their feelings. To this day, it is one of my favourite books that I have written just because of how pleasant the world in it is.</p>
+            <p>Once I published Moonlit Rain in 2022, and it received some updates that added more content, I focused on my next book. Kaleo and Hayden. This is one of my most ambitious projects to date. It took three years to write and is my longest book. It is also a romance. But the focus is more on the healing of the characters through their relationship and on philosophical questions like the role of tradition in the modern world. It is set in a fantasy country and explores the themes of friendship, love, people pleasing, anxiety, overworking and grief. The book is both a charming and cozy read but also a powerful one as the arcs are more serious and emotionally impactful. This book also got a second version that removed the artwork for people who would prefer to only have the text.</p>
+            <p>And now we have reached my latest book! Celestial Forest. Originally created as a Twine game for University, this little project became an extremely fun and beautiful adventure with a theme of Halloween. It focuses on the difficulties of dealing with past failures and moving to another country while also presenting an adorable romance. Set in a haunted forest, the book presents lots of mini adventures as the characters unravel a mystery, grow and eventually fall in love. The forest is a representation of being stuck in your own head, and the main theme of the book is how human connection can help us grow and escape it. This is also the most comical of my books with the characters being more sarcastic and funny.</p>
+        </section>
         
-        <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Celestial.jpg" alt="Music Logo">
-        </div>
+        <h1 class="fade-element">Books in English</h1>
 
-        <p>Welcome to Verdant Island, the most welcoming and friendly country there is! You can never be an outsider here! At least that's what Elwyn thought when he arrived. In reality, it isn’t that easy, and he feels more like an outsider than he ever did. Foreign words, weird signs and customs. Everything is different and strange.</p>
-        <p>One day, finally having had enough and needing some time to think, he goes to a nearby forest called The Celestial Forest. It all starts beautifully, with him reading peacefully under the cover of the trees as birds sing and the breeze ruffles his hair. But… It was not to last…</p>
-        <p>Suddenly trapped in a cursed forest full of horrors, Elwyn must face his fears and find the courage in his heart if he wants to survive. Terrified and alone, he stumbles through the dark till he meets... Blake, an eccentric musician and actor with a heart of gold, piercing green eyes, and so much muscle he seems unreal. The two quickly bond and create a magical friendship that could turn into even more. But will they manage to survive? Can their bond resist these horrors? Will they ever escape? Dive into this Halloween-inspired romance with quirky characters and beautiful imagery that will wow you, and find out! After all, what is in the dark is always a mystery.</p>
+        <!-- CELESTIAL FOREST -->
+        <article class="book-card fade-element">
+            <div class="book-media">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Celestial.jpg" alt="Celestial Forest Book Cover">
+                </div>
+            </div>
+            <div class="book-info">
+                <h2 class="fade-element">Celestial Forest</h2>
+                <p>Welcome to Verdant Island, the most welcoming and friendly country there is! You can never be an outsider here! At least that's what Elwyn thought when he arrived. In reality, it isn’t that easy, and he feels more like an outsider than he ever did. Foreign words, weird signs and customs. Everything is different and strange.</p>
+                <p>One day, finally having had enough and needing some time to think, he goes to a nearby forest called The Celestial Forest. It all starts beautifully, with him reading peacefully under the cover of the trees as birds sing and the breeze ruffles his hair. But… It was not to last…</p>
+                <p>Suddenly trapped in a cursed forest full of horrors, Elwyn must face his fears and find the courage in his heart if he wants to survive. Terrified and alone, he stumbles through the dark till he meets... Blake, an eccentric musician and actor with a heart of gold, piercing green eyes, and so much muscle he seems unreal. The two quickly bond and create a magical friendship that could turn into even more. But will they manage to survive? Can their bond resist these horrors? Will they ever escape? Dive into this Halloween-inspired romance with quirky characters and beautiful imagery that will wow you, and find out! After all, what is in the dark is always a mystery.</p>
+            </div>
+        </article>
         
-        <h2>Fated Spirits  -  Kaleo and Hayden</h2>
-
-        <!-- Grouping consecutive images -->
-        <div class="image-group">
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Fated1.jpg" alt="Music Logo">
+        <!-- KALEO AND HAYDEN -->
+        <article class="book-card fade-element">
+            <div class="book-media">
+                <div class="image-group">
+                    <div class="logo-section">
+                        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Fated1.jpg" alt="Fated Spirits: Kaleo and Hayden Book Cover">
+                    </div>
+                    <div class="logo-section">
+                        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Kaleo.jpg" alt="Fated Spirits: Text Edition Cover">
+                    </div>
+                </div>
             </div>
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Kaleo.jpg" alt="Music Logo">
+            <div class="book-info">
+                <h2 class="fade-element">Fated Spirits - Kaleo and Hayden</h2>
+                <p>In a time that feels almost like an old memory, Kaleo was the heart of his community. A young man with a sporty and laid-back personality. A bit quirky, but also very kind, helping anyone in need. Now, he’s trapped by an old tradition that made him vanish from the world. Unseen and unheard, Spirit Kaleo can only watch his old life from afar. The only thing on his mind being hope that one day, someone will see him once more and make him feel loved and understood.</p>
+                <p>Enter Hayden. A determined and hardworking painter with a passion for history. His only wish? To be recognised for his art. But his entire life is about to be uprooted as crumbling debt knocks at his door. In a desperate move to save his career, Hayden enters the forbidden forest of the spirit. His journey takes an unexpected turn when a deadly fall nearly claims his life. Thankfully, Kaleo manages to save him just in time. But the moment they’re out of danger, something extraordinary happens. His powers vanish, and he becomes temporarily human once more. The two quickly bond and discover a connection like neither thought they’d ever have.</p>
+                <p>Brought together by fate, the two will now face many challenges. From insecurity and past events to the strict rules that forbid people from entering the forest. But none of it matters, as long as they have each other. Still, one question will need to be answered. Will love be able to save them both?</p>
             </div>
-        </div>
-
-        <p>In a time that feels almost like an old memory, Kaleo was the heart of his community. A young man with a sporty and laid-back personality. A bit quirky, but also very kind, helping anyone in need. Now, he’s trapped by an old tradition that made him vanish from the world. Unseen and unheard, Spirit Kaleo can only watch his old life from afar. The only thing on his mind being hope that one day, someone will see him once more and make him feel loved and understood.</p>
-        <p>Enter Hayden. A determined and hardworking painter with a passion for history. His only wish? To be recognised for his art. But his entire life is about to be uprooted as crumbling debt knocks at his door. In a desperate move to save his career, Hayden enters the forbidden forest of the spirit. His journey takes an unexpected turn when a deadly fall nearly claims his life. Thankfully, Kaleo manages to save him just in time. But the moment they’re out of danger, something extraordinary happens. His powers vanish, and he becomes temporarily human once more. The two quickly bond and discover a connection like neither thought they’d ever have.</p>
-        <p>Brought together by fate, the two will now face many challenges. From insecurity and past events to the strict rules that forbid people from entering the forest. But none of it matters, as long as they have each other. Still, one question will need to be answered. Will love be able to save them both?</p>
+        </article>
         
-        <h2>Moonlit Rain</h2>
-
-        <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Moonlit1.jpg" alt="Music Logo">
-        </div>
-
-        <p>Noah Lorenz is shy and easily scared, always hiding his true self. He tries to be the perfect student, focusing on his studies to become a vet. But underneath it all, he is a caring and curious young man who wants to stand up for what is right. And what he wants more than anything is to be free from his anxieties and be himself.</p>
-        <p>Enter Rafael Silva, who appears in Noah’s life during a rainy night, barely lit by the moon. He is a new student who moved to Germany from Portugal. And quickly, with his beautiful, golden hair and eyes like the sky above, he charms Noah and brings winds of excitement into his life. The two bond and become friends as they share their passions and hobbies, such as playing music, stargazing, or cooking delicious baked goods. Together with their friend Selena, they embark on a journey of self-discovery in the picturesque mountain city of Seeburg. But for Noah, a new realisation also hits. He might just have feelings for Rafael. And he isn’t so ready to admit them.</p>
-        <p>A rainy night brought them together, but will they be able to face the storms of change and accept who they are?</p>
-
-        <h2>Dino</h2>
-
-        <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino.jpg" alt="Music Logo">
-        </div>
-
-        <p>Read the beloved and acclaimed Dino Trilogy in this beautifully revised and translated edition, which contains all of the Dino books in one!</p>
-        <p>Come to a world of magic, where toys and books are alive, and magic is real! Meet the loveable Dino, an ordinary toy with a normal life and a passion for cooking and music. Be by his side as he moves to the Muzicalo Kingdom, a land of wonder and fun, where magic toys and books live together with people in harmony. What follows is an amazing adventure of self-discovery and magic as Dino tries to uncover the secrets of the magical kingdom, meeting friends and foes alike! Join Dino on his magical adventure through mysterious and unknown lands! From beautiful songs to amazing sights, Dino will see it all! Fly through the clouds and visit floating castles, walk through jungles covered in snow, or visit a beautiful underwater city! Adventure through the unknown and meet a variety of fun characters! And most importantly, uncover the secrets of the Muzicalo Kingdom along with Dino and his friends! Also! Have fun!</p>
-
-        <h1 class="fade-title">Books in Romanian</h1>
-
-        <!-- Grouping consecutive images -->
-        <div class="image-group">
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino1.jpg" alt="Music Logo">
+        <!-- MOONLIT RAIN -->
+        <article class="book-card fade-element">
+            <div class="book-media">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Moonlit1.jpg" alt="Moonlit Rain Book Cover">
+                </div>
             </div>
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino2.jpg" alt="Music Logo">
+            <div class="book-info">
+                <h2 class="fade-element">Moonlit Rain</h2>
+                <p>Noah Lorenz is shy and easily scared, always hiding his true self. He tries to be the perfect student, focusing on his studies to become a vet. But underneath it all, he is a caring and curious young man who wants to stand up for what is right. And what he wants more than anything is to be free from his anxieties and be himself.</p>
+                <p>Enter Rafael Silva, who appears in Noah’s life during a rainy night, barely lit by the moon. He is a new student who moved to Germany from Portugal. And quickly, with his beautiful, golden hair and eyes like the sky above, he charms Noah and brings winds of excitement into his life. The two bond and become friends as they share their passions and hobbies, such as playing music, stargazing, or cooking delicious baked goods. Together with their friend Selena, they embark on a journey of self-discovery in the picturesque mountain city of Seeburg. But for Noah, a new realisation also hits. He might just have feelings for Rafael. And he isn’t so ready to admit them.</p>
+                <p>A rainy night brought them together, but will they be able to face the storms of change and accept who they are?</p>
             </div>
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino3.jpg" alt="Music Logo">
+        </article>
+
+        <!-- DINO ENGLISH -->
+        <article class="book-card fade-element">
+            <div class="book-media">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino.jpg" alt="Dino Omnibus English Edition Book Cover">
+                </div>
             </div>
-        </div>
+            <div class="book-info">
+                <h2 class="fade-element">Dino</h2>
+                <p>Read the beloved and acclaimed Dino Trilogy in this beautifully revised and translated edition, which contains all of the Dino books in one!</p>
+                <p>Come to a world of magic, where toys and books are alive, and magic is real! Meet the loveable Dino, an ordinary toy with a normal life and a passion for cooking and music. Be by his side as he moves to the Muzicalo Kingdom, a land of wonder and fun, where magic toys and books live together with people in harmony. What follows is an amazing adventure of self-discovery and magic as Dino tries to uncover the secrets of the magical kingdom, meeting friends and foes alike! Join Dino on his magical adventure through mysterious and unknown lands! From beautiful songs to amazing sights, Dino will see it all! Fly through the clouds and visit floating castles, walk through jungles covered in snow, or visit a beautiful underwater city! Adventure through the unknown and meet a variety of fun characters! And most importantly, uncover the secrets of the Muzicalo Kingdom along with Dino and his friends! Also! Have fun!</p>
+            </div>
+        </article>
 
-    </header>
+        <h1 class="fade-element">Books in Romanian</h1>
 
-    <div class="logo-section">
-        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logotudorbook.jpg" alt="Music Logo">
+        <!-- DINO ROMANIAN TRILOGY -->
+        <article class="book-card fade-element">
+            <div class="book-media">
+                <div class="image-group">
+                    <div class="logo-section">
+                        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino1.jpg" alt="Dino și Steaua de Diamant Cover">
+                    </div>
+                    <div class="logo-section">
+                        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino2.jpg" alt="Dino și Regatul Muzicalo Cover">
+                    </div>
+                    <div class="logo-section">
+                        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/Dino3.jpg" alt="Dino și Marea Aventură Cover">
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h2 class="fade-element">Trilogia Dino (Română)</h2>
+                <p>Trilogia originală scrisă în limba română urmărește călătoria plină de magie a lui Dino prin Regatul Muzicalo. Aventura începută la vârsta de 13 ani explorează prietenia, curajul și descoperirea de sine într-o lume în care cărțile și jucăriile prind viață.</p>
+            </div>
+        </article>
+    </main>
+
+    <div class="logo-section fade-element" style="margin: 20px auto;">
+        <img src="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/logotudorbook.jpg" alt="Tudor Marinescu Author Branding Art">
     </div>
     
-    <div class="links-container">
-        <a href="https://www.amazon.com/stores/Tudor-Marinescu/author/B0CH5HPKHR?ref=ap_rdr&shoppingPortalEnabled=true&ccs_id=6406d261-e4d9-408e-ad30-ac68b278e468" class="music-btn">Amazon</a>
-        <a href="https://play.google.com/store/info/name/Tudor_Marinescu?id=11pxt__1z8" class="music-btn">Google Play Books</a>
-        <a href="https://www.kobo.com/ro/ro/search?query=tudor+marinescu&ac=1&acp=tudor+marinescu&ac.author=tudor+marinescu&sort=Temperature&fclanguages=ro&ssid=dflBJPgpukzuE8xE0wjlu&sid=510b1d3e-3132-4236-af20-9a6f8b96e5ce" class="music-btn">Kobo Romanian Books</a>
-        <a href="https://www.kobo.com/ro/ro/search?query=tudor%20marinescu&ac=1&acp=tudor%20marinescu&ac.author=tudor%20marinescu&sort=Temperature&fclanguages=en&ssid=dflBJPgpukzuE8xE0wjlu&sid=adc26d36-c045-41cc-8996-404fe16b33c1" class="music-btn">Kobo English Books</a>
+    <div class="links-container fade-element">
+        <a href="https://www.amazon.com/stores/Tudor-Marinescu/author/B0CH5HPKHR?ref=ap_rdr&shoppingPortalEnabled=true&ccs_id=6406d261-e4d9-408e-ad30-ac68b278e468" class="music-btn" target="_blank" rel="noopener noreferrer">Amazon</a>
+        <a href="https://play.google.com/store/info/name/Tudor_Marinescu?id=11pxt__1z8" class="music-btn" target="_blank" rel="noopener noreferrer">Google Play Books</a>
+        <a href="https://www.kobo.com/ro/ro/search?query=tudor+marinescu&ac=1&acp=tudor+marinescu&ac.author=tudor+marinescu&sort=Temperature&fclanguages=ro&ssid=dflBJPgpukzuE8xE0wjlu&sid=510b1d3e-3132-4236-af20-9a6f8b96e5ce" class="music-btn" target="_blank" rel="noopener noreferrer">Kobo Romanian Books</a>
+        <a href="https://www.kobo.com/ro/ro/search?query=tudor%20marinescu&ac=1&acp=tudor%20marinescu&ac.author=tudor%20marinescu&sort=Temperature&fclanguages=en&ssid=dflBJPgpukzuE8xE0wjlu&sid=adc26d36-c045-41cc-8996-404fe16b33c1" class="music-btn" target="_blank" rel="noopener noreferrer">Kobo English Books</a>
+        <a href="https://books.apple.com/ie/author/tudor-marinescu/id1596965401" class="music-btn" target="_blank" rel="noopener noreferrer">Apple Books</a>
     </div>
 
-    <!-- Lightbox Element -->
+    <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
         <button class="control-btn close-btn" aria-label="Close lightbox">&times;</button>
         <div class="lb-content">
@@ -409,7 +533,7 @@
     </div>
 
     <script>
-        // --- MOBILE NAV LOGIC ---
+        // --- MOBILE NAV TOGGLE ---
         const menuBtn = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
@@ -432,12 +556,11 @@
         }
         window.scrollTo(0, 0);
 
-        // --- LIGHTBOX & ZOOM LOGIC ---
+        // --- LIGHTBOX & IMAGE OPTIMIZATION LOGIC ---
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         const bookSections = document.querySelectorAll('.logo-section'); 
 
-        // --- COMPRESSION APPLIED TO PREVIEW IMAGES ---
         const cacheVersion = "1";
         document.querySelectorAll('.logo-section img').forEach(img => {
             const rawUrl = img.src;
@@ -486,8 +609,8 @@
             if (!lbImg.classList.contains('zoomed')) return;
             
             const rect = document.querySelector('.lb-content').getBoundingClientRect();
-            
             let clientX, clientY;
+
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -534,24 +657,27 @@
         document.addEventListener('contextmenu', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
         document.addEventListener('dragstart', (e) => { if (e.target.id === 'lightbox-img') e.preventDefault(); });
 
-        // --- UPDATED FADE LOGIC TO MATCH OTHER PAGES ---
-        const titles = document.querySelectorAll('.fade-title');
+        const fadeElements = document.querySelectorAll('.fade-element');
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('fade-in');
-                } else {
-                    entry.target.classList.remove('fade-in');
                 }
             });
         }, {
             root: null, 
-            threshold: 0.1 
+            threshold: 0.1,
+            rootMargin: '0px 0px -20px 0px'
         });
 
-        titles.forEach(t => observer.observe(t));
-
+        fadeElements.forEach(el => {
+            observer.observe(el);
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('fade-in');
+            }
+        });
     </script>
 </body>
 </html>
