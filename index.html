@@ -416,8 +416,6 @@
         const handlePan = (e) => {
             if (!lbImg.classList.contains('zoomed')) return;
             
-            const rect = document.querySelector('.lb-content').getBoundingClientRect();
-            
             let clientX, clientY;
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
@@ -429,8 +427,32 @@
             
             if (clientX === undefined || clientY === undefined) return;
 
-            const x = ((clientX - rect.left) / rect.width) * 100;
-            const y = ((clientY - rect.top) / rect.height) * 100;
+            // Calculate precise rendered dimensions of the image inside object-fit: contain
+            const containerRect = document.querySelector('.lb-content').getBoundingClientRect();
+            const nw = lbImg.naturalWidth;
+            const nh = lbImg.naturalHeight;
+
+            let imgRect = containerRect;
+            if (nw && nh) {
+                const cRatio = containerRect.width / containerRect.height;
+                const iRatio = nw / nh;
+                let w, h, l, t;
+                if (iRatio > cRatio) {
+                    w = containerRect.width;
+                    h = w / iRatio;
+                    l = containerRect.left;
+                    t = containerRect.top + (containerRect.height - h) / 2;
+                } else {
+                    h = containerRect.height;
+                    w = h * iRatio;
+                    t = containerRect.top;
+                    l = containerRect.left + (containerRect.width - w) / 2;
+                }
+                imgRect = { left: l, top: t, width: w, height: h };
+            }
+
+            const x = Math.max(0, Math.min(100, ((clientX - imgRect.left) / imgRect.width) * 100));
+            const y = Math.max(0, Math.min(100, ((clientY - imgRect.top) / imgRect.height) * 100));
 
             lbImg.style.transformOrigin = `${x}% ${y}%`;
         };
