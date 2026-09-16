@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tudor Marinescu | Home</title>
     
+    <meta name="description" content="Official portfolio website of Tudor Marinescu, Game Design student at TU Dublin, self-published author, and indie musician.">
+    <meta property="og:title" content="Tudor Marinescu | Home">
+    <meta property="og:description" content="Official portfolio website of Tudor Marinescu, Game Design student at TU Dublin, self-published author, and indie musician.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Starlitriver1234/WebsiteArt/main/Images/LogoTudor.png">
     <link rel="stylesheet" href="style.css">
     
@@ -13,9 +19,39 @@
             scroll-behavior: smooth !important; 
         }
 
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 60px 20px;
+            text-align: left;
+        }
+
+        .page-header {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(40px, 8vw, 70px);
+            font-weight: 800;
+            color: #75BEF0;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .page-header p {
+            color: #e0e0e0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+            max-width: 900px;
+        }
+
         .gallery-header {
             text-align: left;
-            padding: 140px 20px 20px 20px;
+            padding: 80px 20px 20px 20px;
         }
 
         .gallery-header h1 {
@@ -85,6 +121,8 @@
         }
 
         @media screen and (max-width: 768px) {
+            .games-container { padding: 100px 15px 60px 15px; }
+
             .menu-toggle {
                 display: flex;
                 flex-direction: column;
@@ -170,10 +208,6 @@
             .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
             .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
             .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
-
-            .gallery-header {
-                padding-top: 100px; 
-            }
         }
 
         .lightbox {
@@ -253,32 +287,15 @@
         }
 
         html {
-            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+            min-height: 100vh;
         }
 
         body {
             margin: 0;
             padding: 0;
             overflow-x: clip; 
-            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            min-height: 100vh;
             display: flow-root;
-        }
-
-        .games-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 140px 20px 60px 20px;
-            text-align: left;
-        }
-
-        .page-header h1 {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: clamp(40px, 8vw, 70px);
-            font-weight: 800;
-            color: #75BEF0;
-            margin: 0 0 20px 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
         }
     </style>
 </head>
@@ -308,10 +325,12 @@
         </div>
     </nav>
 
-     <main class="games-container">
+    <main class="games-container">
         <section id="About">
-            <h1 class="fade-title">Who is Tudor Marinescu?</h1>
-            <p class="slide-side">Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
+            <header class="page-header">
+                <h1 class="fade-title">Who is Tudor Marinescu?</h1>
+                <p class="slide-side">Hello! My name is Tudor Marinescu. I am a young adult from Romania who has a big passion for video games, books and music. I am currently a Game Design student at the university TU Dublin.</p>
+            </header>
             
             <h2 class="slide-side">A creator that values passion and variety</h2>
             <p class="slide-side">Ever since I was a child, I loved creating stories and making people happy. This is why I started all of my artistic projects! I worked on a big variety of projects—from games I made at university to books I wrote and published myself. I even tried a bit of composing. I enjoy creating, so I like creating anything as long as it sparks my creativity. And with dreams and determination, you can achieve anything!</p>
@@ -330,10 +349,10 @@
         </div>
 
         <section id="Skills" class="gallery-header">
-            <header class="gallery-header">
+            <header class="gallery-header" style="padding: 0; margin-bottom: 20px;">
                 <h1 class="fade-title" style="text-align: center;">Skills</h1>
             </header>
-            <ul>
+            <ul style="list-style-position: inside; padding-left: 0;">
                 <li class="slide-side"><strong>Digital Art:</strong> Video games, Books, Logos, Album Covers</li>
                 <li class="slide-side"><strong>Programming:</strong> C++, C#, HTML, CSS</li>
                 <li class="slide-side"><strong>Creative Writing</strong></li>
@@ -347,8 +366,8 @@
 
         <section id="Career" class="gallery-header">
             <h1 class="fade-title">Career & Projects</h1>
-            <p class="slide-side">Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
-            <ul>
+            <p class="slide-side" style="color: #e0e0e0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px;">Even though I'm still a student, I'm very passionate and hard-working and have worked on a multitude of projects.</p>
+            <ul style="list-style-position: inside; padding-left: 0;">
                 <li class="slide-side"><strong>Literature:</strong> I wrote and self-published 9 books (6 in English, 3 in Romanian).</li>
                 <li class="slide-side"><strong>Music:</strong> I composed and published 13 albums and 10 EPs.</li>
                 <li class="slide-side"><strong>Game Design:</strong> Developed 12 video games and 1 board game.</li>
@@ -461,7 +480,6 @@
             
             if (clientX === undefined || clientY === undefined) return;
 
-            // Calculate precise rendered dimensions of the image inside object-fit: contain
             const containerRect = document.querySelector('.lb-content').getBoundingClientRect();
             const nw = lbImg.naturalWidth;
             const nh = lbImg.naturalHeight;
@@ -540,7 +558,6 @@
         animatedElements.forEach(el => {
             observer.observe(el);
         });
-        
     </script>
 </body>
 </html>

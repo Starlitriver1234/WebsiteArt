@@ -27,24 +27,24 @@
             transform: translateY(0);
         }
 
-        .gallery-header {
-            text-align: left;
-            padding: 140px 20px 20px 20px;
-            max-width: 1400px;
+        .games-container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 140px 20px 60px 20px;
+            text-align: left;
         }
 
-        .gallery-header h1 {
+        .page-header h1 {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             font-size: clamp(40px, 8vw, 70px);
             font-weight: 800;
             color: #75BEF0;
-            margin: 0;
+            margin: 0 0 20px 0;
             letter-spacing: -2px;
             text-transform: uppercase;
         }
 
-        .gallery-header p {
+        .games-container p {
             color: rgba(255, 255, 255, 0.9);
             font-size: 18px;
             margin-top: 12px;
@@ -74,7 +74,7 @@
                 gap: 15px;
                 padding: 20px 4% 40px 4%;
             } 
-            .gallery-header { padding-top: 110px; }
+            .games-container { padding-top: 110px; }
         }
 
         @media screen and (max-width: 480px) {
@@ -110,12 +110,10 @@
                 gap: 15px;
                 padding: 20px 4% 40px 4%;
             } 
-            .gallery-header {
+            .games-container {
                 padding-top: 110px;
             }
         }
-
-        
 
         .art-card::before {
             content: "";
@@ -335,34 +333,16 @@
         }
 
         html {
-            min-height: 100vh; /* Ensures the HTML canvas covers the whole screen height */
+            min-height: 100vh;
         }
 
         body {
             margin: 0;
             padding: 0;
             overflow-x: clip; 
-            min-height: 100vh;   /* Ensures body is always at least as tall as the screen */
+            min-height: 100vh;   
             display: flow-root;
         }
-
-        .games-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 140px 20px 60px 20px;
-            text-align: left;
-        }
-
-        .page-header h1 {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: clamp(40px, 8vw, 70px);
-            font-weight: 800;
-            color: #75BEF0;
-            margin: 0 0 20px 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-        }
-
     </style>
 </head>
 
@@ -387,8 +367,11 @@
             </a>
         </div>
     </nav>
+
     <main class="games-container">
-        <h1 class="fade-element">Sketches</h1>
+        <div class="page-header">
+            <h1 class="fade-element">Sketches</h1>
+        </div>
         <p class="fade-element">Welcome to the most secretive area of the website! The one where you will find the starting points of artworks that are here or are yet to be.</p>
         <p class="fade-element">Enjoy this little behind-the-scenes peek!</p>
     </main>
