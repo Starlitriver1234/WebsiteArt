@@ -107,22 +107,3 @@ html { scroll-behavior: smooth !important; }
     margin: 40px auto;
     width: 100%;
 }
-
-/* ==========================================================================
-   BOOK CARDS RIGHT-SLIDE ANIMATION
-   ========================================================================== */
-/* Set the starting position (hidden and pushed to the right) */
-.book-card.fade-element {
-    opacity: 0;
-    transform: translateX(80px); /* Pushes the element 80px to the right */
-    
-    /* We combine your existing hover transitions with the new fade-in transitions */
-    transition: opacity 0.9s ease, transform 0.9s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-    will-change: opacity, transform;
-}
-
-/* Set the ending position (visible and back to its normal spot) */
-.book-card.fade-element.fade-in {
-    opacity: 1;
-    transform: translateX(0); /* Brings it back to its original position */
-}
