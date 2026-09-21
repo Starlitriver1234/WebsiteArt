@@ -1,0 +1,66 @@
+/* ==========================================================================
+   CONTAINERS, PAGE SECTIONS & FOOTER
+   ========================================================================== */
+.games-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 60px 20px;
+    text-align: left;
+}
+
+.games-container p { max-width: 900px; }
+
+.page-header {
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.page-header p {
+    color: #e0e0e0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    max-width: 900px;
+}
+
+.music-header {
+    text-align: left;
+    padding: 140px 20px 20px 20px; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.music-header h2 { color: #75BEF0; margin-top: 50px; }
+.music-header h4 { color: #a0c4df; font-weight: 400; margin-bottom: 20px; }
+.music-header p { color: #d1d5db; line-height: 1.6; }
+
+#Skills { text-align: center; padding: 100px 20px; }
+#Skills ul { display: inline-block; text-align: left; margin: 20px auto; }
+#Skills li { font-size: 1.1rem; margin-bottom: 12px; }
+
+#Career { text-align: center; padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+#Career ul { list-style-position: inside; text-align: left; display: inline-block; padding: 0; }
+#Career li { margin-bottom: 10px; font-size: 1.1rem; }
+
+/* Footer */
+.footer-section { margin-top: 60px; text-align: center; }
+.links-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Layout Media Queries */
+@media screen and (max-width: 768px) {
+    .games-container { padding: 100px 15px 60px 15px; }
+    .music-header { padding-top: 100px; }
+    #Career, #Skills { padding: 40px 15px; }
+}
+
+@media screen and (max-width: 600px) { 
+    .games-container { padding-top: 110px; }
+}

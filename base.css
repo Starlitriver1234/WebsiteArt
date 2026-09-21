@@ -1,0 +1,119 @@
+/* ==========================================================================
+   ROOT VARIABLES, GLOBAL RESET & TYPOGRAPHY
+   ========================================================================== */
+:root {
+    --bg-dark: #000000;
+    --card-bg: rgba(18, 18, 18, 0.75);
+    --accent-blue: #75BEF0;
+    --accent-purple: #d595ff;
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: #aaaaaa;
+    --border-color: rgba(117, 190, 240, 0.15);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--bg-dark);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Lucida Sans', system-ui, -apple-system, sans-serif;
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overscroll-behavior-y: none;
+    background-image: linear-gradient(to right, #29143c, #000000);
+    background-size: 100% 300%;
+    background-attachment: scroll;
+    overflow-x: clip;
+    display: flow-root;
+}
+
+h1 {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin: 0 0 20px 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 32px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--accent-purple);
+    padding-bottom: 15px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+h3 {
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 700;
+    width: fit-content;
+    float: right;
+    clear: both;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 15px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    mix-blend-mode: difference;
+}
+
+h4 {
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--accent-purple);
+    padding-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+p {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-top: 12px;
+    line-height: 1.6;
+    align-items: center;
+}
+
+a { color: aquamarine; align-items: center;}
+
+button, a, .menu-toggle, .art-card, .control-btn, .logo-section {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+h1[id], section[id] {
+    scroll-margin-top: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 26px; }
+}

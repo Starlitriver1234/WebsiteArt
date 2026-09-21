@@ -1,0 +1,128 @@
+/* ==========================================================================
+   BOOKS PAGE & INDEX OVERRIDES
+   ========================================================================== */
+/* --- Books Page --- */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    text-align: left;
+}
+
+.book-card:hover {
+    border-color: rgba(117, 190, 240, 0.35);
+    box-shadow: 0 15px 40px rgba(117, 190, 240, 0.1);
+}
+
+.book-media { display: flex; justify-content: center; align-items: center; width: 100%; }
+.book-media .logo-section { margin: 0; max-width: 400px; }
+
+.book-info h2 {
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--accent-blue);
+    font-size: clamp(28px, 5vw, 42px);
+    margin-top: 0;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    border-bottom: 2px solid rgba(117, 190, 240, 0.2);
+    padding-bottom: 12px;
+}
+
+.book-info p {
+    color: #e0e0e0;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.intro-section { margin-bottom: 60px; }
+
+@media screen and (min-width: 900px) {
+    .book-card { flex-direction: row; align-items: flex-start; }
+    .book-media { flex: 0 0 35%; position: sticky; top: 120px; }
+    .book-info { flex: 1; }
+}
+
+/* --- Index Page Overrides --- */
+html { scroll-behavior: smooth !important; }
+
+.page-header h1 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: #75BEF0;
+    margin: 0 0 20px 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.gallery-header h1 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: #75BEF0;
+    margin: 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.fade-title {
+    opacity: 0; 
+    transform: translateX(25px);
+    transition: opacity 0.9s ease, transform 0.9s ease; 
+    will-change: opacity, transform;
+}
+
+.slide-side {
+    opacity: 0;
+    transform: translateX(15px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+}
+
+.fade-title.fade-in, 
+.slide-side.fade-in { opacity: 1; transform: translateX(0); }
+
+#Skills.gallery-header, 
+#Career.gallery-header { padding-top: 40px; }
+
+/* ==========================================================================
+   INDEX SOCIAL LINKS
+   ========================================================================== */
+.index-social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+    width: 100%;
+}
+
+/* ==========================================================================
+   BOOK CARDS RIGHT-SLIDE ANIMATION
+   ========================================================================== */
+/* Set the starting position (hidden and pushed to the right) */
+.book-card.fade-element {
+    opacity: 0;
+    transform: translateX(80px); /* Pushes the element 80px to the right */
+    
+    /* We combine your existing hover transitions with the new fade-in transitions */
+    transition: opacity 0.9s ease, transform 0.9s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    will-change: opacity, transform;
+}
+
+/* Set the ending position (visible and back to its normal spot) */
+.book-card.fade-element.fade-in {
+    opacity: 1;
+    transform: translateX(0); /* Brings it back to its original position */
+}

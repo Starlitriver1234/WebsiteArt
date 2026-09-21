@@ -1,0 +1,52 @@
+/* ==========================================================================
+   ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+.fade-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform;
+}
+
+.fade-element.is-visible,
+.fade-element.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-header.fade-element { transition-delay: 0.1s; }
+.game-card:first-of-type.fade-element { transition-delay: 0.25s; }
+
+.fade-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    will-change: opacity, transform;
+}
+
+.fade-title.fade-in {
+    animation: fadeAndHop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.slide-side {
+    opacity: 0;
+    transform: translateX(15px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+}
+
+.slide-side.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes fadeAndHop {
+    0%   { opacity: 0; transform: translateY(30px); }
+    60%  { opacity: 1; transform: translateY(-8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

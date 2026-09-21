@@ -1,33 +1,52 @@
-/* =========================================
-   1. GLOBAL STYLES & RESET
-   ========================================= */
+/* ==========================================================================
+   1. ROOT VARIABLES & GLOBAL RESET
+   ========================================================================== */
+:root {
+    --bg-dark: #000000;
+    --card-bg: rgba(18, 18, 18, 0.75);
+    --accent-blue: #75BEF0;
+    --accent-purple: #d595ff;
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: #aaaaaa;
+    --border-color: rgba(117, 190, 240, 0.15);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
-    background-color: #000;
+    background-color: var(--bg-dark);
     overflow-x: hidden;
-    scroll-behavior: smooth !important;
+    scroll-behavior: smooth;
+    min-height: 100vh;
 }
 
 body {
-    font-family: 'Lucida Sans', sans-serif;
+    font-family: 'Lucida Sans', system-ui, -apple-system, sans-serif;
     color: whitesmoke;
     font-size: 18px;
     font-weight: 300;
-    margin: 0; 
-    padding: 10px;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     overscroll-behavior-y: none;
-    background-image: linear-gradient(to right, #29143c, black);
+    background-image: linear-gradient(to right, #29143c, #000000);
     background-size: 100% 300%;
     background-attachment: scroll;
+    overflow-x: clip;
+    display: flow-root;
 }
 
-
+/* ==========================================================================
+   2. TYPOGRAPHY & ELEMENTS RESET
+   ========================================================================== */
 h1 {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: clamp(40px, 8vw, 70px);
     font-weight: 800;
-    color: #75BEF0;
-    margin: 0;
+    color: var(--accent-blue);
+    margin: 0 0 20px 0;
     letter-spacing: -2px;
     text-transform: uppercase;
 }
@@ -39,7 +58,7 @@ h2 {
     letter-spacing: 1px;
     font-size: 32px;
     font-weight: 700;
-    border-bottom: 2px solid #d595ff;
+    border-bottom: 2px solid var(--accent-purple);
     padding-bottom: 15px;
     margin-top: 60px;
     margin-bottom: 30px;
@@ -53,10 +72,10 @@ h3 {
     letter-spacing: 1px;
     font-size: 20px;
     font-weight: 700;
-    width: fit-content; 
-    float: right; 
-    clear: both; 
-    border-bottom: 2px solid #ffffff; 
+    width: fit-content;
+    float: right;
+    clear: both;
+    border-bottom: 2px solid #ffffff;
     padding-bottom: 15px;
     margin-top: 60px;
     margin-bottom: 30px;
@@ -72,16 +91,16 @@ h4 {
     letter-spacing: 1px;
     font-size: 20px;
     font-weight: 700;
-    border-bottom: 2px solid #d595ff;
+    border-bottom: 2px solid var(--accent-purple);
     padding-bottom: 15px;
     margin-top: 15px;
     margin-bottom: 30px;
 }
 
 p {
-    color: rgb(255, 255, 255);
+    color: var(--text-primary);
     font-size: 18px;
-    margin-top: 10px;
+    margin-top: 12px;
     line-height: 1.6;
 }
 
@@ -89,9 +108,148 @@ a {
     color: aquamarine;
 }
 
-/* =========================================
-   2. SECTIONS (Skills & Career)
-   ========================================= */
+button, a, .menu-toggle, .art-card, .control-btn, .logo-section {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+h1[id], section[id] {
+    scroll-margin-top: 100px;
+}
+
+/* ==========================================================================
+   3. NAVIGATION BAR
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    padding: 15px 20px 25px 20px;
+    background: transparent;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, rgb(0, 0, 0), #102D5E);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), 0 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    text-decoration: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: whitesmoke;
+    padding: 0.6em 1.8em;
+    background: rgba(140, 160, 207, 0.1);
+    border: 1.5px solid rgba(113, 133, 213, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px rgba(117, 190, 240, 0.8);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--accent-blue) !important;
+    transition: 0.3s;
+    display: block;
+}
+
+.nav-logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   4. CONTAINERS & PAGE SECTIONS
+   ========================================================================== */
+.games-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 60px 20px;
+    text-align: left;
+}
+
+.games-container p {
+    max-width: 900px;
+}
+
+.page-header {
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.page-header p {
+    color: #e0e0e0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    max-width: 900px;
+}
+
+.music-header {
+    text-align: left;
+    padding: 140px 20px 20px 20px; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.music-header h2 {
+    color: #75BEF0;
+    margin-top: 50px;
+}
+
+.music-header h4 {
+    color: #a0c4df;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.music-header p {
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
 #Skills {
     text-align: center;
     padding: 100px 20px;
@@ -127,133 +285,175 @@ a {
     font-size: 1.1rem;
 }
 
-/* =========================================
-   3. NAVIGATION BAR
-   ========================================= */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    padding: 15px 20px 25px 20px; 
-    background: transparent;
-    transition: transform 0.2s ease-in-out;
+/* ==========================================================================
+   5. CARDS & CONTENT BLOCKS
+   ========================================================================== */
+.game-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    text-align: left;
 }
 
-.navbar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+.game-card:hover {
+    border-color: rgba(117, 190, 240, 0.35);
+    box-shadow: 0 15px 40px rgba(117, 190, 240, 0.1);
+}
+
+.game-card h2 {
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--accent-blue);
+    font-size: clamp(28px, 5vw, 42px);
+    margin-top: 0;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+    border-bottom: 2px solid rgba(117, 190, 240, 0.2);
+    padding-bottom: 12px;
+}
+
+.game-card h4 {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.game-card p {
+    color: #e0e0e0;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.game-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Poem Block --- */
+.poem-block {
+    background: rgba(117, 190, 240, 0.05);
+    border-left: 3px solid var(--accent-blue);
+    padding: 25px 30px;
+    margin: 30px 0;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    text-align: center;
+}
+
+.poem-block p {
+    margin: 8px 0;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+/* --- Video Embeds --- */
+.video-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: 1px solid #222;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    background: #111;
+    overflow: hidden;
+    position: relative;
+}
+
+.video-container iframe {
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to right, rgb(0, 0, 0), #102D5E);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), 0 100%);
-    z-index: -1; 
-    pointer-events: none;
+    border: 0;
+    display: block;
 }
 
-.nav-links {
+/* --- Image & Media Layouts --- */
+.image-group, .image-row {
     display: flex;
-    gap: 20px;
-}
-
-.nav-btn {
-    text-decoration: none;
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 600;
-    font-size: clamp(12px, 1.5vw, 14px);
-    color: whitesmoke;
-    padding: 0.6em 1.8em;
-    background: rgba(140, 160, 207, 0.1);
-    border: 1.5px solid rgba(113, 133, 213, 0.2);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    transition: all 0.2s ease;
-}
-
-.menu-toggle {
-    display: none;
+    flex-wrap: wrap;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+    width: 100%;
+}
+
+.image-group .logo-section, .image-row .logo-section {
+    margin: 0;
+}
+
+.logo-section {
+    flex: 1;
+    width: 90%;
+    min-width: 280px;
+    max-width: 650px;
+    margin: 30px auto;
+    text-align: center;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
     cursor: pointer;
-    gap: 5px;
+    border: 1px solid #222;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: #75BEF0 !important;
-    transition: 0.3s;
+.logo-section:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 4px;
+}
+
+.logo-section img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
     display: block;
+    transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+    will-change: transform, filter;
+    pointer-events: none;
+    user-select: none;
 }
 
-.nav-logo img {
-    height: 40px;
-    width: auto;
-    display: block;
+.logo-section:hover {
+    border-color: rgba(117, 190, 240, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
 }
 
-/* Navbar Button Hover Effect */
-.nav-btn:hover {
-    color: #75BEF0;
-    text-shadow: 0 0 10px rgba(117, 190, 240, 0.8);
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
+.logo-section:hover img {
+    transform: scale(1.04);
+    filter: brightness(1.08) contrast(1.02);
 }
 
-.nav-btn.active {
-    border-bottom: 2px solid #75BEF0;
-}
-
-/* =========================================
-   4. GALLERY & ANIMATIONS
-   ========================================= */
+/* ==========================================================================
+   6. GALLERY GRID & SCROLL EFFECTS
+   ========================================================================== */
 .gallery-header {
     text-align: left;
     padding: 120px 20px 40px 20px;
     max-width: 100%;
 }
 
-/* --- TITLE FADE & HOP ANIMATION --- */
-.fade-title {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    will-change: opacity, transform;
-}
-
-.fade-title.fade-in {
-    animation: fadeAndHop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes fadeAndHop {
-    0% {
-        opacity: 0;
-        transform: translateY(30px); /* Starts below */
-    }
-    60% {
-        opacity: 1;
-        transform: translateY(-8px); /* Small hop above the line */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);   /* Settles in place */
-    }
-}
-
-h1[id], section[id] {
-    scroll-margin-top: 100px;
-}
-
 .scroll-track {
     height: 90vh;
     position: relative;
-    overflow: visible; 
+    overflow: visible;
     margin-top: 60px;
     margin-bottom: 150px;
     display: block;
@@ -285,33 +485,57 @@ h1[id], section[id] {
 }
 
 .full-gallery-grid {
-    column-count: 3;
-    column-gap: 20px;
-    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    align-items: start;
+    padding: 30px 5% 50px 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .art-card {
-    break-inside: avoid;
-    margin-bottom: 20px;
     background: #111;
     border-radius: 12px;
     overflow: hidden;
-    animation: fadeIn 0.6s ease backwards;
+    cursor: pointer;
+    position: relative;
+    transform: translateZ(0);
+}
+
+.art-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #111 25%, #1c1c1c 50%, #111 75%);
+    background-size: 200% 100%;
+    animation: pulse 1.8s infinite ease-in-out;
+    z-index: 0;
 }
 
 .art-card img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
     display: block;
-    cursor: pointer;
-    transition: all 0.5s ease;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    will-change: transform, filter, opacity;
+    pointer-events: none;
+    user-select: none;
 }
 
-/* =========================================
-   5. LIGHTBOX & VIDEO
-   ========================================= */
+.art-card:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.08) contrast(1.02);
+}
+
+/* ==========================================================================
+   7. LIGHTBOX (MODAL)
+   ========================================================================== */
 .lightbox {
     display: none;
     position: fixed;
@@ -320,86 +544,301 @@ h1[id], section[id] {
     z-index: 9999;
     justify-content: center;
     align-items: center;
+    user-select: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    touch-action: none;
 }
 
-.video-wrapper {
-    width: 100%;
-    max-width: 800px;
-    margin: 30px auto;
-}
-
-.video-container {
+.lb-content {
     position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    background: #000;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-.image-row {
+    width: 90vw;
+    height: 90vh;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
-.image-row .logo-section {
-    flex: 1;
-    min-width: 280px;
-    margin: 10px auto;
+.lb-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: center center;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
-.poem-block {
+.lb-content img.zoomed {
+    transform: scale(2.5);
+    cursor: zoom-out;
+}
+
+.control-btn {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.2s, transform 0.1s;
+    z-index: 10001;
+}
+
+.control-btn:hover, .control-btn:focus-visible {
+    background: rgba(255, 255, 255, 0.25);
+    outline: none;
+}
+
+.control-btn:active {
+    transform: scale(0.92);
+}
+
+.close-btn { top: 20px; right: 20px; font-size: 28px; }
+.prev-btn { left: 20px; top: 50%; transform: translateY(-50%); }
+.next-btn { right: 20px; top: 50%; transform: translateY(-50%); }
+
+.prev-btn:active { transform: translateY(-50%) scale(0.92); }
+.next-btn:active { transform: translateY(-50%) scale(0.92); }
+
+/* ==========================================================================
+   8. FOOTER & LINKS
+   ========================================================================== */
+.footer-section {
+    margin-top: 60px;
     text-align: center;
-    font-style: italic;
-    margin: 40px 0;
-    color: #75BEF0;
 }
 
-.logo-section {
-    flex: 1;
-    min-width: 300px;
-    max-width: 800px;
+.links-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 100px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.music-btn {
+    background: #111;
+    color: var(--accent-blue);
+    padding: 18px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover, .music-btn:focus-visible {
+    background: var(--accent-blue);
+    color: #000;
+    transform: scale(1.02);
+    border-color: var(--accent-blue);
+    outline: none;
+}
+
+/* ==========================================================================
+   9. ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+.fade-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform;
+}
+
+.fade-element.is-visible,
+.fade-element.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-header.fade-element { transition-delay: 0.1s; }
+.game-card:first-of-type.fade-element { transition-delay: 0.25s; }
+
+.fade-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    will-change: opacity, transform;
+}
+
+.fade-title.fade-in {
+    animation: fadeAndHop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.slide-side {
+    opacity: 0;
+    transform: translateX(15px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+}
+
+.slide-side.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes fadeAndHop {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ==========================================================================
+   10. BOOKS PAGE SPECIFIC STYLES
+   ========================================================================== */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    text-align: left;
+}
+
+.book-card:hover {
+    border-color: rgba(117, 190, 240, 0.35);
+    box-shadow: 0 15px 40px rgba(117, 190, 240, 0.1);
+}
+
+.book-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.book-media .logo-section {
     margin: 0;
+    max-width: 400px;
 }
 
-/* =========================================
-   6. MOBILE OPTIMIZATIONS
-   ========================================= */
+.book-info h2 {
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--accent-blue);
+    font-size: clamp(28px, 5vw, 42px);
+    margin-top: 0;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    border-bottom: 2px solid rgba(117, 190, 240, 0.2);
+    padding-bottom: 12px;
+}
 
-@media screen and (max-width: 768px) {
+.book-info p {
+    color: #e0e0e0;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.intro-section {
+    margin-bottom: 60px;
+}
+
+/* ==========================================================================
+   11. MEDIA QUERIES
+   ========================================================================== */
+
+/* Desktop & Large Screens */
+@media screen and (min-width: 769px) {
+    .logo-section { 
+        max-width: 350px; 
+    }
+    .image-group {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap; 
+        gap: 30px;
+    }
+}
+
+/* Desktop Book Cards Layout */
+@media screen and (min-width: 900px) {
+    .book-card {
+        flex-direction: row;
+        align-items: flex-start;
+    }
     
-    /* --- Hamburger to 'X' Animation --- */
+    .book-media {
+        flex: 0 0 35%;
+        position: sticky;
+        top: 120px;
+    }
+    
+    .book-info {
+        flex: 1;
+    }
+}
+
+/* Medium Screens / Laptops */
+@media screen and (max-width: 1100px) {
+    .full-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablets & Mobile Navigation Trigger */
+@media screen and (max-width: 768px) {
+    .games-container { padding: 100px 15px 60px 15px; }
+    .game-card { padding: 25px 20px; border-radius: 12px; }
+    .music-header { padding-top: 100px; }
+
+    /* Mobile Menu Toggle */
     .menu-toggle { 
         display: flex; 
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
         z-index: 1003;
     }
     
-    .menu-toggle .bar {
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: var(--accent-blue) !important;
+        display: block;
         transform-origin: center;
         transition: all 0.3s ease-in-out;
     }
 
-    .menu-toggle.is-active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .menu-toggle.is-active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .menu-toggle.is-active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
+    .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     .nav-links {
         display: flex;
@@ -415,7 +854,7 @@ h1[id], section[id] {
         border-bottom-right-radius: 16px;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        z-index: 1;
+        z-index: -1;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-100%); 
@@ -440,34 +879,30 @@ h1[id], section[id] {
         border: 1px solid rgba(117, 190, 240, 0.2);
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        
+        display: block;
         opacity: 0;
         transform: translateY(-8px);
         transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, border-color 0.2s;
     }
 
-    .nav-links.active .nav-btn {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.14s; }
-    .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.18s; }
-    .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.22s; }
-    .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.26s; }
-    .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.30s; }
-    .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.34s; }
+    .nav-links.active .nav-btn { opacity: 1; transform: translateY(0); }
+    .nav-links.active .nav-btn:nth-child(1) { transition-delay: 0.10s; }
+    .nav-links.active .nav-btn:nth-child(2) { transition-delay: 0.14s; }
+    .nav-links.active .nav-btn:nth-child(3) { transition-delay: 0.18s; }
+    .nav-links.active .nav-btn:nth-child(4) { transition-delay: 0.22s; }
+    .nav-links.active .nav-btn:nth-child(5) { transition-delay: 0.26s; }
+    .nav-links.active .nav-btn:nth-child(6) { transition-delay: 0.30s; }
 
     .nav-btn:active {
         transform: scale(0.96);
         background: rgba(117, 190, 240, 0.15);
-        border-color: #75BEF0;
+        border-color: var(--accent-blue);
     }
 
     .nav-btn.active {
         border-bottom: 1px solid rgba(117, 190, 240, 0.2);
         background: rgba(117, 190, 240, 0.1);
-        color: #75BEF0;
+        color: var(--accent-blue);
     }
 
     .sliding-image {
@@ -476,20 +911,41 @@ h1[id], section[id] {
     }
 
     .full-gallery-grid { 
-        column-count: 2; 
-        padding: 20px 10px; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px;
+        padding: 20px 4% 40px 4%;
     }
-    
+
     #Career, #Skills { 
         padding: 40px 15px; 
     }
     
     h1 { font-size: 36px; }
     h2 { font-size: 26px; }
+
+    .control-btn { width: 44px; height: 44px; font-size: 20px; }
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
 }
 
+/* Small Mobile Screens */
+@media screen and (max-width: 600px) { 
+    .full-gallery-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+        gap: 15px;
+        padding: 20px 4% 40px 4%;
+    }
+    
+    .games-container {
+        padding-top: 110px;
+    }
+}
+
+/* Extra Small Devices */
 @media screen and (max-width: 480px) {
-    .full-gallery-grid { column-count: 1; }
+    .full-gallery-grid { 
+        grid-template-columns: repeat(1, 1fr); 
+    }
     
     .logo-section {
         min-width: 100%;
@@ -502,4 +958,57 @@ h1[id], section[id] {
         text-align: center;
         padding: 20px;
     }
+}
+
+/* ==========================================================================
+   12. INDEX.HTML SPECIFIC STYLES & ANIMATIONS (Safely Appended)
+   ========================================================================== */
+html { 
+    scroll-behavior: smooth !important; 
+}
+
+.page-header h1 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: #75BEF0;
+    margin: 0 0 20px 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.gallery-header h1 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: clamp(40px, 8vw, 70px);
+    font-weight: 800;
+    color: #75BEF0;
+    margin: 0;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+/* Index side-sliding animations */
+.fade-title {
+    opacity: 0; 
+    transform: translateX(25px);
+    transition: opacity 0.9s ease, transform 0.9s ease; 
+    will-change: opacity, transform;
+}
+
+.slide-side {
+    opacity: 0;
+    transform: translateX(15px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+}
+
+.fade-title.fade-in, 
+.slide-side.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#Skills.gallery-header, 
+#Career.gallery-header {
+    padding-top: 40px;
 }
